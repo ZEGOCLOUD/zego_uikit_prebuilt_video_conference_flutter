@@ -25,7 +25,7 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
             ZegoTopMenuBarConfig(style: ZegoMenuBarStyle.dark),
         bottomMenuBarConfig = bottomMenuBarConfig ?? ZegoBottomMenuBarConfig(),
         memberListConfig = memberListConfig ?? ZegoMemberListConfig() {
-    layout ??= ZegoLayout.fixedSideBySide();
+    layout ??= ZegoLayout.gallery();
   }
 
   /// whether to enable the camera by default, the default value is true
@@ -222,10 +222,10 @@ enum ZegoMenuBarStyle {
 
 class ZegoMemberListConfig {
   /// show microphone state or not
-  bool showMicroPhoneState = true;
+  bool showMicroPhoneState;
 
   /// show camera state or not
-  bool showCameraState = true;
+  bool showCameraState;
 
   /// customize your item view of member list
   MemberListItemBuilder? itemBuilder;
@@ -244,8 +244,8 @@ class ZegoLeaveConfirmDialogInfo {
   String confirmButtonName;
 
   ZegoLeaveConfirmDialogInfo({
-    this.title = "Leave the room",
-    this.message = "Are you sure to leave the room?",
+    this.title = "Leave the conference",
+    this.message = "Are you sure to leave the conference?",
     this.cancelButtonName = "Cancel",
     this.confirmButtonName = "Confirm",
   });

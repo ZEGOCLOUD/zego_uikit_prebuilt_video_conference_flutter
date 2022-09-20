@@ -44,7 +44,10 @@ class _ZegoCallMemberListState
           Container(height: 1.r, color: Colors.white),
           SizedBox(
             height: constraints.maxHeight - 1.r - 98.h,
-            child: const ZegoMemberList(),
+            child: ZegoMemberList(
+              showCameraState: widget.showCameraState,
+              showMicrophoneState: widget.showMicrophoneState,
+            ),
           ),
         ],
       );
@@ -82,7 +85,11 @@ class _ZegoCallMemberListState
   }
 }
 
-void showMemberListSheet(BuildContext context) {
+void showMemberListSheet(
+  BuildContext context, {
+  showMicrophoneState = true,
+  showCameraState = true,
+}) {
   showModalBottomSheet(
     backgroundColor: const Color(0xff242736).withOpacity(0.95),
     context: context,
@@ -102,7 +109,10 @@ void showMemberListSheet(BuildContext context) {
           duration: const Duration(milliseconds: 50),
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            child: const ZegoVideoConferenceMemberListSheet(),
+            child: ZegoVideoConferenceMemberListSheet(
+              showCameraState: showCameraState,
+              showMicrophoneState: showMicrophoneState,
+            ),
           ),
         ),
       );
