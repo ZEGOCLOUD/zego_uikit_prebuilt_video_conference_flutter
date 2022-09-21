@@ -10,7 +10,7 @@ import 'package:zego_uikit/zego_uikit.dart';
 
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/components/icon_defines.dart';
-import 'package:zego_uikit_prebuilt_video_conference/src/components/message/message_list_sheet.dart';
+import 'in_room_message_list_sheet.dart';
 
 /// switch cameras
 class ZegoInRoomMessageButton extends StatefulWidget {
@@ -20,6 +20,8 @@ class ZegoInRoomMessageButton extends StatefulWidget {
     this.icon,
     this.iconSize,
     this.buttonSize,
+    this.avatarBuilder,
+    required this.viewVisibleNotifier,
   }) : super(key: key);
 
   final ButtonIcon? icon;
@@ -32,6 +34,10 @@ class ZegoInRoomMessageButton extends StatefulWidget {
 
   /// the size of button
   final Size? buttonSize;
+
+  final AvatarBuilder? avatarBuilder;
+
+  final ValueNotifier<bool> viewVisibleNotifier;
 
   @override
   State<ZegoInRoomMessageButton> createState() =>
@@ -51,7 +57,11 @@ class _ZegoInRoomMessageButtonState extends State<ZegoInRoomMessageButton> {
 
     return GestureDetector(
       onTap: () {
-        showMessageSheet(context);
+        showMessageSheet(
+          context,
+          avatarBuilder: widget.avatarBuilder,
+          visibleNotifier: widget.viewVisibleNotifier,
+        );
 
         if (widget.afterClicked != null) {
           widget.afterClicked!();
@@ -63,8 +73,10 @@ class _ZegoInRoomMessageButtonState extends State<ZegoInRoomMessageButton> {
         decoration: BoxDecoration(
           color: widget.icon?.backgroundColor ??
               const Color(0xff2C2F3E).withOpacity(0.6),
-          borderRadius: BorderRadius.all(Radius.circular(
-              math.min(containerSize.width, containerSize.height) / 2)),
+          borderRadius: BorderRadius.all(
+            Radius.circular(
+                math.min(containerSize.width, containerSize.height) / 2),
+          ),
         ),
         child: SizedBox.fromSize(
           size: sizeBoxSize,

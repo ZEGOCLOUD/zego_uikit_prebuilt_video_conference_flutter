@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:zego_uikit/zego_uikit.dart';
-import 'package:zego_uikit_prebuilt_video_conference/src/components/message/message_bubble.dart';
 
 // Project imports:
 import 'components/components.dart';
@@ -69,6 +68,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     with SingleTickerProviderStateMixin {
   var barVisibilityNotifier = ValueNotifier<bool>(true);
   var barRestartHideTimerNotifier = ValueNotifier<int>(0);
+  var chatViewVisibleNotifier = ValueNotifier<bool>(false);
 
   @override
   void initState() {
@@ -105,20 +105,22 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           minTextAdapt: true,
           splitScreenMode: true,
           builder: (context, child) {
-            return LayoutBuilder(builder: (context, constraints) {
-              return clickListener(
-                child: Stack(
-                  children: [
-                    audioVideoContainer(constraints.maxHeight),
-                    widget.config.topMenuBarConfig.isVisible
-                        ? topMenuBar()
-                        : Container(),
-                    bottomMenuBar(),
-                    // messageList(),
-                  ],
-                ),
-              );
-            });
+            return LayoutBuilder(
+              builder: (context, constraints) {
+                return clickListener(
+                  child: Stack(
+                    children: [
+                      audioVideoContainer(constraints.maxHeight),
+                      widget.config.topMenuBarConfig.isVisible
+                          ? topMenuBar()
+                          : Container(),
+                      messageList(),
+                      bottomMenuBar(),
+                    ],
+                  ),
+                );
+              },
+            );
           },
         ),
       ),
@@ -214,13 +216,25 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   }
 
   Widget messageList() {
-    return Positioned(
-      left: 32.r,
-      bottom: 124.r,
-      child: ConstrainedBox(
-        constraints: BoxConstraints.loose(Size(540.r, 400.r)),
-        child: const ZegoMessageBubble(),
-      ),
+    return ValueListenableBuilder<bool>(
+      valueListenable: barVisibilityNotifier,
+      builder: (context, isBarVisible, _) {
+        return Positioned(
+          left: 32.r,
+          bottom: isBarVisible ? 232.r : 24.r,
+          child: ConstrainedBox(
+            constraints: BoxConstraints.loose(Size(540.r, 400.r)),
+            child: ValueListenableBuilder<bool>(
+              valueListenable: chatViewVisibleNotifier,
+              builder: (context, isChatViewVisible, _) {
+                return ZegoInRoomNotificationView(
+                  isIMEnabled: !isChatViewVisible,
+                );
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 
@@ -239,6 +253,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         restartHideTimerNotifier: barRestartHideTimerNotifier,
         height: 88.r,
         backgroundColor: isLightStyle ? null : const Color(0xff262A2D),
+        chatViewVisibleNotifier: chatViewVisibleNotifier,
       ),
     );
   }
@@ -260,6 +275,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         backgroundColor:
             isLightStyle ? null : const Color(0xff222222).withOpacity(0.8),
         borderRadius: isLightStyle ? null : 32.r,
+        chatViewVisibleNotifier: chatViewVisibleNotifier,
       ),
     );
   }
@@ -355,7 +371,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           showAvatar: widget.config.audioVideoViewConfig.showAvatarInAudioMode,
           showSoundLevel:
               widget.config.audioVideoViewConfig.showSoundWavesInAudioMode,
-          avatarBuilder: widget.config.audioVideoViewConfig.avatarBuilder,
+          avatarBuilder: widget.config.avatarBuilder,
         ),
       ],
     );

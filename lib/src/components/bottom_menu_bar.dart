@@ -25,11 +25,14 @@ class ZegoBottomMenuBar extends StatefulWidget {
   final double? borderRadius;
   final Color? backgroundColor;
 
+  final ValueNotifier<bool> chatViewVisibleNotifier;
+
   const ZegoBottomMenuBar({
     Key? key,
     required this.config,
     required this.visibilityNotifier,
     required this.restartHideTimerNotifier,
+    required this.chatViewVisibleNotifier,
     this.autoHideSeconds = 3,
     this.buttonSize = const Size(60, 60),
     this.height,
@@ -222,6 +225,8 @@ class _ZegoBottomMenuBarState extends State<ZegoBottomMenuBar> {
         return ZegoInRoomMessageButton(
           buttonSize: buttonSize,
           iconSize: iconSize,
+          avatarBuilder: widget.config.avatarBuilder,
+          viewVisibleNotifier: widget.chatViewVisibleNotifier,
         );
     }
   }
