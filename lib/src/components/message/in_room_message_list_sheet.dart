@@ -20,10 +20,10 @@ class ZegoVideoConferenceMessageListSheet extends StatefulWidget {
 
   @override
   State<ZegoVideoConferenceMessageListSheet> createState() =>
-      _ZegoCallMessageListState();
+      _ZegoVideoConferenceMessageListSheetState();
 }
 
-class _ZegoCallMessageListState
+class _ZegoVideoConferenceMessageListSheetState
     extends State<ZegoVideoConferenceMessageListSheet> {
   var messageValueNotifier = ValueNotifier<String>("");
 
