@@ -8,15 +8,17 @@ import 'package:zego_uikit/zego_uikit.dart';
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/components/icon_defines.dart';
 
-import 'in_room_message_input_board.dart';
-
 class ZegoVideoConferenceMessageListSheet extends StatefulWidget {
   const ZegoVideoConferenceMessageListSheet({
     Key? key,
     this.avatarBuilder,
+    this.itemBuilder,
+    this.scrollController,
   }) : super(key: key);
 
   final AvatarBuilder? avatarBuilder;
+  final MessageItemBuilder? itemBuilder;
+  final ScrollController? scrollController;
 
   @override
   State<ZegoVideoConferenceMessageListSheet> createState() =>
@@ -25,161 +27,153 @@ class ZegoVideoConferenceMessageListSheet extends StatefulWidget {
 
 class _ZegoVideoConferenceMessageListSheetState
     extends State<ZegoVideoConferenceMessageListSheet> {
-  var messageValueNotifier = ValueNotifier<String>("");
+  var focusNotifier = ValueNotifier<bool>(false);
 
   @override
   void initState() {
     super.initState();
+    focusNotifier.addListener(onInputFocusChanged);
   }
 
   @override
   void dispose() {
     super.dispose();
+
+    focusNotifier.removeListener(onInputFocusChanged);
   }
 
   @override
   Widget build(BuildContext context) {
+    double viewHeight = MediaQuery.of(context).size.height * 0.85;
+    double bottomBarHeight = 110.h;
+    double headerHeight = 98.h;
+    double lineHeight = 1.r;
+
     return Stack(
       children: [
-        header(98.h),
+        header(height: headerHeight),
         Positioned(
           left: 0,
           right: 0,
-          top: 99.h,
-          child: Container(height: 1.r, color: Colors.white),
+          top: headerHeight,
+          child: Container(height: 1.r, color: Colors.white.withOpacity(0.15)),
         ),
         messageList(
-          height: 1142.h - 98.h - 1.h - 110.h - 25.h * 2,
-          top: 100.h + 25.h,
+          height: viewHeight -
+              headerHeight -
+              lineHeight -
+              bottomBarHeight -
+              lineHeight,
+          top: headerHeight + lineHeight,
+          lineHeight: lineHeight,
         ),
-        bottomBar(top: 1142.h - 110.h),
+        bottomBar(height: bottomBarHeight),
       ],
     );
   }
 
-  Widget bottomBar({required double top}) {
+  Widget bottomBar({required double height}) {
     return Positioned(
       left: 0,
       right: 0,
-      top: top,
-      child: ValueListenableBuilder<String>(
-        valueListenable: messageValueNotifier,
-        builder: (context, message, child) {
-          return Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    ZegoInRoomMessageInputBoard(
-                      placeHolder: "Send a message to everyone",
-                      valueNotifier: messageValueNotifier,
-                    ),
-                  );
-                },
-                child: Container(
-                  width: 604.w,
-                  height: 74.h,
-                  padding: EdgeInsets.symmetric(horizontal: 30.r),
-                  decoration: BoxDecoration(
-                    color: const Color(0xffA4A4A4),
-                    borderRadius: BorderRadius.circular(16.r),
-                  ),
-                  child: Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 0.r, vertical: 25.r),
-                    child: Text(
-                      message.isEmpty ? "Send a message to everyone" : message,
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(width: 18.r),
-              ZegoTextIconButton(
-                onPressed: () {
-                  if (message.isNotEmpty) {
-                    ZegoUIKit().sendInRoomMessage(message);
-                    messageValueNotifier.value = "";
-                  }
-                },
-                icon: ButtonIcon(
-                  icon: message.isEmpty
-                      ? UIKitImage.asset(StyleIconUrls.iconSendDisable)
-                      : UIKitImage.asset(StyleIconUrls.iconSend),
-                ),
-                iconSize: Size(40.r, 40.r),
-                buttonSize: Size(68.r, 68.r),
-              ),
-            ],
-          );
-        },
+      bottom: 0,
+      height: height,
+      child: ZegoInRoomMessageInput(
+        placeHolder: "Send a message to everyone",
+        autofocus: false,
+        focusNotifier: focusNotifier,
       ),
     );
   }
 
-  Widget messageList({required double height, required double top}) {
+  Widget messageList({
+    required double height,
+    required double top,
+    required double lineHeight,
+  }) {
     return Positioned(
       top: top,
       left: 0,
       right: 0,
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.r),
-        // height: height,
-        child: ConstrainedBox(
-          constraints: BoxConstraints.loose(Size(690.w, height)),
-          child: ZegoInRoomChatView(
-            avatarBuilder: widget.avatarBuilder,
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10.r),
+            // height: height,
+            child: ConstrainedBox(
+              constraints: BoxConstraints.loose(Size(690.w, height)),
+              child: Scaffold(
+                resizeToAvoidBottomInset: true,
+                backgroundColor: Colors.transparent,
+                body: ZegoInRoomChatView(
+                  avatarBuilder: widget.avatarBuilder,
+                  itemBuilder: widget.itemBuilder,
+                  scrollController: widget.scrollController,
+                ),
+              ),
+            ),
           ),
-        ),
+          Container(height: lineHeight, color: Colors.white.withOpacity(0.15)),
+        ],
       ),
     );
   }
 
-  Widget header(double height) {
+  Widget header({required double height}) {
     return Positioned(
       left: 0,
       right: 0,
       top: 0,
-      child: SizedBox(
-        height: height,
-        child: Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: SizedBox(
-                width: 70.r,
-                height: 70.r,
-                child: PrebuiltVideoConferenceImage.asset(
-                    PrebuiltVideoConferenceIconUrls.back),
-              ),
+      height: height,
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: SizedBox(
+              width: 70.r,
+              height: 70.r,
+              child: PrebuiltVideoConferenceImage.asset(
+                  PrebuiltVideoConferenceIconUrls.back),
             ),
-            SizedBox(width: 10.r),
-            Text(
-              "Chat",
-              style: TextStyle(
-                fontSize: 36.0.r,
-                color: const Color(0xffffffff),
-                decoration: TextDecoration.none,
-              ),
+          ),
+          SizedBox(width: 10.r),
+          Text(
+            "Chat",
+            style: TextStyle(
+              fontSize: 36.0.r,
+              color: const Color(0xffffffff),
+              decoration: TextDecoration.none,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
+  }
+
+  void onInputFocusChanged() {
+    if (focusNotifier.value) {
+      Future.delayed(const Duration(milliseconds: 100), () {
+        widget.scrollController
+            ?.jumpTo(widget.scrollController?.position.maxScrollExtent ?? 0);
+      });
+    }
   }
 }
 
 void showMessageSheet(
   BuildContext context, {
   AvatarBuilder? avatarBuilder,
+  MessageItemBuilder? itemBuilder,
+  ScrollController? scrollController,
   required ValueNotifier<bool> visibleNotifier,
 }) {
   visibleNotifier.value = true;
 
   showModalBottomSheet(
-    backgroundColor: const Color(0xff242736).withOpacity(0.95),
+    barrierColor: ZegoUIKitDefaultTheme.viewBarrierColor,
+    backgroundColor: ZegoUIKitDefaultTheme.viewBackgroundColor,
     context: context,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
@@ -196,9 +190,11 @@ void showMessageSheet(
           padding: MediaQuery.of(context).viewInsets,
           duration: const Duration(milliseconds: 50),
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             child: ZegoVideoConferenceMessageListSheet(
               avatarBuilder: avatarBuilder,
+              itemBuilder: itemBuilder,
+              scrollController: scrollController,
             ),
           ),
         ),

@@ -8,23 +8,21 @@ import 'package:zego_uikit/zego_uikit.dart';
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/components/icon_defines.dart';
 
-class ZegoVideoConferenceMemberListSheet extends StatefulWidget {
-  const ZegoVideoConferenceMemberListSheet({
+class ZegoMemberListSheet extends StatefulWidget {
+  final bool showMicrophoneState;
+  final bool showCameraState;
+
+  const ZegoMemberListSheet({
     Key? key,
     this.showMicrophoneState = true,
     this.showCameraState = true,
   }) : super(key: key);
 
-  final bool showMicrophoneState;
-  final bool showCameraState;
-
   @override
-  State<ZegoVideoConferenceMemberListSheet> createState() =>
-      _ZegoCallMemberListState();
+  State<ZegoMemberListSheet> createState() => _ZegoMemberListSheetState();
 }
 
-class _ZegoCallMemberListState
-    extends State<ZegoVideoConferenceMemberListSheet> {
+class _ZegoMemberListSheetState extends State<ZegoMemberListSheet> {
   @override
   void initState() {
     super.initState();
@@ -41,7 +39,7 @@ class _ZegoCallMemberListState
       return Column(
         children: [
           header(98.h),
-          Container(height: 1.r, color: Colors.white),
+          Container(height: 1.r, color: Colors.white.withOpacity(0.15)),
           SizedBox(
             height: constraints.maxHeight - 1.r - 98.h,
             child: ZegoMemberList(
@@ -91,7 +89,8 @@ void showMemberListSheet(
   showCameraState = true,
 }) {
   showModalBottomSheet(
-    backgroundColor: const Color(0xff242736).withOpacity(0.95),
+    barrierColor: ZegoUIKitDefaultTheme.viewBarrierColor,
+    backgroundColor: ZegoUIKitDefaultTheme.viewBackgroundColor,
     context: context,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
@@ -108,8 +107,8 @@ void showMemberListSheet(
           padding: MediaQuery.of(context).viewInsets,
           duration: const Duration(milliseconds: 50),
           child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-            child: ZegoVideoConferenceMemberListSheet(
+            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+            child: ZegoMemberListSheet(
               showCameraState: showCameraState,
               showMicrophoneState: showMicrophoneState,
             ),

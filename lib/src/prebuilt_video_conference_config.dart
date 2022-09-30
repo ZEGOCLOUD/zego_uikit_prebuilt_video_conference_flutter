@@ -16,6 +16,8 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
     ZegoTopMenuBarConfig? topMenuBarConfig,
     ZegoBottomMenuBarConfig? bottomMenuBarConfig,
     ZegoMemberListConfig? memberListConfig,
+    ZegoInRoomNotificationViewConfig? notificationViewConfig,
+    ZegoInRoomChatViewConfig? chatViewConfig,
     this.leaveConfirmDialogInfo,
     this.onLeaveConfirmation,
     this.onLeave,
@@ -25,7 +27,10 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
         topMenuBarConfig = topMenuBarConfig ??
             ZegoTopMenuBarConfig(style: ZegoMenuBarStyle.dark),
         bottomMenuBarConfig = bottomMenuBarConfig ?? ZegoBottomMenuBarConfig(),
-        memberListConfig = memberListConfig ?? ZegoMemberListConfig() {
+        memberListConfig = memberListConfig ?? ZegoMemberListConfig(),
+        notificationViewConfig =
+            notificationViewConfig ?? ZegoInRoomNotificationViewConfig(),
+        chatViewConfig = chatViewConfig ?? ZegoInRoomChatViewConfig() {
     layout ??= ZegoLayout.gallery();
   }
 
@@ -49,6 +54,12 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
 
   /// configs about bottom member list
   ZegoMemberListConfig memberListConfig;
+
+  ///
+  ZegoInRoomNotificationViewConfig notificationViewConfig;
+
+  ///
+  ZegoInRoomChatViewConfig chatViewConfig;
 
   /// layout config
   ZegoLayout? layout;
@@ -140,6 +151,11 @@ class ZegoPrebuiltAudioVideoViewConfig {
   });
 }
 
+enum ZegoMenuBarStyle {
+  light, // background is transparent
+  dark, // background is black
+}
+
 class ZegoTopMenuBarConfig {
   ///
   bool isVisible;
@@ -174,7 +190,7 @@ class ZegoTopMenuBarConfig {
     ],
     this.style = ZegoMenuBarStyle.dark,
     this.extendButtons = const [],
-    this.title = "Meeting",
+    this.title = "Conference",
   });
 }
 
@@ -206,8 +222,9 @@ class ZegoBottomMenuBarConfig {
     this.buttons = const [
       ZegoMenuBarButtonName.toggleCameraButton,
       ZegoMenuBarButtonName.toggleMicrophoneButton,
-      ZegoMenuBarButtonName.switchAudioOutputButton,
       ZegoMenuBarButtonName.leaveButton,
+      ZegoMenuBarButtonName.switchAudioOutputButton,
+      ZegoMenuBarButtonName.chatButton,
     ],
     this.maxCount = 5,
     this.style = ZegoMenuBarStyle.dark,
@@ -215,14 +232,9 @@ class ZegoBottomMenuBarConfig {
   });
 }
 
-enum ZegoMenuBarStyle {
-  light, // background is transparent
-  dark, // background is black
-}
-
 class ZegoMemberListConfig {
   /// show microphone state or not
-  bool showMicroPhoneState;
+  bool showMicrophoneState;
 
   /// show camera state or not
   bool showCameraState;
@@ -231,7 +243,7 @@ class ZegoMemberListConfig {
   MemberListItemBuilder? itemBuilder;
 
   ZegoMemberListConfig({
-    this.showMicroPhoneState = true,
+    this.showMicrophoneState = true,
     this.showCameraState = true,
     this.itemBuilder,
   });
@@ -248,5 +260,29 @@ class ZegoLeaveConfirmDialogInfo {
     this.message = "Are you sure to leave the conference?",
     this.cancelButtonName = "Cancel",
     this.confirmButtonName = "Confirm",
+  });
+}
+
+class ZegoInRoomNotificationViewConfig {
+  /// set this to true if you want to be notified that the user has left
+  bool notifyUserLeave;
+
+  NotificationMessageItemBuilder? itemBuilder;
+  NotificationUserItemBuilder? userJoinItemBuilder;
+  NotificationUserItemBuilder? userLeaveItemBuilder;
+
+  ZegoInRoomNotificationViewConfig({
+    this.notifyUserLeave = true,
+    this.itemBuilder,
+    this.userJoinItemBuilder,
+    this.userLeaveItemBuilder,
+  });
+}
+
+class ZegoInRoomChatViewConfig {
+  MessageItemBuilder? itemBuilder;
+
+  ZegoInRoomChatViewConfig({
+    this.itemBuilder,
   });
 }

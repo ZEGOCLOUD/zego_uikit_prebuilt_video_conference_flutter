@@ -196,18 +196,53 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
         return ZegoToggleMicrophoneButton(
           buttonSize: buttonSize,
           iconSize: iconSize,
+          normalIcon: ButtonIcon(
+            icon: PrebuiltVideoConferenceImage.asset(
+                PrebuiltVideoConferenceIconUrls.topMicNormal),
+            backgroundColor: Colors.transparent,
+          ),
+          offIcon: ButtonIcon(
+            icon: PrebuiltVideoConferenceImage.asset(
+                PrebuiltVideoConferenceIconUrls.topMicOff),
+            backgroundColor: Colors.transparent,
+          ),
           defaultOn: widget.config.turnOnMicrophoneWhenJoining,
         );
       case ZegoMenuBarButtonName.switchAudioOutputButton:
         return ZegoSwitchAudioOutputButton(
           buttonSize: buttonSize,
           iconSize: iconSize,
+          speakerIcon: ButtonIcon(
+            icon: PrebuiltVideoConferenceImage.asset(
+                PrebuiltVideoConferenceIconUrls.topSpeakerNormal),
+            backgroundColor: Colors.transparent,
+          ),
+          headphoneIcon: ButtonIcon(
+            icon: PrebuiltVideoConferenceImage.asset(
+                PrebuiltVideoConferenceIconUrls.topSpeakerOff),
+            backgroundColor: Colors.transparent,
+          ),
+          bluetoothIcon: ButtonIcon(
+            icon: PrebuiltVideoConferenceImage.asset(
+                PrebuiltVideoConferenceIconUrls.topSpeakerBluetooth),
+            backgroundColor: Colors.transparent,
+          ),
           defaultUseSpeaker: widget.config.useSpeakerWhenJoining,
         );
       case ZegoMenuBarButtonName.toggleCameraButton:
         return ZegoToggleCameraButton(
           buttonSize: buttonSize,
           iconSize: iconSize,
+          normalIcon: ButtonIcon(
+            icon: PrebuiltVideoConferenceImage.asset(
+                PrebuiltVideoConferenceIconUrls.topCameraNormal),
+            backgroundColor: Colors.transparent,
+          ),
+          offIcon: ButtonIcon(
+            icon: PrebuiltVideoConferenceImage.asset(
+                PrebuiltVideoConferenceIconUrls.topCameraOff),
+            backgroundColor: Colors.transparent,
+          ),
           defaultOn: widget.config.turnOnCameraWhenJoining,
         );
       case ZegoMenuBarButtonName.switchCameraButton:
@@ -224,7 +259,10 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
         return ZegoLeaveButton(
           buttonSize: buttonSize,
           iconSize: iconSize,
-          icon: ButtonIcon(backgroundColor: Colors.transparent),
+          icon: ButtonIcon(
+              icon: PrebuiltVideoConferenceImage.asset(
+                  PrebuiltVideoConferenceIconUrls.topLeave),
+              backgroundColor: Colors.transparent),
           onLeaveConfirmation: (context) async {
             return await widget.config.onLeaveConfirmation!(context);
           },
@@ -252,7 +290,13 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
         return ZegoInRoomMessageButton(
           buttonSize: buttonSize,
           iconSize: iconSize,
+          icon: ButtonIcon(
+            icon: PrebuiltVideoConferenceImage.asset(
+                PrebuiltVideoConferenceIconUrls.topMemberIM),
+            backgroundColor: Colors.transparent,
+          ),
           avatarBuilder: widget.config.avatarBuilder,
+          itemBuilder: widget.config.chatViewConfig.itemBuilder,
           viewVisibleNotifier: widget.chatViewVisibleNotifier,
         );
     }

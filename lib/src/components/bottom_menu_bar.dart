@@ -226,6 +226,7 @@ class _ZegoBottomMenuBarState extends State<ZegoBottomMenuBar> {
           buttonSize: buttonSize,
           iconSize: iconSize,
           avatarBuilder: widget.config.avatarBuilder,
+          itemBuilder: widget.config.chatViewConfig.itemBuilder,
           viewVisibleNotifier: widget.chatViewVisibleNotifier,
         );
     }

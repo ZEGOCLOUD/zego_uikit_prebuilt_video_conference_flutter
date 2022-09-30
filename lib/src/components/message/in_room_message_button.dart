@@ -1,4 +1,5 @@
 // Dart imports:
+import 'dart:async';
 import 'dart:math' as math;
 
 // Flutter imports:
@@ -21,6 +22,7 @@ class ZegoInRoomMessageButton extends StatefulWidget {
     this.iconSize,
     this.buttonSize,
     this.avatarBuilder,
+    this.itemBuilder,
     required this.viewVisibleNotifier,
   }) : super(key: key);
 
@@ -36,6 +38,7 @@ class ZegoInRoomMessageButton extends StatefulWidget {
   final Size? buttonSize;
 
   final AvatarBuilder? avatarBuilder;
+  final MessageItemBuilder? itemBuilder;
 
   final ValueNotifier<bool> viewVisibleNotifier;
 
@@ -45,10 +48,8 @@ class ZegoInRoomMessageButton extends StatefulWidget {
 }
 
 class _ZegoInRoomMessageButtonState extends State<ZegoInRoomMessageButton> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  /// keep scroll position
+  var scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,9 @@ class _ZegoInRoomMessageButtonState extends State<ZegoInRoomMessageButton> {
         showMessageSheet(
           context,
           avatarBuilder: widget.avatarBuilder,
+          itemBuilder: widget.itemBuilder,
           visibleNotifier: widget.viewVisibleNotifier,
+          scrollController: scrollController,
         );
 
         if (widget.afterClicked != null) {

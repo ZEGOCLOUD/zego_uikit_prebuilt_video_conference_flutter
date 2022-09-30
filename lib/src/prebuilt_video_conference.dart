@@ -70,6 +70,9 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   var barRestartHideTimerNotifier = ValueNotifier<int>(0);
   var chatViewVisibleNotifier = ValueNotifier<bool>(false);
 
+  bool get isLightStyle =>
+      ZegoMenuBarStyle.light == widget.config.bottomMenuBarConfig.style;
+
   @override
   void initState() {
     super.initState();
@@ -77,7 +80,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     correctConfigValue();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log("ZegoUIKit version: $version");
+      log("version: zego_uikit_prebuilt_video_conference:1.1.2; $version");
     });
 
     initUIKit();
@@ -93,9 +96,10 @@ class _ZegoUIKitPrebuiltVideoConferenceState
 
   @override
   Widget build(BuildContext context) {
-    widget.config.onLeaveConfirmation ??= onQuitConfirming;
+    widget.config.onLeaveConfirmation ??= onLeaveConfirmation;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: WillPopScope(
         onWillPop: () async {
           return await widget.config.onLeaveConfirmation!(context) ?? false;
@@ -114,7 +118,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
                       widget.config.topMenuBarConfig.isVisible
                           ? topMenuBar()
                           : Container(),
-                      messageList(),
+                      notificationView(),
                       bottomMenuBar(),
                     ],
                   ),
@@ -215,7 +219,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     );
   }
 
-  Widget messageList() {
+  Widget notificationView() {
     return ValueListenableBuilder<bool>(
       valueListenable: barVisibilityNotifier,
       builder: (context, isBarVisible, _) {
@@ -224,13 +228,17 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           bottom: isBarVisible ? 232.r : 24.r,
           child: ConstrainedBox(
             constraints: BoxConstraints.loose(Size(540.r, 400.r)),
-            child: ValueListenableBuilder<bool>(
-              valueListenable: chatViewVisibleNotifier,
-              builder: (context, isChatViewVisible, _) {
-                return ZegoInRoomNotificationView(
-                  isIMEnabled: !isChatViewVisible,
-                );
-              },
+            child: ZegoInRoomNotificationView(
+              notifyUserLeave:
+                  widget.config.notificationViewConfig.notifyUserLeave,
+              itemBuilder: widget.config.notificationViewConfig.itemBuilder ??
+                  notificationMessageItemBuilder,
+              userJoinItemBuilder:
+                  widget.config.notificationViewConfig.userJoinItemBuilder ??
+                      notificationUserJoinItemBuilder,
+              userLeaveItemBuilder:
+                  widget.config.notificationViewConfig.userLeaveItemBuilder ??
+                      notificationUserLeaveItemBuilder,
             ),
           ),
         );
@@ -238,10 +246,35 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     );
   }
 
-  Widget topMenuBar() {
-    var isLightStyle =
-        ZegoMenuBarStyle.light == widget.config.bottomMenuBarConfig.style;
+  Widget notificationMessageItemBuilder(
+      BuildContext context, ZegoInRoomMessage message, Map extraInfo) {
+    return ZegoInRoomLiveCommentingViewItem(
+      maxLines: 3,
+      user: message.user,
+      message: message.message,
+      isHorizontal: false,
+    );
+  }
 
+  Widget notificationUserJoinItemBuilder(
+      BuildContext context, ZegoUIKitUser user, Map extraInfo) {
+    return ZegoInRoomLiveCommentingViewItem(
+      user: user,
+      message: "joins the conference.",
+      isHorizontal: false,
+    );
+  }
+
+  Widget notificationUserLeaveItemBuilder(
+      BuildContext context, ZegoUIKitUser user, Map extraInfo) {
+    return ZegoInRoomLiveCommentingViewItem(
+      user: user,
+      message: "left the conference.",
+      isHorizontal: false,
+    );
+  }
+
+  Widget topMenuBar() {
     return Positioned(
       left: 0,
       right: 0,
@@ -259,9 +292,6 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   }
 
   Widget bottomMenuBar() {
-    var isLightStyle =
-        ZegoMenuBarStyle.light == widget.config.bottomMenuBarConfig.style;
-
     return Positioned(
       left: 0,
       right: 0,
@@ -271,9 +301,9 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         config: widget.config,
         visibilityNotifier: barVisibilityNotifier,
         restartHideTimerNotifier: barRestartHideTimerNotifier,
-        height: isLightStyle ? null : 208.r,
+        height: isLightStyle ? (96.r + 2 * 3) : 208.r,
         backgroundColor:
-            isLightStyle ? null : const Color(0xff222222).withOpacity(0.8),
+            isLightStyle ? null : ZegoUIKitDefaultTheme.viewBackgroundColor,
         borderRadius: isLightStyle ? null : 32.r,
         chatViewVisibleNotifier: chatViewVisibleNotifier,
       ),
@@ -292,7 +322,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     }
   }
 
-  Future<bool> onQuitConfirming(BuildContext context) async {
+  Future<bool> onLeaveConfirmation(BuildContext context) async {
     if (widget.config.leaveConfirmDialogInfo == null) {
       return true;
     }

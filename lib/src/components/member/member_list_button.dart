@@ -57,7 +57,7 @@ class _ZegoMemberListButtonState extends State<ZegoMemberListButton> {
         showMemberListSheet(
           context,
           showCameraState: widget.config?.showCameraState ?? true,
-          showMicrophoneState: widget.config?.showMicroPhoneState ?? true,
+          showMicrophoneState: widget.config?.showMicrophoneState ?? true,
         );
 
         if (widget.afterClicked != null) {
