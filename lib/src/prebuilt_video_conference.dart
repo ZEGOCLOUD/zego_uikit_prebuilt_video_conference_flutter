@@ -42,11 +42,11 @@ class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
   /// tokenServerUrl is only for web.
   /// If you have to support Web and Android, iOS, then you can use it like this
   /// ```
-  ///   ZegoUIKitPrebuiltVideoConferenceConfig(
+  ///   ZegoUIKitPrebuiltVideoConference(
   ///     appID: appID,
+  ///     appSign: kIsWeb ? '' : appSign,
   ///     userID: userID,
   ///     userName: userName,
-  ///     appSign: kIsWeb ? '' : appSign,
   ///     tokenServerUrl: kIsWeb ? tokenServerUrl：'',
   ///   );
   /// ```
@@ -80,7 +80,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     correctConfigValue();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log("version: zego_uikit_prebuilt_video_conference:1.1.2; $version");
+      log("version: zego_uikit_prebuilt_video_conference:1.1.3; $version");
     });
 
     initUIKit();

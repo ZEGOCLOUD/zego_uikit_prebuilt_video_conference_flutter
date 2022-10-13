@@ -254,6 +254,10 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
                 PrebuiltVideoConferenceIconUrls.topCameraOverturn),
             backgroundColor: Colors.transparent,
           ),
+          defaultUseFrontFacingCamera: ZegoUIKit()
+              .getUseFrontFacingCameraStateNotifier(
+                  ZegoUIKit().getLocalUser().id)
+              .value,
         );
       case ZegoMenuBarButtonName.leaveButton:
         return ZegoLeaveButton(

@@ -199,6 +199,10 @@ class _ZegoBottomMenuBarState extends State<ZegoBottomMenuBar> {
         return ZegoSwitchCameraButton(
           buttonSize: buttonSize,
           iconSize: iconSize,
+          defaultUseFrontFacingCamera: ZegoUIKit()
+              .getUseFrontFacingCameraStateNotifier(
+                  ZegoUIKit().getLocalUser().id)
+              .value,
         );
       case ZegoMenuBarButtonName.leaveButton:
         return ZegoLeaveButton(

@@ -28,7 +28,7 @@ class ZegoMemberListButton extends StatefulWidget {
 
   final ButtonIcon? icon;
 
-  ///  You can do what you want after clicked.
+  ///  You can do what you want after pressed.
   final VoidCallback? afterClicked;
 
   /// the size of button's icon

@@ -259,7 +259,7 @@ class ZegoLeaveConfirmDialogInfo {
     this.title = "Leave the conference",
     this.message = "Are you sure to leave the conference?",
     this.cancelButtonName = "Cancel",
-    this.confirmButtonName = "Confirm",
+    this.confirmButtonName = "OK",
   });
 }
 

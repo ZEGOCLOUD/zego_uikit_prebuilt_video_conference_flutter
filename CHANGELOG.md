@@ -13,3 +13,11 @@
 ## 1.1.1
 
 * fix some bugs
+
+## 1.1.2
+
+* fix some bugs
+
+## 1.1.3
+
+* update a dependency to the latest release..
