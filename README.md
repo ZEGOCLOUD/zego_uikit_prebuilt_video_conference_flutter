@@ -115,8 +115,6 @@ To prevent the ZEGO SDK public class names from being obfuscated, please complet
 1. Create `proguard-rules.pro` file under [your_project > android > app] with content as show below:
 ```
 -keep class **.zego.** { *; }
--keep class **.zego.zim.**  { *; }
--keep class **.**.zego_zim.** { *; }
 ```
 
 2. Add the following config code to the release part of the `your_project/android/app/build.gradle` file.
@@ -143,7 +141,7 @@ You can simply click the **Run** or **Debug** to run and test your App on your d
 ## Resources
 
 <div class="md-grid-list-box">
-  <a href="https://github.com/ZEGOCLOUD/zego_uikit_prebuilt_video_conference_example_flutter/tree/master/video_conference" class="md-grid-item" target="_blank">
+  <a href="https://github.com/ZEGOCLOUD/zego_uikit_prebuilt_video_conference_example_flutter" class="md-grid-item" target="_blank">
     <div class="grid-title">Sample code</div>
     <div class="grid-desc">Click here to get the complete sample code.</div>
   </a>
