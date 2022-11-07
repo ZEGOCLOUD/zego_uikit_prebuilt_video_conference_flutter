@@ -4,6 +4,7 @@ import 'dart:core';
 import 'dart:developer';
 
 // Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -77,13 +78,11 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   void initState() {
     super.initState();
 
-    correctConfigValue();
-
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log("version: zego_uikit_prebuilt_video_conference:1.1.3; $version");
+      log("version: zego_uikit_prebuilt_video_conference:1.1.4; $version");
     });
 
-    initUIKit();
+    initContext();
   }
 
   @override
@@ -131,21 +130,35 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     );
   }
 
-  void initUIKit() {
+  Future<void> initPermissions() async {
+    if (widget.config.turnOnCameraWhenJoining) {
+      await requestPermission(Permission.camera);
+    }
+    if (widget.config.turnOnMicrophoneWhenJoining) {
+      await requestPermission(Permission.microphone);
+    }
+  }
+
+  void initContext() {
+    correctConfigValue();
+
     ZegoUIKitPrebuiltVideoConferenceConfig config = widget.config;
     if (!kIsWeb) {
       assert(widget.appSign.isNotEmpty);
-      ZegoUIKit().login(widget.userID, widget.userName).then((value) {
-        ZegoUIKit()
-            .init(appID: widget.appID, appSign: widget.appSign)
-            .then((value) {
+      initPermissions().then((value) {
+        ZegoUIKit().login(widget.userID, widget.userName).then((value) {
           ZegoUIKit()
-            ..updateVideoViewMode(
-                config.audioVideoViewConfig.useVideoViewAspectFill)
-            ..turnCameraOn(config.turnOnCameraWhenJoining)
-            ..turnMicrophoneOn(config.turnOnMicrophoneWhenJoining)
-            ..setAudioOutputToSpeaker(config.useSpeakerWhenJoining)
-            ..joinRoom(widget.conferenceID);
+              .init(appID: widget.appID, appSign: widget.appSign)
+              .then((value) {
+            ZegoUIKit()
+              ..useFrontFacingCamera(true)
+              ..updateVideoViewMode(
+                  config.audioVideoViewConfig.useVideoViewAspectFill)
+              ..turnCameraOn(config.turnOnCameraWhenJoining)
+              ..turnMicrophoneOn(config.turnOnMicrophoneWhenJoining)
+              ..setAudioOutputToSpeaker(config.useSpeakerWhenJoining)
+              ..joinRoom(widget.conferenceID);
+          });
         });
       });
     } else {
@@ -248,7 +261,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
 
   Widget notificationMessageItemBuilder(
       BuildContext context, ZegoInRoomMessage message, Map extraInfo) {
-    return ZegoInRoomLiveCommentingViewItem(
+    return ZegoInRoomNotificationViewItem(
       maxLines: 3,
       user: message.user,
       message: message.message,
@@ -258,7 +271,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
 
   Widget notificationUserJoinItemBuilder(
       BuildContext context, ZegoUIKitUser user, Map extraInfo) {
-    return ZegoInRoomLiveCommentingViewItem(
+    return ZegoInRoomNotificationViewItem(
       user: user,
       message: "joins the conference.",
       isHorizontal: false,
@@ -267,7 +280,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
 
   Widget notificationUserLeaveItemBuilder(
       BuildContext context, ZegoUIKitUser user, Map extraInfo) {
-    return ZegoInRoomLiveCommentingViewItem(
+    return ZegoInRoomNotificationViewItem(
       user: user,
       message: "left the conference.",
       isHorizontal: false,
@@ -332,7 +345,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       widget.config.leaveConfirmDialogInfo!.title,
       widget.config.leaveConfirmDialogInfo!.message,
       [
-        ElevatedButton(
+        CupertinoDialogAction(
           child: Text(
             widget.config.leaveConfirmDialogInfo!.cancelButtonName,
             style: TextStyle(fontSize: 26.r, color: const Color(0xff0055FF)),
@@ -341,12 +354,8 @@ class _ZegoUIKitPrebuiltVideoConferenceState
             //  pop this dialog
             Navigator.of(context).pop(false);
           },
-          // style: ElevatedButton.styleFrom(primary: Colors.white),
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-          ),
         ),
-        ElevatedButton(
+        CupertinoDialogAction(
           child: Text(
             widget.config.leaveConfirmDialogInfo!.confirmButtonName,
             style: TextStyle(fontSize: 26.r, color: Colors.white),
@@ -355,10 +364,6 @@ class _ZegoUIKitPrebuiltVideoConferenceState
             //  pop this dialog
             Navigator.of(context).pop(true);
           },
-          style: ButtonStyle(
-            backgroundColor:
-                MaterialStateProperty.all<Color>(const Color(0xff0055FF)),
-          ),
         ),
       ],
     );

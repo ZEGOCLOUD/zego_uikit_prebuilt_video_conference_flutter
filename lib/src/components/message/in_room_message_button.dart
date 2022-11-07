@@ -36,8 +36,8 @@ class ZegoInRoomMessageButton extends StatefulWidget {
   /// the size of button
   final Size? buttonSize;
 
-  final AvatarBuilder? avatarBuilder;
-  final MessageItemBuilder? itemBuilder;
+  final ZegoAvatarBuilder? avatarBuilder;
+  final ZegoInRoomMessageItemBuilder? itemBuilder;
 
   final ValueNotifier<bool> viewVisibleNotifier;
 

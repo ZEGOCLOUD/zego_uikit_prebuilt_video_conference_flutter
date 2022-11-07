@@ -16,8 +16,8 @@ class ZegoVideoConferenceMessageListSheet extends StatefulWidget {
     this.scrollController,
   }) : super(key: key);
 
-  final AvatarBuilder? avatarBuilder;
-  final MessageItemBuilder? itemBuilder;
+  final ZegoAvatarBuilder? avatarBuilder;
+  final ZegoInRoomMessageItemBuilder? itemBuilder;
   final ScrollController? scrollController;
 
   @override
@@ -164,8 +164,8 @@ class _ZegoVideoConferenceMessageListSheetState
 
 void showMessageSheet(
   BuildContext context, {
-  AvatarBuilder? avatarBuilder,
-  MessageItemBuilder? itemBuilder,
+  ZegoAvatarBuilder? avatarBuilder,
+  ZegoInRoomMessageItemBuilder? itemBuilder,
   ScrollController? scrollController,
   required ValueNotifier<bool> visibleNotifier,
 }) {
