@@ -79,7 +79,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log("version: zego_uikit_prebuilt_video_conference:1.1.4; $version");
+      log("version: zego_uikit_prebuilt_video_conference:1.1.5; $version");
     });
 
     initContext();
@@ -154,6 +154,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
               ..useFrontFacingCamera(true)
               ..updateVideoViewMode(
                   config.audioVideoViewConfig.useVideoViewAspectFill)
+              ..setVideoMirrorMode(true)
               ..turnCameraOn(config.turnOnCameraWhenJoining)
               ..turnMicrophoneOn(config.turnOnMicrophoneWhenJoining)
               ..setAudioOutputToSpeaker(config.useSpeakerWhenJoining)
@@ -196,9 +197,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       onTap: () {
         /// listen only click event in empty space
         if (widget.config.bottomMenuBarConfig.hideByClick) {
-          setState(() {
-            barVisibilityNotifier.value = !barVisibilityNotifier.value;
-          });
+          barVisibilityNotifier.value = !barVisibilityNotifier.value;
         }
       },
       child: Listener(
