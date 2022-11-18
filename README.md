@@ -17,7 +17,7 @@ This will add a line like this to your project's `pubspec.yaml` file (and Flutte
 
 ```dart
 dependencies:
-  zego_uikit_prebuilt_video_conference: ^1.1.5 # Add this line.
+  zego_uikit_prebuilt_video_conference: ^1.1.6 # Add this line.
 ```
 
 ### Import the SDK
