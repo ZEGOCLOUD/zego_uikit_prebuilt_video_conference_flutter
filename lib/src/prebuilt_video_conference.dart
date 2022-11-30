@@ -79,7 +79,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log("version: zego_uikit_prebuilt_video_conference:1.1.6; $version");
+      log("version: zego_uikit_prebuilt_video_conference:1.1.7; $version");
     });
 
     initContext();
@@ -226,6 +226,13 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           layout: widget.config.layout!,
           backgroundBuilder: audioVideoViewBackground,
           foregroundBuilder: audioVideoViewForeground,
+          avatarConfig: ZegoAvatarConfig(
+            showInAudioMode:
+                widget.config.audioVideoViewConfig.showAvatarInAudioMode,
+            showSoundWavesInAudioMode:
+                widget.config.audioVideoViewConfig.showSoundWavesInAudioMode,
+            builder: widget.config.avatarBuilder,
+          ),
         ),
       ),
     );
@@ -399,14 +406,6 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         widget.config.audioVideoViewConfig.backgroundBuilder
                 ?.call(context, size, user, extraInfo) ??
             Container(color: Colors.transparent),
-        ZegoAudioVideoBackground(
-          size: size,
-          user: user,
-          showAvatar: widget.config.audioVideoViewConfig.showAvatarInAudioMode,
-          showSoundLevel:
-              widget.config.audioVideoViewConfig.showSoundWavesInAudioMode,
-          avatarBuilder: widget.config.avatarBuilder,
-        ),
       ],
     );
   }

@@ -30,7 +30,11 @@
 
 * fix some bugs
 
-## 1.1.5
+## 1.1.6
 
 * fix some bugs
+* update a dependency to the latest release
+
+## 1.1.7
+
 * update a dependency to the latest release
