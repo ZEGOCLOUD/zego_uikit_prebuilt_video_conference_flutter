@@ -1,6 +1,14 @@
 # Quick start
 
+![videoconference](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/Flutter/videoconference.gif)
 - - -
+
+## Prerequisites
+
+- Go to [ZEGOCLOUD Admin Console\|_blank](https://console.zegocloud.com), and do the following:
+  - Create a project, get the **AppID** and **AppSign**.
+  - Activate the **In-app Chat** service (as shown in the following figure).
+![ActivateZIMinConsole2](https://storage.zego.im/sdk-doc/Pics/InappChat/ActivateZIMinConsole2.png)
 
 
 ## Integrate the SDK
@@ -17,7 +25,7 @@ This will add a line like this to your project's `pubspec.yaml` file (and Flutte
 
 ```dart
 dependencies:
-  zego_uikit_prebuilt_video_conference: ^1.1.8 # Add this line.
+  zego_uikit_prebuilt_video_conference: ^1.1.9 # Add this line.
 ```
 
 ### Import the SDK

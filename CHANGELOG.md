@@ -42,3 +42,7 @@
 ## 1.1.8
 
 * update a dependency to the latest release
+
+## 1.1.9
+
+* update a dependency to the latest release
