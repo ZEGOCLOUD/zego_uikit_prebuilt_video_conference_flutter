@@ -9,7 +9,7 @@ And it includes the business logic with the UI, you can add or remove features a
 
 |First comer's view| Later comer's view|
 |---|---|
-|![user1.gif](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/conference/user1.gif)|![user2.gif](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/conference/user2.gif)|
+|![user1.gif](images/user1.gif)|![user2.gif](images/user2.gif)|
 
 
 
