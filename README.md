@@ -79,7 +79,7 @@ import 'package:zego_uikit_prebuilt_video_conference/zego_uikit_prebuilt_video_c
 
 ### Using the ZegoUIKitPrebuiltVideoConference in your project
 
-- Go to [ZEGOCLOUD Admin Console\|_blank](https://console.zegocloud.com/), get the `appID` and `appSign` of your project.
+- Go to [ZEGOCLOUD Admin Console](https://console.zegocloud.com/), get the `appID` and `appSign` of your project.
 - Specify the `userID` and `userName` for connecting the Video Conference Kit service. 
 - Create a `conferenceID` that represents the video conference you want to start. 
 
