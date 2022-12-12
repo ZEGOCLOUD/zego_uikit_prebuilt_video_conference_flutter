@@ -45,13 +45,13 @@ And it includes the business logic with the UI, you can add or remove features a
 
 
 * I want to get started:
-  Follow [QUICK START](http://doc.oa.zego.im/!VideoconferenceKit_Quickstart) to get started swiftly. 
+  Follow [QUICK START](https://docs.zegocloud.com/article/14894) to get started swiftly. 
   
 * I want to get the [Sample Code](https://github.com/ZEGOCLOUD/zego_uikit_prebuilt_video_conference_example_flutter):
 
-* To [Custom Prebuilt UI](http://doc.oa.zego.im/!VideoConferenceKit_Custom_prebuiltUI) for a custom experience: 
+* To [Custom Prebuilt UI](https://docs.zegocloud.com/article/14898) for a custom experience: 
 
-* To finest-grained build an video conference, you may try [Fully customized with SDKs](http://doc.oa.zego.im/!ExpressVideoSDK-OverView/OverView)
+* To finest-grained build an video conference, you may try [Fully customized with SDKs](https://docs.zegocloud.com/article/5560)
 
 - - -
 # Quick start
@@ -189,7 +189,7 @@ You can simply click the **Run** or **Debug** to run and test your App on your d
 
 ## Related guide
 
-[Custom prebuilt UI](!VideoConferenceKit_Custom_prebuiltUI)
+[Custom prebuilt UI](https://docs.zegocloud.com/article/14898)
 
 
 ## Resources
