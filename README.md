@@ -1,15 +1,63 @@
-# Quick start
-
-![videoconference](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/Flutter/videoconference.gif)
+- - -
+# Overview
 - - -
 
-## Prerequisites
 
-- Go to [ZEGOCLOUD Admin Console\|_blank](https://console.zegocloud.com), and do the following:
-  - Create a project, get the **AppID** and **AppSign**.
-  - Activate the **In-app Chat** service (as shown in the following figure).
-![ActivateZIMinConsole2](https://storage.zego.im/sdk-doc/Pics/InappChat/ActivateZIMinConsole2.png)
+**Video Conference Kit** is a prebuilt feature-rich component, which enables you to build video conferences into your app in minutes. 
 
+And it includes the business logic with the UI, you can add or remove features accordingly by customizing UI components.
+
+|First comer's view| Later comer's view|
+|---|---|
+|![user1.gif](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/conference/user1.gif)|![user2.gif](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/conference/user2.gif)|
+
+
+
+## When do you need the Video Conference Kit
+
+- Build apps faster and easier
+  > - Want to prototype video conferences **ASAP**
+  > - Consider **speed or efficiency** as the top priority
+  > - Video Conference Kit allows you to **integrate in minutes**
+
+- Customize UI and features as needed
+  > - Want to customize features **based on actual business needs**
+  > - **Less time wasted** developing basic features
+  > - Video Conference Kit includes the business logic along with the UI, allows you to **customize features accordingly**
+
+
+
+## Embedded features
+
+- Multi-user audio/video conferences
+- Adaptive video layouts
+- Real-time sound waves display
+- Customizable UI styles
+- Device management
+- Extendable top/bottom menu bar
+- Customizable conference title
+- Member list
+- Live text chat
+- Conference join/leave notifications
+
+
+## Recommended resources
+
+
+* I want to get started:
+  Follow [QUICK START](http://doc.oa.zego.im/!VideoconferenceKit_Quickstart) to get started swiftly. 
+  
+* I want to get the [Sample Code](https://github.com/ZEGOCLOUD/zego_uikit_prebuilt_video_conference_example_flutter):
+
+* To [Custom Prebuilt UI](http://doc.oa.zego.im/!VideoConferenceKit_Custom_prebuiltUI) for a custom experience: 
+
+* To finest-grained build an video conference, you may try [Fully customized with SDKs](http://doc.oa.zego.im/!ExpressVideoSDK-OverView/OverView)
+
+- - -
+# Quick start
+- - -
+
+<video poster="https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/videos/How_to_build_Video_Conference_using_Flutter.png" src="https://storage.zego.im/sdk-doc/doc/video/ZegoUIKit/How_to_build_Video_Conference_using_Flutter.mp4" width="80%" preload="auto" controls></video>
 
 ## Integrate the SDK
 
@@ -18,14 +66,7 @@
 Run the following code in your project root directory: 
 
 ```dart
-flutter pub get zego_uikit_prebuilt_video_conference
-```
-
-This will add a line like this to your project's `pubspec.yaml` file (and Flutter will automatic run an implicit `flutter pub get`):
-
-```dart
-dependencies:
-  zego_uikit_prebuilt_video_conference: ^1.1.9 # Add this line.
+flutter pub add zego_uikit_prebuilt_video_conference
 ```
 
 ### Import the SDK
@@ -46,10 +87,11 @@ import 'package:zego_uikit_prebuilt_video_conference/zego_uikit_prebuilt_video_c
 
 - `userID` and `conferenceID` can only contain numbers, letters, and underlines (_). 
 - Using the same `conferenceID` will enter the same video conference.
+
 </div>
 
-<pre style="background-color: #011627; border-radius: 8px; padding: 25px; color: white">
-<div>
+
+```dart
 class VideoConferencePage extends StatelessWidget {
   final String conferenceID;
 
@@ -61,20 +103,20 @@ class VideoConferencePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-<div style="background-color:#032A4B; margin: 0px; padding: 2px;">
+
       child: ZegoUIKitPrebuiltVideoConference(
-        appID: /*input your AppID*/,
-        appSign: /*input your AppSign*/,
+        appID: YourAppID, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
+        appSign: YourAppSign, // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
         userID: 'user_id',
         userName: 'user_name',
         conferenceID: conferenceID,
         config: ZegoUIKitPrebuiltVideoConferenceConfig(),
       ),
-</div>
+
     );
   }
 }
-</div></pre>
+```
 
 Now, you can start a video conference by navigating to this `VideoConferencePage `.
 
@@ -83,7 +125,7 @@ Now, you can start a video conference by navigating to this `VideoConferencePage
 
 
 - Android:
-1. If your project is created with an old (not the latest) version of Flutter, you will need to open the `your_project/android/app/build.gradle` file, and modify the `compileSdkVersion` to 33.
+1. If your project is created with Flutter 2.x.x, you will need to open the `your_project/android/app/build.gradle` file, and modify the `compileSdkVersion` to 33.
 
 
 ![compileSdkVersion.png](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/Flutter/compileSdkVersion.png)
@@ -104,6 +146,24 @@ Open the file `your_project/app/src/main/AndroidManifest.xml`, and add the follo
    ```
 ![permission_android.png](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/Flutter/permission_android.png)
 
+3. Prevent code obfuscation.
+
+To prevent obfuscation of the SDK public class names, do the following:
+
+a. In your project's `your_project > android > app` folder, create a `proguard-rules.pro` file with the following content as shown below:
+
+<pre style="background-color: #011627; border-radius: 8px; padding: 25px; color: white"><div>
+-keep class **.zego.** { *; }
+</div></pre>
+
+b. Add the following config code to the `release` part of the `your_project/android/app/build.gradle` file.
+
+<pre style="background-color: #011627; border-radius: 8px; padding: 25px; color: white"><div>
+proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+</div></pre>
+
+![android_class_confusion.png](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/Flutter/android_class_confusion.png)
+
 - iOS: 
 
 To add permissions, open `your_project/ios/Runner/Info.plist`, and add the following code to the `dict` part:
@@ -116,21 +176,7 @@ To add permissions, open `your_project/ios/Runner/Info.plist`, and add the follo
 ```
 ![permission_ios.png](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/Flutter/permission_ios.png)
 
-## Turn off some classes's confusion
 
-To prevent the ZEGO SDK public class names from being obfuscated, please complete the following steps:
-
-1. Create `proguard-rules.pro` file under [your_project > android > app] with content as show below:
-```
--keep class **.zego.** { *; }
-```
-
-2. Add the following config code to the release part of the `your_project/android/app/build.gradle` file.
-```
-proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-```
-
-![image](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/Flutter/android_class_confusion.png)
 
 
 ## Run & Test
@@ -148,9 +194,4 @@ You can simply click the **Run** or **Debug** to run and test your App on your d
 
 ## Resources
 
-<div class="md-grid-list-box">
-  <a href="https://github.com/ZEGOCLOUD/zego_uikit_prebuilt_video_conference_example_flutter" class="md-grid-item" target="_blank">
-    <div class="grid-title">Sample code</div>
-    <div class="grid-desc">Click here to get the complete sample code.</div>
-  </a>
-</div>
+Click to get the complete [sample code](https://github.com/ZEGOCLOUD/zego_uikit_prebuilt_video_conference_example_flutter).
