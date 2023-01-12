@@ -154,7 +154,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
               ..useFrontFacingCamera(true)
               ..updateVideoViewMode(
                   config.audioVideoViewConfig.useVideoViewAspectFill)
-              ..setVideoMirrorMode(true)
+              ..enableVideoMirroring(config.audioVideoViewConfig.isVideoMirror)
               ..turnCameraOn(config.turnOnCameraWhenJoining)
               ..turnMicrophoneOn(config.turnOnMicrophoneWhenJoining)
               ..setAudioOutputToSpeaker(config.useSpeakerWhenJoining)
@@ -171,6 +171,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           ZegoUIKit()
             ..updateVideoViewMode(
                 config.audioVideoViewConfig.useVideoViewAspectFill)
+            ..enableVideoMirroring(config.audioVideoViewConfig.isVideoMirror)
             ..turnCameraOn(config.turnOnCameraWhenJoining)
             ..turnMicrophoneOn(config.turnOnMicrophoneWhenJoining)
             ..setAudioOutputToSpeaker(config.useSpeakerWhenJoining);
