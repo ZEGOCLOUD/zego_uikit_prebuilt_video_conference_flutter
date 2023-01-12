@@ -79,7 +79,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log("version: zego_uikit_prebuilt_video_conference:1.1.10; $version");
+      log("version: zego_uikit_prebuilt_video_conference:1.1.12; $version");
     });
 
     initContext();
@@ -187,8 +187,11 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   void correctConfigValue() {
     if (widget.config.bottomMenuBarConfig.maxCount > 5) {
       widget.config.bottomMenuBarConfig.maxCount = 5;
-      debugPrint('menu bar buttons limited count\'s value  is exceeding the '
-          'maximum limit');
+      ZegoLoggerService.logInfo(
+        'menu bar buttons limited count\'s value  is exceeding the maximum limit',
+        tag: "video conference",
+        subTag: "prebuilt",
+      );
     }
   }
 
@@ -377,6 +380,12 @@ class _ZegoUIKitPrebuiltVideoConferenceState
 
   Widget audioVideoViewForeground(
       BuildContext context, Size size, ZegoUIKitUser? user, Map extraInfo) {
+    if (extraInfo[ZegoViewBuilderMapExtraInfoKey.isScreenSharingView.name]
+            as bool? ??
+        false) {
+      return Container();
+    }
+
     return Stack(
       children: [
         widget.config.audioVideoViewConfig.foregroundBuilder

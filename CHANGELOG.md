@@ -50,3 +50,14 @@
 ## 1.1.10
 
 * update a dependency to the latest release
+
+## 1.1.11
+
+* support view screen sharing stream of web
+
+## 1.1.12
+
+* fix bugs
+* update resources
+* update a dependency to the latest release
+* support sdk log
