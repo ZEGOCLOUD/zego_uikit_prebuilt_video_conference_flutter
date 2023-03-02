@@ -1,21 +1,18 @@
 // Dart imports:
-import 'dart:convert';
 import 'dart:core';
 import 'dart:developer';
 
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:http/http.dart' as http;
 import 'package:zego_uikit/zego_uikit.dart';
 
 // Project imports:
-import 'components/components.dart';
-import 'prebuilt_video_conference_config.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/components/components.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_config.dart';
 
 class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
   const ZegoUIKitPrebuiltVideoConference({
@@ -25,7 +22,6 @@ class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
     required this.conferenceID,
     required this.userID,
     required this.userName,
-    this.tokenServerUrl = '',
     required this.config,
   }) : super(key: key);
 
@@ -39,19 +35,6 @@ class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
   /// for Android/iOS
   /// you need to fill in the appID you obtained from console.zegocloud.com
   final String appSign;
-
-  /// tokenServerUrl is only for web.
-  /// If you have to support Web and Android, iOS, then you can use it like this
-  /// ```
-  ///   ZegoUIKitPrebuiltVideoConference(
-  ///     appID: appID,
-  ///     appSign: kIsWeb ? '' : appSign,
-  ///     userID: userID,
-  ///     userName: userName,
-  ///     tokenServerUrl: kIsWeb ? tokenServerUrl：'',
-  ///   );
-  /// ```
-  final String tokenServerUrl;
 
   /// local user info
   final String userID;
@@ -79,17 +62,17 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log("version: zego_uikit_prebuilt_video_conference:1.1.12; $version");
+      log('version: zego_uikit_prebuilt_video_conference:2.0.1; $version');
     });
 
     initContext();
   }
 
   @override
-  void dispose() async {
+  void dispose() {
     super.dispose();
 
-    await ZegoUIKit().leaveRoom();
+    ZegoUIKit().leaveRoom();
     // await ZegoUIKit().uninit();
   }
 
@@ -114,9 +97,10 @@ class _ZegoUIKitPrebuiltVideoConferenceState
                   child: Stack(
                     children: [
                       audioVideoContainer(constraints.maxHeight),
-                      widget.config.topMenuBarConfig.isVisible
-                          ? topMenuBar()
-                          : Container(),
+                      if (widget.config.topMenuBarConfig.isVisible)
+                        topMenuBar()
+                      else
+                        Container(),
                       notificationView(),
                       bottomMenuBar(),
                     ],
@@ -142,56 +126,33 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   void initContext() {
     correctConfigValue();
 
-    ZegoUIKitPrebuiltVideoConferenceConfig config = widget.config;
-    if (!kIsWeb) {
-      assert(widget.appSign.isNotEmpty);
-      initPermissions().then((value) {
-        ZegoUIKit().login(widget.userID, widget.userName).then((value) {
-          ZegoUIKit()
-              .init(appID: widget.appID, appSign: widget.appSign)
-              .then((value) {
-            ZegoUIKit()
-              ..useFrontFacingCamera(true)
-              ..updateVideoViewMode(
-                  config.audioVideoViewConfig.useVideoViewAspectFill)
-              ..enableVideoMirroring(config.audioVideoViewConfig.isVideoMirror)
-              ..turnCameraOn(config.turnOnCameraWhenJoining)
-              ..turnMicrophoneOn(config.turnOnMicrophoneWhenJoining)
-              ..setAudioOutputToSpeaker(config.useSpeakerWhenJoining)
-              ..joinRoom(widget.conferenceID);
-          });
-        });
-      });
-    } else {
-      assert(widget.tokenServerUrl.isNotEmpty);
-      ZegoUIKit().login(widget.userID, widget.userName).then((value) {
+    final config = widget.config;
+    assert(widget.appSign.isNotEmpty);
+    initPermissions().then((value) {
+      ZegoUIKit().login(widget.userID, widget.userName);
+      ZegoUIKit()
+          .init(appID: widget.appID, appSign: widget.appSign)
+          .then((value) {
         ZegoUIKit()
-            .init(appID: widget.appID, tokenServerUrl: widget.tokenServerUrl)
-            .then((value) {
-          ZegoUIKit()
-            ..updateVideoViewMode(
-                config.audioVideoViewConfig.useVideoViewAspectFill)
-            ..enableVideoMirroring(config.audioVideoViewConfig.isVideoMirror)
-            ..turnCameraOn(config.turnOnCameraWhenJoining)
-            ..turnMicrophoneOn(config.turnOnMicrophoneWhenJoining)
-            ..setAudioOutputToSpeaker(config.useSpeakerWhenJoining);
-
-          getToken(widget.userID).then((token) {
-            assert(token.isNotEmpty);
-            ZegoUIKit().joinRoom(widget.conferenceID, token: token);
-          });
-        });
+          ..useFrontFacingCamera(true)
+          ..updateVideoViewMode(
+              config.audioVideoViewConfig.useVideoViewAspectFill)
+          ..enableVideoMirroring(config.audioVideoViewConfig.isVideoMirror)
+          ..turnCameraOn(config.turnOnCameraWhenJoining)
+          ..turnMicrophoneOn(config.turnOnMicrophoneWhenJoining)
+          ..setAudioOutputToSpeaker(config.useSpeakerWhenJoining)
+          ..joinRoom(widget.conferenceID);
       });
-    }
+    });
   }
 
   void correctConfigValue() {
     if (widget.config.bottomMenuBarConfig.maxCount > 5) {
       widget.config.bottomMenuBarConfig.maxCount = 5;
       ZegoLoggerService.logInfo(
-        'menu bar buttons limited count\'s value  is exceeding the maximum limit',
-        tag: "video conference",
-        subTag: "prebuilt",
+        "menu bar buttons limited count's value  is exceeding the maximum limit",
+        tag: 'video conference',
+        subTag: 'prebuilt',
       );
     }
   }
@@ -270,7 +231,10 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   }
 
   Widget notificationMessageItemBuilder(
-      BuildContext context, ZegoInRoomMessage message, Map extraInfo) {
+    BuildContext context,
+    ZegoInRoomMessage message,
+    Map<String, dynamic> extraInfo,
+  ) {
     return ZegoInRoomNotificationViewItem(
       maxLines: 3,
       user: message.user,
@@ -280,19 +244,25 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   }
 
   Widget notificationUserJoinItemBuilder(
-      BuildContext context, ZegoUIKitUser user, Map extraInfo) {
+    BuildContext context,
+    ZegoUIKitUser user,
+    Map<String, dynamic> extraInfo,
+  ) {
     return ZegoInRoomNotificationViewItem(
       user: user,
-      message: "joins the conference.",
+      message: 'joins the conference.',
       isHorizontal: false,
     );
   }
 
   Widget notificationUserLeaveItemBuilder(
-      BuildContext context, ZegoUIKitUser user, Map extraInfo) {
+    BuildContext context,
+    ZegoUIKitUser user,
+    Map<String, dynamic> extraInfo,
+  ) {
     return ZegoInRoomNotificationViewItem(
       user: user,
-      message: "left the conference.",
+      message: 'left the conference.',
       isHorizontal: false,
     );
   }
@@ -333,24 +303,12 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     );
   }
 
-  /// Get your token from tokenServer
-  Future<String> getToken(String userID) async {
-    final response = await http
-        .get(Uri.parse('${widget.tokenServerUrl}/access_token?uid=$userID'));
-    if (response.statusCode == 200) {
-      final jsonObj = json.decode(response.body);
-      return jsonObj['token'];
-    } else {
-      return "";
-    }
-  }
-
   Future<bool> onLeaveConfirmation(BuildContext context) async {
     if (widget.config.leaveConfirmDialogInfo == null) {
       return true;
     }
 
-    return await showAlertDialog(
+    return showAlertDialog(
       context,
       widget.config.leaveConfirmDialogInfo!.title,
       widget.config.leaveConfirmDialogInfo!.message,
@@ -380,7 +338,11 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   }
 
   Widget audioVideoViewForeground(
-      BuildContext context, Size size, ZegoUIKitUser? user, Map extraInfo) {
+    BuildContext context,
+    Size size,
+    ZegoUIKitUser? user,
+    Map<String, dynamic> extraInfo,
+  ) {
     if (extraInfo[ZegoViewBuilderMapExtraInfoKey.isScreenSharingView.name]
             as bool? ??
         false) {
@@ -389,8 +351,12 @@ class _ZegoUIKitPrebuiltVideoConferenceState
 
     return Stack(
       children: [
-        widget.config.audioVideoViewConfig.foregroundBuilder
-                ?.call(context, size, user, extraInfo) ??
+        widget.config.audioVideoViewConfig.foregroundBuilder?.call(
+              context,
+              size,
+              user,
+              extraInfo,
+            ) ??
             Container(color: Colors.transparent),
         ZegoAudioVideoForeground(
           size: size,
@@ -407,14 +373,22 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   }
 
   Widget audioVideoViewBackground(
-      BuildContext context, Size size, ZegoUIKitUser? user, Map extraInfo) {
-    var backgroundColor = const Color(0xff4A4B4D);
+    BuildContext context,
+    Size size,
+    ZegoUIKitUser? user,
+    Map<String, dynamic> extraInfo,
+  ) {
+    const backgroundColor = Color(0xff4A4B4D);
 
     return Stack(
       children: [
         Container(color: backgroundColor),
-        widget.config.audioVideoViewConfig.backgroundBuilder
-                ?.call(context, size, user, extraInfo) ??
+        widget.config.audioVideoViewConfig.backgroundBuilder?.call(
+              context,
+              size,
+              user,
+              extraInfo,
+            ) ??
             Container(color: Colors.transparent),
       ],
     );

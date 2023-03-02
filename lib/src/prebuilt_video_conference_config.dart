@@ -194,7 +194,7 @@ class ZegoTopMenuBarConfig {
     ],
     this.style = ZegoMenuBarStyle.dark,
     this.extendButtons = const [],
-    this.title = "Conference",
+    this.title = 'Conference',
   });
 }
 
@@ -260,10 +260,10 @@ class ZegoLeaveConfirmDialogInfo {
   String confirmButtonName;
 
   ZegoLeaveConfirmDialogInfo({
-    this.title = "Leave the conference",
-    this.message = "Are you sure to leave the conference?",
-    this.cancelButtonName = "Cancel",
-    this.confirmButtonName = "OK",
+    this.title = 'Leave the conference',
+    this.message = 'Are you sure to leave the conference?',
+    this.cancelButtonName = 'Cancel',
+    this.confirmButtonName = 'OK',
   });
 }
 

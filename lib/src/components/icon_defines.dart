@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class PrebuiltVideoConferenceImage {
   static Image asset(String name) {
-    return Image.asset(name, package: "zego_uikit_prebuilt_video_conference");
+    return Image.asset(name, package: 'zego_uikit_prebuilt_video_conference');
   }
 }
 

@@ -9,11 +9,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zego_uikit/zego_uikit.dart';
 
 // Project imports:
+import 'package:zego_uikit_prebuilt_video_conference/src/components/icon_defines.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/components/member/member_list_button.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/components/message/in_room_message_button.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_config.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_defines.dart';
-import 'icon_defines.dart';
-import 'member/member_list_button.dart';
-import 'message/in_room_message_button.dart';
 
 class ZegoTopMenuBar extends StatefulWidget {
   final ZegoUIKitPrebuiltVideoConferenceConfig config;
@@ -122,7 +122,7 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
   }
 
   List<Widget> getDisplayButtons(BuildContext context) {
-    var buttons = [
+    final buttons = [
       ...getDefaultButtons(context),
       ...widget.config.topMenuBarConfig.extendButtons
           .map((extendButton) => buttonWrapper(child: extendButton))
@@ -130,7 +130,7 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
 
     /// limited item count display on menu bar,
     /// if this count is exceeded, Trim down the extra buttons
-    const int maxCount = 3;
+    const maxCount = 3;
     if (buttons.length > maxCount) {
       return buttons.sublist(0, maxCount);
     }
@@ -268,7 +268,7 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
                   PrebuiltVideoConferenceIconUrls.topLeave),
               backgroundColor: Colors.transparent),
           onLeaveConfirmation: (context) async {
-            return await widget.config.onLeaveConfirmation!(context);
+            return widget.config.onLeaveConfirmation!(context);
           },
           onPress: () {
             if (widget.config.onLeave != null) {

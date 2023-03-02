@@ -44,10 +44,10 @@ class _ZegoVideoConferenceMessageListSheetState
 
   @override
   Widget build(BuildContext context) {
-    double viewHeight = MediaQuery.of(context).size.height * 0.85;
-    double bottomBarHeight = 110.h;
-    double headerHeight = 98.h;
-    double lineHeight = 1.r;
+    final viewHeight = MediaQuery.of(context).size.height * 0.85;
+    final bottomBarHeight = 110.h;
+    final headerHeight = 98.h;
+    final lineHeight = 1.r;
 
     return Stack(
       children: [
@@ -79,7 +79,7 @@ class _ZegoVideoConferenceMessageListSheetState
       bottom: 0,
       height: height,
       child: ZegoInRoomMessageInput(
-        placeHolder: "Send a message to everyone",
+        placeHolder: 'Send a message to everyone',
         autofocus: false,
         focusNotifier: focusNotifier,
       ),
@@ -140,7 +140,7 @@ class _ZegoVideoConferenceMessageListSheetState
           ),
           SizedBox(width: 10.r),
           Text(
-            "Chat",
+            'Chat',
             style: TextStyle(
               fontSize: 36.0.r,
               color: const Color(0xffffffff),

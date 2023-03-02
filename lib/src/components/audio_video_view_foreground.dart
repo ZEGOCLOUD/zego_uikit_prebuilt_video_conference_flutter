@@ -30,7 +30,7 @@ class ZegoAudioVideoForeground extends StatelessWidget {
       return Container(color: Colors.transparent);
     }
 
-    return LayoutBuilder(builder: ((context, constraints) {
+    return LayoutBuilder(builder: (context, constraints) {
       return Container(
         padding: const EdgeInsets.all(5),
         child: Stack(
@@ -60,7 +60,7 @@ class ZegoAudioVideoForeground extends StatelessWidget {
           ],
         ),
       );
-    }));
+    });
   }
 
   Widget userName(BuildContext context, double maxWidth) {
@@ -70,7 +70,7 @@ class ZegoAudioVideoForeground extends StatelessWidget {
               maxWidth: maxWidth,
             ),
             child: Text(
-              user?.name ?? "",
+              user?.name ?? '',
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: 24.0.r,

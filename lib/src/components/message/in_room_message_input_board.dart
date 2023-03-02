@@ -10,7 +10,7 @@ class ZegoInRoomMessageInputBoard extends ModalRoute<String> {
   final String placeHolder;
 
   ZegoInRoomMessageInputBoard({
-    this.placeHolder = "Say something...",
+    this.placeHolder = 'Say something...',
     this.valueNotifier,
     this.focusNotifier,
   }) : super();

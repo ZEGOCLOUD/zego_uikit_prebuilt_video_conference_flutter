@@ -9,10 +9,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zego_uikit/zego_uikit.dart';
 
 // Project imports:
+import 'package:zego_uikit_prebuilt_video_conference/src/components/member/member_list_button.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/components/message/in_room_message_button.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_config.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_defines.dart';
-import 'member/member_list_button.dart';
-import 'message/in_room_message_button.dart';
 
 class ZegoBottomMenuBar extends StatefulWidget {
   final ZegoUIKitPrebuiltVideoConferenceConfig config;
@@ -97,13 +97,13 @@ class _ZegoBottomMenuBarState extends State<ZegoBottomMenuBar> {
   }
 
   List<Widget> getDisplayButtons(BuildContext context) {
-    List<Widget> buttonList = [
+    final buttonList = <Widget>[
       ...getDefaultButtons(context),
       ...widget.config.bottomMenuBarConfig.extendButtons
           .map((extendButton) => buttonWrapper(child: extendButton))
     ];
 
-    List<Widget> displayButtonList = [];
+    var displayButtonList = <Widget>[];
     if (buttonList.length > widget.config.bottomMenuBarConfig.maxCount) {
       /// the list count exceeds the limit, so divided into two parts,
       /// one part display in the Menu bar, the other part display in the menu with more buttons
@@ -114,7 +114,7 @@ class _ZegoBottomMenuBarState extends State<ZegoBottomMenuBar> {
       displayButtonList.add(
         buttonWrapper(
           child: ZegoMoreButton(menuButtonListFunc: () {
-            List<Widget> buttonList = [
+            final buttonList = <Widget>[
               ...getDefaultButtons(context, cameraDefaultValueFunc: () {
                 return ZegoUIKit()
                     .getCameraStateNotifier(ZegoUIKit().getLocalUser().id)
@@ -126,9 +126,7 @@ class _ZegoBottomMenuBarState extends State<ZegoBottomMenuBar> {
               }),
               ...widget.config.bottomMenuBarConfig.extendButtons
                   .map((extendButton) => buttonWrapper(child: extendButton))
-            ];
-            buttonList.removeRange(
-                0, widget.config.bottomMenuBarConfig.maxCount - 1);
+            ]..removeRange(0, widget.config.bottomMenuBarConfig.maxCount - 1);
 
             return buttonList;
           }),
@@ -242,7 +240,7 @@ class _ZegoBottomMenuBarState extends State<ZegoBottomMenuBar> {
           buttonSize: buttonSize,
           iconSize: iconSize,
           onLeaveConfirmation: (context) async {
-            return await widget.config.onLeaveConfirmation!(context);
+            return widget.config.onLeaveConfirmation!(context);
           },
           onPress: () {
             if (widget.config.onLeave != null) {

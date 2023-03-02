@@ -10,7 +10,7 @@ import 'package:zego_uikit/zego_uikit.dart';
 
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/components/icon_defines.dart';
-import 'in_room_message_list_sheet.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/components/message/in_room_message_list_sheet.dart';
 
 /// switch cameras
 class ZegoInRoomMessageButton extends StatefulWidget {
@@ -52,8 +52,8 @@ class _ZegoInRoomMessageButtonState extends State<ZegoInRoomMessageButton> {
 
   @override
   Widget build(BuildContext context) {
-    Size containerSize = widget.buttonSize ?? Size(96.r, 96.r);
-    Size sizeBoxSize = widget.iconSize ?? Size(56.r, 56.r);
+    final containerSize = widget.buttonSize ?? Size(96.r, 96.r);
+    final sizeBoxSize = widget.iconSize ?? Size(56.r, 56.r);
 
     return GestureDetector(
       onTap: () {
