@@ -13,6 +13,7 @@ import 'package:zego_uikit/zego_uikit.dart';
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/components/components.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_config.dart';
+import 'package:zego_uikit_prebuilt_video_conference/zego_uikit_prebuilt_video_conference.dart';
 
 class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
   const ZegoUIKitPrebuiltVideoConference({
@@ -23,6 +24,7 @@ class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
     required this.conferenceID,
     required this.userID,
     required this.userName,
+    this.controller,
     required this.config,
   }) : super(key: key);
 
@@ -42,6 +44,8 @@ class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
   final String userName;
 
   final ZegoUIKitPrebuiltVideoConferenceConfig config;
+
+  final ZegoUIKitPrebuiltVideoConferenceController? controller;
 
   ///
   final Size? appDesignSize;
@@ -66,7 +70,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log('version: zego_uikit_prebuilt_video_conference:2.0.1; $version');
+      log('version: zego_uikit_prebuilt_video_conference:2.1.0; $version');
     });
 
     initContext();
@@ -199,6 +203,8 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           layout: widget.config.layout!,
           backgroundBuilder: audioVideoViewBackground,
           foregroundBuilder: audioVideoViewForeground,
+          screenSharingViewController:
+              widget.controller?.screenSharingViewController,
           avatarConfig: ZegoAvatarConfig(
             showInAudioMode:
                 widget.config.audioVideoViewConfig.showAvatarInAudioMode,

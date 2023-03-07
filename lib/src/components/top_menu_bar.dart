@@ -303,6 +303,12 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
           itemBuilder: widget.config.chatViewConfig.itemBuilder,
           viewVisibleNotifier: widget.chatViewVisibleNotifier,
         );
+      case ZegoMenuBarButtonName.toggleScreenSharingButton:
+        return ZegoScreenSharingToggleButton(
+          buttonSize: buttonSize,
+          iconSize: iconSize,
+          onPressed: (isScreenSharing) {},
+        );
     }
   }
 }
