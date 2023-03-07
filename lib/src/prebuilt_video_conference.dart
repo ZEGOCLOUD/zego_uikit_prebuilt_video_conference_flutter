@@ -17,6 +17,7 @@ import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conferen
 class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
   const ZegoUIKitPrebuiltVideoConference({
     Key? key,
+    this.appDesignSize,
     required this.appID,
     required this.appSign,
     required this.conferenceID,
@@ -41,6 +42,9 @@ class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
   final String userName;
 
   final ZegoUIKitPrebuiltVideoConferenceConfig config;
+
+  ///
+  final Size? appDesignSize;
 
   @override
   State<ZegoUIKitPrebuiltVideoConference> createState() =>
@@ -74,6 +78,10 @@ class _ZegoUIKitPrebuiltVideoConferenceState
 
     ZegoUIKit().leaveRoom();
     // await ZegoUIKit().uninit();
+
+    if (widget.appDesignSize != null) {
+      ScreenUtil.init(context, designSize: widget.appDesignSize!);
+    }
   }
 
   @override
