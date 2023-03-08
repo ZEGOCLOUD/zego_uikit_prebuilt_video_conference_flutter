@@ -191,6 +191,7 @@ class ZegoTopMenuBarConfig {
     this.buttons = const [
       ZegoMenuBarButtonName.showMemberListButton,
       ZegoMenuBarButtonName.switchCameraButton,
+      ZegoMenuBarButtonName.toggleScreenSharingButton,
     ],
     this.style = ZegoMenuBarStyle.dark,
     this.extendButtons = const [],
