@@ -1,6 +1,11 @@
+## 2.1.1
+
+- update dependency
+
 ## 2.1.0
 
 - support screen share
+- update dependency
 
 ## 2.0.1
 - remove login token
