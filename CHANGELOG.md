@@ -1,3 +1,6 @@
+## 2.1.2
+- fixed landscape not displaying full web screen sharing content
+
 ## 2.1.1
 
 - update dependency

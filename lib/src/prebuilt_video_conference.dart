@@ -70,7 +70,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log('version: zego_uikit_prebuilt_video_conference:2.1.1; $version');
+      log('version: zego_uikit_prebuilt_video_conference:2.1.2; $version');
     });
 
     initContext();
@@ -108,7 +108,10 @@ class _ZegoUIKitPrebuiltVideoConferenceState
                 return clickListener(
                   child: Stack(
                     children: [
-                      audioVideoContainer(constraints.maxHeight),
+                      audioVideoContainer(
+                        constraints.maxWidth,
+                        constraints.maxHeight,
+                      ),
                       if (widget.config.topMenuBarConfig.isVisible)
                         topMenuBar()
                       else
@@ -192,12 +195,12 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     );
   }
 
-  Widget audioVideoContainer(double height) {
+  Widget audioVideoContainer(double width, double height) {
     return Positioned(
       top: 0,
       left: 0,
       child: SizedBox(
-        width: 750.w,
+        width: width,
         height: height,
         child: ZegoAudioVideoContainer(
           layout: widget.config.layout!,
@@ -222,7 +225,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       valueListenable: barVisibilityNotifier,
       builder: (context, isBarVisible, _) {
         return Positioned(
-          left: 32.r,
+          // left: 32.r,
           bottom: isBarVisible ? 232.r : 24.r,
           child: ConstrainedBox(
             constraints: BoxConstraints.loose(Size(540.r, 400.r)),
