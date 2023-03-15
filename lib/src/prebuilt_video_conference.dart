@@ -70,7 +70,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log('version: zego_uikit_prebuilt_video_conference:2.1.2; $version');
+      log('version: zego_uikit_prebuilt_video_conference:2.1.3; $version');
     });
 
     initContext();
@@ -141,8 +141,12 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   void initContext() {
     correctConfigValue();
 
-    final config = widget.config;
+    assert(widget.userID.isNotEmpty);
+    assert(widget.userName.isNotEmpty);
+    assert(widget.appID > 0);
     assert(widget.appSign.isNotEmpty);
+
+    final config = widget.config;
     initPermissions().then((value) {
       ZegoUIKit().login(widget.userID, widget.userName);
       ZegoUIKit()
@@ -155,8 +159,19 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           ..enableVideoMirroring(config.audioVideoViewConfig.isVideoMirror)
           ..turnCameraOn(config.turnOnCameraWhenJoining)
           ..turnMicrophoneOn(config.turnOnMicrophoneWhenJoining)
-          ..setAudioOutputToSpeaker(config.useSpeakerWhenJoining)
-          ..joinRoom(widget.conferenceID);
+          ..setAudioOutputToSpeaker(config.useSpeakerWhenJoining);
+
+        ZegoUIKit().joinRoom(widget.conferenceID).then((result) async {
+          assert(result.errorCode == 0);
+
+          if (result.errorCode != 0) {
+            ZegoLoggerService.logInfo(
+              'failed to login room:${result.errorCode},${result.extendedData}',
+              tag: 'video conference',
+              subTag: 'prebuilt',
+            );
+          }
+        });
       });
     });
   }
