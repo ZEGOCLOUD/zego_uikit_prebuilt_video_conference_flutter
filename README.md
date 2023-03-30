@@ -2,6 +2,10 @@
 # Overview
 - - -
 
+[![](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/EtNRATttyp)
+
+> If you have any questions regarding bugs and feature requests, visit the [ZEGOCLOUD community](https://discord.gg/EtNRATttyp) .
+
 
 **Video Conference Kit** is a prebuilt feature-rich component, which enables you to build video conferences into your app in minutes. 
 
