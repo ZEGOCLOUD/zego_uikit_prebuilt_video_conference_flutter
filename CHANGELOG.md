@@ -1,3 +1,6 @@
+## 2.1.4
+- fixed appDesignSize for ScreenUtil that didn't work
+
 ## 2.1.3
 - add assert to key parameters to ensure prebuilt run normally
 

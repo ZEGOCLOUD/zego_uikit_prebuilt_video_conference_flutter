@@ -8,24 +8,22 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:zego_uikit/zego_uikit.dart';
 
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/components/components.dart';
-import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_config.dart';
 import 'package:zego_uikit_prebuilt_video_conference/zego_uikit_prebuilt_video_conference.dart';
 
 class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
   const ZegoUIKitPrebuiltVideoConference({
     Key? key,
-    this.appDesignSize,
     required this.appID,
     required this.appSign,
     required this.conferenceID,
     required this.userID,
     required this.userName,
-    this.controller,
     required this.config,
+    this.controller,
+    this.appDesignSize,
   }) : super(key: key);
 
   /// you need to fill in the appID you obtained from console.zegocloud.com
@@ -62,6 +60,8 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   var barRestartHideTimerNotifier = ValueNotifier<int>(0);
   var chatViewVisibleNotifier = ValueNotifier<bool>(false);
 
+  late NavigatorState navigatorState;
+
   bool get isLightStyle =>
       ZegoMenuBarStyle.light == widget.config.bottomMenuBarConfig.style;
 
@@ -84,8 +84,17 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     // await ZegoUIKit().uninit();
 
     if (widget.appDesignSize != null) {
-      ScreenUtil.init(context, designSize: widget.appDesignSize!);
+      ScreenUtil.init(
+        navigatorState.context,
+        designSize: widget.appDesignSize!,
+      );
     }
+  }
+
+  @override
+  void didChangeDependencies() {
+    navigatorState = Navigator.of(context);
+    super.didChangeDependencies();
   }
 
   @override
