@@ -1,3 +1,14 @@
+
+## 2.2.2
+- mark 'appDesignSize' as Deprecated
+
+## 2.2.1
+- Update dependencies
+
+## 2.2.0
+- To differentiate the 'appDesignSize' between the App and ZegoUIKitPrebuiltVideoConference, we introduced the 'flutter_screenutil_zego' library and removed the 'appDesignSize' parameter from the
+  ZegoUIKitPrebuiltVideoConference that was previously present.
+
 ## 2.1.4
 - fixed appDesignSize for ScreenUtil that didn't work
 
