@@ -19,6 +19,7 @@ class ZegoMemberListButton extends StatefulWidget {
     this.iconSize,
     this.buttonSize,
     this.config,
+    this.itemBuilder,
   }) : super(key: key);
 
   final ZegoMemberListConfig? config;
@@ -33,6 +34,8 @@ class ZegoMemberListButton extends StatefulWidget {
 
   /// the size of button
   final Size? buttonSize;
+
+  final ZegoMemberListItemBuilder? itemBuilder;
 
   @override
   State<ZegoMemberListButton> createState() => _ZegoMemberListButtonState();
@@ -53,6 +56,7 @@ class _ZegoMemberListButtonState extends State<ZegoMemberListButton> {
       onTap: () {
         showMemberListSheet(
           context,
+          itemBuilder: widget.itemBuilder,
           showCameraState: widget.config?.showCameraState ?? true,
           showMicrophoneState: widget.config?.showMicrophoneState ?? true,
         );

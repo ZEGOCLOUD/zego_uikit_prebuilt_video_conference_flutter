@@ -1,3 +1,5 @@
+## 2.2.3
+- Fix some issues
 
 ## 2.2.2
 - mark 'appDesignSize' as Deprecated

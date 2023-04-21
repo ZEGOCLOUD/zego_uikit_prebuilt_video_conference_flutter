@@ -11,9 +11,11 @@ import 'package:zego_uikit_prebuilt_video_conference/src/components/icon_defines
 class ZegoMemberListSheet extends StatefulWidget {
   final bool showMicrophoneState;
   final bool showCameraState;
+  final ZegoMemberListItemBuilder? itemBuilder;
 
   const ZegoMemberListSheet({
     Key? key,
+    this.itemBuilder,
     this.showMicrophoneState = true,
     this.showCameraState = true,
   }) : super(key: key);
@@ -43,6 +45,7 @@ class _ZegoMemberListSheetState extends State<ZegoMemberListSheet> {
           SizedBox(
             height: constraints.maxHeight - 1.r - 98.h,
             child: ZegoMemberList(
+              itemBuilder: widget.itemBuilder,
               showCameraState: widget.showCameraState,
               showMicrophoneState: widget.showMicrophoneState,
             ),
@@ -87,6 +90,7 @@ void showMemberListSheet(
   BuildContext context, {
   showMicrophoneState = true,
   showCameraState = true,
+  ZegoMemberListItemBuilder? itemBuilder,
 }) {
   showModalBottomSheet(
     barrierColor: ZegoUIKitDefaultTheme.viewBarrierColor,
@@ -109,6 +113,7 @@ void showMemberListSheet(
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             child: ZegoMemberListSheet(
+              itemBuilder: itemBuilder,
               showCameraState: showCameraState,
               showMicrophoneState: showMicrophoneState,
             ),
