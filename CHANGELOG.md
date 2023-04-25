@@ -1,3 +1,7 @@
+
+## 2.2.4
+- Update dependencies
+
 ## 2.2.3
 - Fix some issues
 
