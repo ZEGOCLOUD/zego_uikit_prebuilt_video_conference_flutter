@@ -1,3 +1,5 @@
+## 2.2.5
+- fix import issues
 
 ## 2.2.4
 - Update dependencies
