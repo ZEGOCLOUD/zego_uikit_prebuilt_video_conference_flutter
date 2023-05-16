@@ -5,7 +5,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_screenutil_zego/flutter_screenutil_zego.dart';
 import 'package:zego_uikit/zego_uikit.dart';
 
 // Project imports:
@@ -15,6 +14,7 @@ import 'package:zego_uikit_prebuilt_video_conference/src/components/message/in_r
 import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_config.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_defines.dart';
 
+/// @nodoc
 class ZegoTopMenuBar extends StatefulWidget {
   final ZegoUIKitPrebuiltVideoConferenceConfig config;
   final Size buttonSize;
@@ -45,6 +45,7 @@ class ZegoTopMenuBar extends StatefulWidget {
   State<ZegoTopMenuBar> createState() => _ZegoTopMenuBarState();
 }
 
+/// @nodoc
 class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
   Timer? hideTimerOfMenuBar;
 

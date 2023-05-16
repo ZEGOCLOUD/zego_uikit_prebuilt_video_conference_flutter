@@ -1,3 +1,12 @@
+## 2.2.8
+- Update dependencies
+
+## 2.2.7
+- Update comments
+
+## 2.2.6
+- deprecate flutter_screenutil_zego package
+
 ## 2.2.5
 - fix import issues
 

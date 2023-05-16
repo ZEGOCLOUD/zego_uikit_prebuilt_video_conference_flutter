@@ -7,13 +7,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_screenutil_zego/flutter_screenutil_zego.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:zego_uikit/zego_uikit.dart';
 
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/components/components.dart';
 import 'package:zego_uikit_prebuilt_video_conference/zego_uikit_prebuilt_video_conference.dart';
 
+
+/// Video Conference Widget.
+/// You can embed this widget into any page of your project to integrate the functionality of a video conference.
+/// You can refer to our [documentation](https://docs.zegocloud.com/article/14902),
+/// or our [sample code](https://github.com/ZEGOCLOUD/zego_uikit_prebuilt_video_conference_example_flutter).
 class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
   const ZegoUIKitPrebuiltVideoConference({
     Key? key,
@@ -27,32 +32,42 @@ class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
     @Deprecated('Since 2.2.1') this.appDesignSize,
   }) : super(key: key);
 
-  /// you need to fill in the appID you obtained from console.zegocloud.com
+  /// You can create a project and obtain an appID from the [ZEGOCLOUD Admin Console](https://console.zegocloud.com).
   final int appID;
+
+  /// You can create a project and obtain an appSign from the [ZEGOCLOUD Admin Console](https://console.zegocloud.com).
+  final String appSign;
+
+  /// The ID of the currently logged-in user.
+  /// It can be any valid string.
+  /// Typically, you would use the ID from your own user system, such as Firebase.
+  final String userID;
+
+  /// The name of the currently logged-in user.
+  /// It can be any valid string.
+  /// Typically, you would use the name from your own user system, such as Firebase.
+  final String userName;
 
   /// You can customize the conferenceID arbitrarily,
   /// just need to know: users who use the same conferenceID can talk with each other.
   final String conferenceID;
 
-  /// for Android/iOS
-  /// you need to fill in the appID you obtained from console.zegocloud.com
-  final String appSign;
-
-  /// local user info
-  final String userID;
-  final String userName;
-
+  /// Initialize the configuration for the video conference.
   final ZegoUIKitPrebuiltVideoConferenceConfig config;
 
+  /// You can invoke the methods provided by [ZegoUIKitPrebuiltVideoConference] through the [controller].
   final ZegoUIKitPrebuiltVideoConferenceController? controller;
 
+  @Deprecated('Since 2.2.1')
   final Size? appDesignSize;
 
+  /// @nodoc
   @override
   State<ZegoUIKitPrebuiltVideoConference> createState() =>
       _ZegoUIKitPrebuiltVideoConferenceState();
 }
 
+/// @nodoc
 class _ZegoUIKitPrebuiltVideoConferenceState
     extends State<ZegoUIKitPrebuiltVideoConference>
     with SingleTickerProviderStateMixin {
@@ -68,7 +83,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log('version: zego_uikit_prebuilt_video_conference:2.2.4; $version');
+      log('version: zego_uikit_prebuilt_video_conference:2.2.8; $version');
     });
 
     initContext();

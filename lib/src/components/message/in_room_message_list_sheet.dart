@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 
 // Package imports:
-import 'package:flutter_screenutil_zego/flutter_screenutil_zego.dart';
 import 'package:zego_uikit/zego_uikit.dart';
 
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/components/icon_defines.dart';
 
+/// @nodoc
 class ZegoVideoConferenceMessageListSheet extends StatefulWidget {
   const ZegoVideoConferenceMessageListSheet({
     Key? key,
