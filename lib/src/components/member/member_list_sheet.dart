@@ -12,10 +12,12 @@ class ZegoMemberListSheet extends StatefulWidget {
   final bool showMicrophoneState;
   final bool showCameraState;
   final ZegoMemberListItemBuilder? itemBuilder;
+  final ZegoAvatarBuilder? avatarBuilder;
 
   const ZegoMemberListSheet({
     Key? key,
     this.itemBuilder,
+    this.avatarBuilder,
     this.showMicrophoneState = true,
     this.showCameraState = true,
   }) : super(key: key);
@@ -41,12 +43,13 @@ class _ZegoMemberListSheetState extends State<ZegoMemberListSheet> {
     return LayoutBuilder(builder: (context, constraints) {
       return Column(
         children: [
-          header(98.h),
-          Container(height: 1.r, color: Colors.white.withOpacity(0.15)),
+          header(98.zH),
+          Container(height: 1.zR, color: Colors.white.withOpacity(0.15)),
           SizedBox(
-            height: constraints.maxHeight - 1.r - 98.h,
+            height: constraints.maxHeight - 1.zR - 98.zH,
             child: ZegoMemberList(
               itemBuilder: widget.itemBuilder,
+              avatarBuilder: widget.avatarBuilder,
               showCameraState: widget.showCameraState,
               showMicrophoneState: widget.showMicrophoneState,
             ),
@@ -66,17 +69,17 @@ class _ZegoMemberListSheetState extends State<ZegoMemberListSheet> {
               Navigator.of(context).pop();
             },
             child: SizedBox(
-              width: 70.r,
-              height: 70.r,
+              width: 70.zR,
+              height: 70.zR,
               child: PrebuiltVideoConferenceImage.asset(
                   PrebuiltVideoConferenceIconUrls.back),
             ),
           ),
-          SizedBox(width: 10.r),
+          SizedBox(width: 10.zR),
           Text(
             'Member',
             style: TextStyle(
-              fontSize: 36.0.r,
+              fontSize: 36.0.zR,
               color: const Color(0xffffffff),
               decoration: TextDecoration.none,
             ),
@@ -92,6 +95,7 @@ void showMemberListSheet(
   showMicrophoneState = true,
   showCameraState = true,
   ZegoMemberListItemBuilder? itemBuilder,
+  ZegoAvatarBuilder? avatarBuilder,
 }) {
   showModalBottomSheet(
     barrierColor: ZegoUIKitDefaultTheme.viewBarrierColor,
@@ -115,6 +119,7 @@ void showMemberListSheet(
             padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
             child: ZegoMemberListSheet(
               itemBuilder: itemBuilder,
+              avatarBuilder: avatarBuilder,
               showCameraState: showCameraState,
               showMicrophoneState: showMicrophoneState,
             ),

@@ -99,12 +99,14 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         SizedBox(
-          width: 27.r,
+          width: 27.zR,
         ),
         Text(
           widget.config.topMenuBarConfig.title,
           style: TextStyle(
-              color: Colors.white, fontSize: 36.r, fontWeight: FontWeight.w500),
+              color: Colors.white,
+              fontSize: 36.zR,
+              fontWeight: FontWeight.w500),
         ),
       ],
     );
@@ -116,7 +118,7 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
       children: [
         ...getDisplayButtons(context),
         SizedBox(
-          width: 27.r,
+          width: 27.zR,
         )
       ],
     );
@@ -189,8 +191,8 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
 
   Widget generateDefaultButtonsByEnum(
       BuildContext context, ZegoMenuBarButtonName type) {
-    final buttonSize = Size(70.r, 70.r);
-    final iconSize = Size(64.r, 64.r);
+    final buttonSize = Size(70.zR, 70.zR);
+    final iconSize = Size(64.zR, 64.zR);
 
     switch (type) {
       case ZegoMenuBarButtonName.toggleMicrophoneButton:
@@ -283,7 +285,7 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
       case ZegoMenuBarButtonName.showMemberListButton:
         return ZegoMemberListButton(
           config: widget.config.memberListConfig,
-          itemBuilder: widget.config.memberListConfig.itemBuilder,
+          avatarBuilder: widget.config.avatarBuilder,
           buttonSize: buttonSize,
           iconSize: iconSize,
           icon: ButtonIcon(

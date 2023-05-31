@@ -83,7 +83,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log('version: zego_uikit_prebuilt_video_conference:2.2.8; $version');
+      log('version: zego_uikit_prebuilt_video_conference:2.2.10; $version');
     });
 
     initContext();
@@ -106,7 +106,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         onWillPop: () async {
           return await widget.config.onLeaveConfirmation!(context) ?? false;
         },
-        child: ScreenUtilInit(
+        child: ZegoScreenUtilInit(
           designSize: const Size(750, 1334),
           minTextAdapt: true,
           splitScreenMode: true,
@@ -249,9 +249,9 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       builder: (context, isBarVisible, _) {
         return Positioned(
           // left: 32.r,
-          bottom: isBarVisible ? 232.r : 24.r,
+          bottom: isBarVisible ? 232.zR : 24.zR,
           child: ConstrainedBox(
-            constraints: BoxConstraints.loose(Size(540.r, 400.r)),
+            constraints: BoxConstraints.loose(Size(540.zR, 400.zR)),
             child: ZegoInRoomNotificationView(
               notifyUserLeave:
                   widget.config.notificationViewConfig.notifyUserLeave,
@@ -313,11 +313,11 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       right: 0,
       top: 0,
       child: ZegoTopMenuBar(
-        buttonSize: Size(96.r, 96.r),
+        buttonSize: Size(96.zR, 96.zR),
         config: widget.config,
         visibilityNotifier: barVisibilityNotifier,
         restartHideTimerNotifier: barRestartHideTimerNotifier,
-        height: 88.r,
+        height: 88.zR,
         backgroundColor: isLightStyle ? null : const Color(0xff262A2D),
         chatViewVisibleNotifier: chatViewVisibleNotifier,
       ),
@@ -330,14 +330,14 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       right: 0,
       bottom: isLightStyle ? 10 : 0,
       child: ZegoBottomMenuBar(
-        buttonSize: Size(96.r, 96.r),
+        buttonSize: Size(96.zR, 96.zR),
         config: widget.config,
         visibilityNotifier: barVisibilityNotifier,
         restartHideTimerNotifier: barRestartHideTimerNotifier,
-        height: isLightStyle ? (96.r + 2 * 3) : 208.r,
+        height: isLightStyle ? (96.zR + 2 * 3) : 208.zR,
         backgroundColor:
             isLightStyle ? null : ZegoUIKitDefaultTheme.viewBackgroundColor,
-        borderRadius: isLightStyle ? null : 32.r,
+        borderRadius: isLightStyle ? null : 32.zR,
         chatViewVisibleNotifier: chatViewVisibleNotifier,
       ),
     );
@@ -356,7 +356,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         CupertinoDialogAction(
           child: Text(
             widget.config.leaveConfirmDialogInfo!.cancelButtonName,
-            style: TextStyle(fontSize: 26.r, color: const Color(0xff0055FF)),
+            style: TextStyle(fontSize: 26.zR, color: const Color(0xff0055FF)),
           ),
           onPressed: () {
             //  pop this dialog
@@ -366,7 +366,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         CupertinoDialogAction(
           child: Text(
             widget.config.leaveConfirmDialogInfo!.confirmButtonName,
-            style: TextStyle(fontSize: 26.r, color: Colors.white),
+            style: TextStyle(fontSize: 26.zR, color: Colors.white),
           ),
           onPressed: () {
             //  pop this dialog

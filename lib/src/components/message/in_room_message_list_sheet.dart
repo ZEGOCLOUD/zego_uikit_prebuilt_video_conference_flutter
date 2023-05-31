@@ -45,9 +45,9 @@ class _ZegoVideoConferenceMessageListSheetState
   @override
   Widget build(BuildContext context) {
     final viewHeight = MediaQuery.of(context).size.height * 0.85;
-    final bottomBarHeight = 110.h;
-    final headerHeight = 98.h;
-    final lineHeight = 1.r;
+    final bottomBarHeight = 110.zH;
+    final headerHeight = 98.zH;
+    final lineHeight = 1.zR;
 
     return Stack(
       children: [
@@ -56,7 +56,7 @@ class _ZegoVideoConferenceMessageListSheetState
           left: 0,
           right: 0,
           top: headerHeight,
-          child: Container(height: 1.r, color: Colors.white.withOpacity(0.15)),
+          child: Container(height: 1.zR, color: Colors.white.withOpacity(0.15)),
         ),
         messageList(
           height: viewHeight -
@@ -98,10 +98,10 @@ class _ZegoVideoConferenceMessageListSheetState
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 10.r),
+            padding: EdgeInsets.symmetric(horizontal: 10.zR),
             // height: height,
             child: ConstrainedBox(
-              constraints: BoxConstraints.loose(Size(690.w, height)),
+              constraints: BoxConstraints.loose(Size(690.zW, height)),
               child: Scaffold(
                 resizeToAvoidBottomInset: true,
                 backgroundColor: Colors.transparent,
@@ -132,17 +132,17 @@ class _ZegoVideoConferenceMessageListSheetState
               Navigator.of(context).pop();
             },
             child: SizedBox(
-              width: 70.r,
-              height: 70.r,
+              width: 70.zR,
+              height: 70.zR,
               child: PrebuiltVideoConferenceImage.asset(
                   PrebuiltVideoConferenceIconUrls.back),
             ),
           ),
-          SizedBox(width: 10.r),
+          SizedBox(width: 10.zR),
           Text(
             'Chat',
             style: TextStyle(
-              fontSize: 36.0.r,
+              fontSize: 36.0.zR,
               color: const Color(0xffffffff),
               decoration: TextDecoration.none,
             ),

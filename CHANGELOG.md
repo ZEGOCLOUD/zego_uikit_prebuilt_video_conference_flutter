@@ -1,3 +1,9 @@
+## 2.2.10
+- Fixed an issue where the avatar builder was not working for the member list.
+
+## 2.2.9
+- fix the issue of conflict with extension key of the `flutter_screenutil` package.
+
 ## 2.2.8
 - Update dependencies
 
