@@ -118,6 +118,7 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
 
   /// This callback is triggered after leaving the vide conference.
   /// You can perform business-related prompts or other actions in this callback.
+  /// The default behavior is to return to the previous page. If you override this callback, you must perform the page navigation yourself, otherwise the user will remain on the conference page.
   VoidCallback? onLeave;
 }
 
