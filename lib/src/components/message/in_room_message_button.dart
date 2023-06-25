@@ -10,19 +10,22 @@ import 'package:zego_uikit/zego_uikit.dart';
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/components/icon_defines.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/components/message/in_room_message_list_sheet.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/components/pop_up_manager.dart';
 
 /// @nodoc
 /// switch cameras
 class ZegoInRoomMessageButton extends StatefulWidget {
   const ZegoInRoomMessageButton({
     Key? key,
+    required this.popUpManager,
+    required this.viewVisibleNotifier,
     this.afterClicked,
     this.icon,
     this.iconSize,
     this.buttonSize,
     this.avatarBuilder,
     this.itemBuilder,
-    required this.viewVisibleNotifier,
+    this.rootNavigator = false,
   }) : super(key: key);
 
   final ButtonIcon? icon;
@@ -36,10 +39,14 @@ class ZegoInRoomMessageButton extends StatefulWidget {
   /// the size of button
   final Size? buttonSize;
 
+  final bool rootNavigator;
+
   final ZegoAvatarBuilder? avatarBuilder;
   final ZegoInRoomMessageItemBuilder? itemBuilder;
 
   final ValueNotifier<bool> viewVisibleNotifier;
+
+  final ZegoPopUpManager popUpManager;
 
   @override
   State<ZegoInRoomMessageButton> createState() =>
@@ -64,6 +71,8 @@ class _ZegoInRoomMessageButtonState extends State<ZegoInRoomMessageButton> {
           itemBuilder: widget.itemBuilder,
           visibleNotifier: widget.viewVisibleNotifier,
           scrollController: scrollController,
+          rootNavigator: widget.rootNavigator,
+          popUpManager: widget.popUpManager,
         );
 
         if (widget.afterClicked != null) {

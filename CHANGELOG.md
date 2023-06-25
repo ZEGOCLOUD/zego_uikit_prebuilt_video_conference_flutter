@@ -1,3 +1,6 @@
+## 2.3.0
+- Added logic for being kicked out of the video conference, which will automatically exit and return to the previous page.
+
 ## 2.2.10
 - Fixed an issue where the avatar builder was not working for the member list.
 

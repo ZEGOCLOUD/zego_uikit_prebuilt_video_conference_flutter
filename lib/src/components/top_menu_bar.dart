@@ -11,6 +11,7 @@ import 'package:zego_uikit/zego_uikit.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/components/icon_defines.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/components/member/member_list_button.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/components/message/in_room_message_button.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/components/pop_up_manager.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_config.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_defines.dart';
 
@@ -27,6 +28,7 @@ class ZegoTopMenuBar extends StatefulWidget {
   final Color? backgroundColor;
 
   final ValueNotifier<bool> chatViewVisibleNotifier;
+  final ZegoPopUpManager popUpManager;
 
   const ZegoTopMenuBar({
     Key? key,
@@ -34,6 +36,7 @@ class ZegoTopMenuBar extends StatefulWidget {
     required this.visibilityNotifier,
     required this.restartHideTimerNotifier,
     required this.chatViewVisibleNotifier,
+    required this.popUpManager,
     this.autoHideSeconds = 3,
     this.buttonSize = const Size(60, 60),
     this.height,
@@ -278,7 +281,10 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
               widget.config.onLeave!.call();
             } else {
               /// default behaviour if hand up is null, back to previous page
-              Navigator.of(context).pop();
+              Navigator.of(
+                context,
+                rootNavigator: widget.config.rootNavigator,
+              ).pop();
             }
           },
         );
@@ -293,6 +299,8 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
                 PrebuiltVideoConferenceIconUrls.topMemberNormal),
             backgroundColor: Colors.transparent,
           ),
+          rootNavigator: widget.config.rootNavigator,
+          popUpManager: widget.popUpManager,
         );
       case ZegoMenuBarButtonName.chatButton:
         return ZegoInRoomMessageButton(
@@ -306,6 +314,7 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
           avatarBuilder: widget.config.avatarBuilder,
           itemBuilder: widget.config.chatViewConfig.itemBuilder,
           viewVisibleNotifier: widget.chatViewVisibleNotifier,
+          popUpManager: widget.popUpManager,
         );
       case ZegoMenuBarButtonName.toggleScreenSharingButton:
         return ZegoScreenSharingToggleButton(

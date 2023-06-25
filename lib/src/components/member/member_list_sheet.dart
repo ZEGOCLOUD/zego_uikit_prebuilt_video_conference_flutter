@@ -6,6 +6,7 @@ import 'package:zego_uikit/zego_uikit.dart';
 
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/components/icon_defines.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/components/pop_up_manager.dart';
 
 /// @nodoc
 class ZegoMemberListSheet extends StatefulWidget {
@@ -13,6 +14,7 @@ class ZegoMemberListSheet extends StatefulWidget {
   final bool showCameraState;
   final ZegoMemberListItemBuilder? itemBuilder;
   final ZegoAvatarBuilder? avatarBuilder;
+  final bool rootNavigator;
 
   const ZegoMemberListSheet({
     Key? key,
@@ -20,6 +22,7 @@ class ZegoMemberListSheet extends StatefulWidget {
     this.avatarBuilder,
     this.showMicrophoneState = true,
     this.showCameraState = true,
+    this.rootNavigator = false,
   }) : super(key: key);
 
   @override
@@ -66,7 +69,10 @@ class _ZegoMemberListSheetState extends State<ZegoMemberListSheet> {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.of(context).pop();
+              Navigator.of(
+                context,
+                rootNavigator: widget.rootNavigator,
+              ).pop();
             },
             child: SizedBox(
               width: 70.zR,
@@ -96,7 +102,11 @@ void showMemberListSheet(
   showCameraState = true,
   ZegoMemberListItemBuilder? itemBuilder,
   ZegoAvatarBuilder? avatarBuilder,
+  required ZegoPopUpManager popUpManager,
 }) {
+  final key = DateTime.now().millisecondsSinceEpoch;
+  popUpManager.addAPopUpSheet(key);
+
   showModalBottomSheet(
     barrierColor: ZegoUIKitDefaultTheme.viewBarrierColor,
     backgroundColor: ZegoUIKitDefaultTheme.viewBackgroundColor,
@@ -127,5 +137,7 @@ void showMemberListSheet(
         ),
       );
     },
-  );
+  ).then((value) {
+    popUpManager.removeAPopUpSheet(key);
+  });
 }

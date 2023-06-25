@@ -9,11 +9,13 @@ class ZegoInRoomMessageInputBoard extends ModalRoute<String> {
   final ValueNotifier<String>? valueNotifier;
   final ValueNotifier<bool>? focusNotifier;
   final String placeHolder;
+  final bool rootNavigator;
 
   ZegoInRoomMessageInputBoard({
     this.placeHolder = 'Say something...',
     this.valueNotifier,
     this.focusNotifier,
+    required this.rootNavigator,
   }) : super();
 
   @override
@@ -47,7 +49,10 @@ class ZegoInRoomMessageInputBoard extends ModalRoute<String> {
         children: <Widget>[
           Expanded(
             child: GestureDetector(
-              onTap: () => Navigator.pop(context),
+              onTap: () => Navigator.of(
+                context,
+                rootNavigator: rootNavigator,
+              ).pop(),
               child: Container(color: Colors.transparent),
             ),
           ),
@@ -56,7 +61,10 @@ class ZegoInRoomMessageInputBoard extends ModalRoute<String> {
             valueNotifier: valueNotifier,
             focusNotifier: focusNotifier,
             onSubmit: () {
-              Navigator.pop(context);
+              Navigator.of(
+                context,
+                rootNavigator: rootNavigator,
+              ).pop;
             },
           ),
         ],

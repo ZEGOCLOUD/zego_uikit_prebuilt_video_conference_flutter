@@ -14,6 +14,7 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
     this.turnOnCameraWhenJoining = true,
     this.turnOnMicrophoneWhenJoining = true,
     this.useSpeakerWhenJoining = true,
+    this.rootNavigator = false,
     ZegoPrebuiltAudioVideoViewConfig? audioVideoViewConfig,
     ZegoTopMenuBarConfig? topMenuBarConfig,
     ZegoBottomMenuBarConfig? bottomMenuBarConfig,
@@ -78,6 +79,11 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
   /// Layout-related configuration. You can choose your layout here.
   ZegoLayout? layout;
 
+  /// same as Flutter's Navigator's param
+  /// If `rootNavigator` is set to true, the state from the furthest instance of this class is given instead.
+  /// Useful for pushing contents above all subsequent instances of [Navigator].
+  bool rootNavigator;
+
   /// Use this to customize the avatar, and replace the default avatar with it.
   ///
   /// Example：
@@ -120,6 +126,9 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
   /// You can perform business-related prompts or other actions in this callback.
   /// The default behavior is to return to the previous page. If you override this callback, you must perform the page navigation yourself, otherwise the user will remain on the conference page.
   VoidCallback? onLeave;
+
+  /// This callback is triggered when local user removed from video conference
+  Future<void> Function(String)? onMeRemovedFromRoom;
 }
 
 /// Configuration options for audio/video views.

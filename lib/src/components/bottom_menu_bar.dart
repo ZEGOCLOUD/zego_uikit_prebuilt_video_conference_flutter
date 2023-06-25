@@ -10,6 +10,7 @@ import 'package:zego_uikit/zego_uikit.dart';
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/components/member/member_list_button.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/components/message/in_room_message_button.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/components/pop_up_manager.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_config.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_defines.dart';
 
@@ -26,6 +27,7 @@ class ZegoBottomMenuBar extends StatefulWidget {
   final Color? backgroundColor;
 
   final ValueNotifier<bool> chatViewVisibleNotifier;
+  final ZegoPopUpManager popUpManager;
 
   const ZegoBottomMenuBar({
     Key? key,
@@ -33,6 +35,7 @@ class ZegoBottomMenuBar extends StatefulWidget {
     required this.visibilityNotifier,
     required this.restartHideTimerNotifier,
     required this.chatViewVisibleNotifier,
+    required this.popUpManager,
     this.autoHideSeconds = 3,
     this.buttonSize = const Size(60, 60),
     this.height,
@@ -247,7 +250,10 @@ class _ZegoBottomMenuBarState extends State<ZegoBottomMenuBar> {
             if (widget.config.onLeave != null) {
               widget.config.onLeave!.call();
             } else {
-              Navigator.of(context).pop();
+              Navigator.of(
+                context,
+                rootNavigator: widget.config.rootNavigator,
+              ).pop();
             }
           },
         );
@@ -257,6 +263,8 @@ class _ZegoBottomMenuBarState extends State<ZegoBottomMenuBar> {
           avatarBuilder: widget.config.avatarBuilder,
           buttonSize: buttonSize,
           iconSize: iconSize,
+          rootNavigator: widget.config.rootNavigator,
+          popUpManager: widget.popUpManager,
         );
       case ZegoMenuBarButtonName.chatButton:
         return ZegoInRoomMessageButton(
@@ -265,6 +273,7 @@ class _ZegoBottomMenuBarState extends State<ZegoBottomMenuBar> {
           avatarBuilder: widget.config.avatarBuilder,
           itemBuilder: widget.config.chatViewConfig.itemBuilder,
           viewVisibleNotifier: widget.chatViewVisibleNotifier,
+          popUpManager: widget.popUpManager,
         );
       case ZegoMenuBarButtonName.toggleScreenSharingButton:
         return ZegoScreenSharingToggleButton(

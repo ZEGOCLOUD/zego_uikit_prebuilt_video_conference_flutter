@@ -1,4 +1,5 @@
 // Dart imports:
+import 'dart:async';
 import 'dart:core';
 import 'dart:developer';
 
@@ -12,8 +13,9 @@ import 'package:zego_uikit/zego_uikit.dart';
 
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/components/components.dart';
-import 'package:zego_uikit_prebuilt_video_conference/zego_uikit_prebuilt_video_conference.dart';
-
+import 'package:zego_uikit_prebuilt_video_conference/src/components/pop_up_manager.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_config.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_controller.dart';
 
 /// Video Conference Widget.
 /// You can embed this widget into any page of your project to integrate the functionality of a video conference.
@@ -75,6 +77,9 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   var barRestartHideTimerNotifier = ValueNotifier<int>(0);
   var chatViewVisibleNotifier = ValueNotifier<bool>(false);
 
+  final popUpManager = ZegoPopUpManager();
+  List<StreamSubscription<dynamic>?> subscriptions = [];
+
   bool get isLightStyle =>
       ZegoMenuBarStyle.light == widget.config.bottomMenuBarConfig.style;
 
@@ -83,8 +88,11 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log('version: zego_uikit_prebuilt_video_conference:2.2.10; $version');
+      log('version: zego_uikit_prebuilt_video_conference:2.3.0; $version');
     });
+
+    subscriptions.add(
+        ZegoUIKit().getMeRemovedFromRoomStream().listen(onMeRemovedFromRoom));
 
     initContext();
   }
@@ -320,6 +328,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         height: 88.zR,
         backgroundColor: isLightStyle ? null : const Color(0xff262A2D),
         chatViewVisibleNotifier: chatViewVisibleNotifier,
+        popUpManager: popUpManager,
       ),
     );
   }
@@ -339,6 +348,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
             isLightStyle ? null : ZegoUIKitDefaultTheme.viewBackgroundColor,
         borderRadius: isLightStyle ? null : 32.zR,
         chatViewVisibleNotifier: chatViewVisibleNotifier,
+        popUpManager: popUpManager,
       ),
     );
   }
@@ -360,7 +370,10 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           ),
           onPressed: () {
             //  pop this dialog
-            Navigator.of(context).pop(false);
+            Navigator.of(
+              context,
+              rootNavigator: widget.config.rootNavigator,
+            ).pop(false);
           },
         ),
         CupertinoDialogAction(
@@ -370,7 +383,10 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           ),
           onPressed: () {
             //  pop this dialog
-            Navigator.of(context).pop(true);
+            Navigator.of(
+              context,
+              rootNavigator: widget.config.rootNavigator,
+            ).pop(true);
           },
         ),
       ],
@@ -432,5 +448,26 @@ class _ZegoUIKitPrebuiltVideoConferenceState
             Container(color: Colors.transparent),
       ],
     );
+  }
+
+  void onMeRemovedFromRoom(String fromUserID) {
+    ZegoLoggerService.logInfo(
+      'local user removed by $fromUserID',
+      tag: 'call',
+      subTag: 'prebuilt',
+    );
+
+    ///more button, member list, chat dialog
+    popUpManager.autoPop(context, widget.config.rootNavigator);
+
+    if (null != widget.config.onMeRemovedFromRoom) {
+      widget.config.onMeRemovedFromRoom!.call(fromUserID);
+    } else {
+      //  pop this dialog
+      Navigator.of(
+        context,
+        rootNavigator: widget.config.rootNavigator,
+      ).pop(true);
+    }
   }
 }

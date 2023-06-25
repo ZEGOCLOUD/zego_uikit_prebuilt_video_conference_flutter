@@ -35,8 +35,7 @@ class _HomePageState extends State<HomePage> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
+                    Navigator.of(context).push(
                       MaterialPageRoute(builder: (context) {
                         return VideoConferencePage(
                           conferenceID: conferenceDTextCtrl.text,

@@ -7,6 +7,7 @@ import 'package:zego_uikit/zego_uikit.dart';
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/components/icon_defines.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/components/member/member_list_sheet.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/components/pop_up_manager.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_config.dart';
 
 /// @nodoc
@@ -20,6 +21,8 @@ class ZegoMemberListButton extends StatefulWidget {
     this.buttonSize,
     this.config,
     this.avatarBuilder,
+    this.rootNavigator = false,
+    required this.popUpManager,
   }) : super(key: key);
 
   final ZegoMemberListConfig? config;
@@ -35,7 +38,11 @@ class ZegoMemberListButton extends StatefulWidget {
   /// the size of button
   final Size? buttonSize;
 
+  final bool rootNavigator;
+
   final ZegoAvatarBuilder? avatarBuilder;
+
+  final ZegoPopUpManager popUpManager;
 
   @override
   State<ZegoMemberListButton> createState() => _ZegoMemberListButtonState();
@@ -61,6 +68,7 @@ class _ZegoMemberListButtonState extends State<ZegoMemberListButton> {
           avatarBuilder: widget.avatarBuilder,
           showCameraState: widget.config?.showCameraState ?? true,
           showMicrophoneState: widget.config?.showMicrophoneState ?? true,
+          popUpManager: widget.popUpManager,
         );
 
         if (widget.afterClicked != null) {
