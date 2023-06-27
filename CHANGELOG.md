@@ -1,3 +1,6 @@
+## 2.3.1
+- Update ReadME
+
 ## 2.3.0
 - Added logic for being kicked out of the video conference, which will automatically exit and return to the previous page.
 
