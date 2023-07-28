@@ -181,7 +181,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           assert(result.errorCode == 0);
 
           if (result.errorCode != 0) {
-            ZegoLoggerService.logInfo(
+            ZegoLoggerService.logError(
               'failed to login room:${result.errorCode},${result.extendedData}',
               tag: 'video conference',
               subTag: 'prebuilt',
