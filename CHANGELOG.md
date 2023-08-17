@@ -1,3 +1,6 @@
+## 2.4.0
+- The bottom menu bar and top menu bar support custom background colors.
+
 ## 2.3.2
 - Update ReadME
 

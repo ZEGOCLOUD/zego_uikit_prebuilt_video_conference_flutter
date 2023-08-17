@@ -326,11 +326,19 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         visibilityNotifier: barVisibilityNotifier,
         restartHideTimerNotifier: barRestartHideTimerNotifier,
         height: 88.zR,
-        backgroundColor: isLightStyle ? null : const Color(0xff262A2D),
+        backgroundColor: topMenuBarColor(),
         chatViewVisibleNotifier: chatViewVisibleNotifier,
         popUpManager: popUpManager,
       ),
     );
+  }
+
+  Color? topMenuBarColor() {
+    if (widget.config.topMenuBarConfig.backgroundColor != null) {
+      return widget.config.topMenuBarConfig.backgroundColor;
+    } else {
+      return isLightStyle ? null : const Color(0xff262A2D);
+    }
   }
 
   Widget bottomMenuBar() {
@@ -344,13 +352,20 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         visibilityNotifier: barVisibilityNotifier,
         restartHideTimerNotifier: barRestartHideTimerNotifier,
         height: isLightStyle ? (96.zR + 2 * 3) : 208.zR,
-        backgroundColor:
-            isLightStyle ? null : ZegoUIKitDefaultTheme.viewBackgroundColor,
+        backgroundColor: bottomMenuBarColor(),
         borderRadius: isLightStyle ? null : 32.zR,
         chatViewVisibleNotifier: chatViewVisibleNotifier,
         popUpManager: popUpManager,
       ),
     );
+  }
+
+  Color? bottomMenuBarColor() {
+    if (widget.config.bottomMenuBarConfig.backgroundColor != null) {
+      return widget.config.bottomMenuBarConfig.backgroundColor;
+    } else {
+      return isLightStyle ? null : ZegoUIKitDefaultTheme.viewBackgroundColor;
+    }
   }
 
   Future<bool> onLeaveConfirmation(BuildContext context) async {

@@ -221,6 +221,9 @@ class ZegoTopMenuBarConfig {
   /// Style of the top menu bar.
   ZegoMenuBarStyle style;
 
+  /// BackgroundColor of the top menu bar
+  Color? backgroundColor;
+
   /// Extension buttons that allow you to add your own buttons to the top toolbar.
   /// These buttons will be added to the menu bar in the specified order.
   /// If the limit of [3] is exceeded, additional buttons will be automatically added to the overflow menu.
@@ -260,6 +263,9 @@ class ZegoBottomMenuBarConfig {
 
   /// Button style for the bottom menu bar.
   ZegoMenuBarStyle style;
+
+  /// BackgroundColor of the bottom menu bar.
+  Color? backgroundColor;
 
   /// Extension buttons that allow you to add your own buttons to the top toolbar.
   /// These buttons will be added to the menu bar in the specified order.
