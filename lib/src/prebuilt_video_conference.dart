@@ -88,7 +88,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log('version: zego_uikit_prebuilt_video_conference:2.3.2; $version');
+      log('version: zego_uikit_prebuilt_video_conference:2.4.2; $version');
     });
 
     subscriptions.add(

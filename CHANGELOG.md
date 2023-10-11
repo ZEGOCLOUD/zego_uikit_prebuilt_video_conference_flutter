@@ -1,3 +1,9 @@
+## 2.4.2
+- update dart dependency
+
+## 2.4.1
+- remove http library dependency.
+
 ## 2.4.0
 - The bottom menu bar and top menu bar support custom background colors.
 
