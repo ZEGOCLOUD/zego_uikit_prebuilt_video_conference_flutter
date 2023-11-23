@@ -8,7 +8,7 @@ import 'package:zego_uikit/zego_uikit.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/components/icon_defines.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/components/member/member_list_sheet.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/components/pop_up_manager.dart';
-import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_config.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/config.dart';
 
 /// @nodoc
 /// switch cameras

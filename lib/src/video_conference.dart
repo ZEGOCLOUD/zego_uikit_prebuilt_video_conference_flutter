@@ -14,8 +14,8 @@ import 'package:zego_uikit/zego_uikit.dart';
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/components/components.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/components/pop_up_manager.dart';
-import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_config.dart';
-import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_controller.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/config.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/controller.dart';
 
 /// Video Conference Widget.
 /// You can embed this widget into any page of your project to integrate the functionality of a video conference.
@@ -88,11 +88,19 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log('version: zego_uikit_prebuilt_video_conference:2.4.2; $version');
+      log('version: zego_uikit_prebuilt_video_conference:2.6.3; $version');
     });
 
-    subscriptions.add(
-        ZegoUIKit().getMeRemovedFromRoomStream().listen(onMeRemovedFromRoom));
+    subscriptions
+      ..add(
+          ZegoUIKit().getMeRemovedFromRoomStream().listen(onMeRemovedFromRoom))
+      ..add(ZegoUIKit().getErrorStream().listen(onUIKitError))
+      ..add(ZegoUIKit()
+          .getTurnOnYourCameraRequestStream()
+          .listen(onTurnOnYourCameraRequest))
+      ..add(ZegoUIKit()
+          .getTurnOnYourMicrophoneRequestStream()
+          .listen(onTurnOnYourMicrophoneRequest));
 
     initContext();
   }
@@ -100,6 +108,10 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   @override
   void dispose() {
     super.dispose();
+
+    for (final subscription in subscriptions) {
+      subscription?.cancel();
+    }
 
     ZegoUIKit().leaveRoom();
   }
@@ -124,6 +136,10 @@ class _ZegoUIKitPrebuiltVideoConferenceState
                 return clickListener(
                   child: Stack(
                     children: [
+                      background(
+                        constraints.maxWidth,
+                        constraints.maxHeight,
+                      ),
                       audioVideoContainer(
                         constraints.maxWidth,
                         constraints.maxHeight,
@@ -134,6 +150,10 @@ class _ZegoUIKitPrebuiltVideoConferenceState
                         Container(),
                       notificationView(),
                       bottomMenuBar(),
+                      foreground(
+                        constraints.maxWidth,
+                        constraints.maxHeight,
+                      ),
                     ],
                   ),
                 );
@@ -238,7 +258,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           backgroundBuilder: audioVideoViewBackground,
           foregroundBuilder: audioVideoViewForeground,
           screenSharingViewController:
-              widget.controller?.screenSharingViewController,
+              widget.controller?.screen.screenSharingViewController,
           avatarConfig: ZegoAvatarConfig(
             showInAudioMode:
                 widget.config.audioVideoViewConfig.showAvatarInAudioMode,
@@ -360,6 +380,36 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     );
   }
 
+  Widget background(double width, double height) {
+    if (widget.config.background != null) {
+      /// full screen
+      return Positioned(
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        child: widget.config.background!,
+      );
+    }
+
+    return Container();
+  }
+
+  Widget foreground(double width, double height) {
+    if (widget.config.foreground != null) {
+      /// full screen
+      return Positioned(
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        child: widget.config.foreground!,
+      );
+    }
+
+    return Container();
+  }
+
   Color? bottomMenuBarColor() {
     if (widget.config.bottomMenuBarConfig.backgroundColor != null) {
       return widget.config.bottomMenuBarConfig.backgroundColor;
@@ -468,7 +518,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   void onMeRemovedFromRoom(String fromUserID) {
     ZegoLoggerService.logInfo(
       'local user removed by $fromUserID',
-      tag: 'call',
+      tag: 'video conference',
       subTag: 'prebuilt',
     );
 
@@ -483,6 +533,81 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         context,
         rootNavigator: widget.config.rootNavigator,
       ).pop(true);
+    }
+  }
+
+  void onUIKitError(ZegoUIKitError error) {
+    ZegoLoggerService.logError(
+      'on uikit error:$error',
+      tag: 'video conference',
+      subTag: 'prebuilt',
+    );
+
+    widget.config.onError?.call(error);
+  }
+
+  Future<void> onTurnOnYourCameraRequest(String fromUserID) async {
+    ZegoLoggerService.logInfo(
+      'onTurnOnYourCameraRequest, fromUserID:$fromUserID',
+      tag: 'video conference',
+      subTag: 'prebuilt',
+    );
+
+    if (ZegoUIKit().getLocalUser().camera.value) {
+      ZegoLoggerService.logInfo(
+        'camera is open now, not need request',
+        tag: 'video conference',
+        subTag: 'prebuilt',
+      );
+
+      return;
+    }
+
+    final canCameraTurnOnByOthers =
+        await widget.config.onCameraTurnOnByOthersConfirmation?.call(context) ??
+            false;
+    ZegoLoggerService.logInfo(
+      'canMicrophoneTurnOnByOthers:$canCameraTurnOnByOthers',
+      tag: 'video conference',
+      subTag: 'prebuilt',
+    );
+    if (canCameraTurnOnByOthers) {
+      ZegoUIKit().turnCameraOn(true);
+    }
+  }
+
+  Future<void> onTurnOnYourMicrophoneRequest(
+      ZegoUIKitReceiveTurnOnLocalMicrophoneEvent event) async {
+    ZegoLoggerService.logInfo(
+      'onTurnOnYourMicrophoneRequest, event:$event',
+      tag: 'live streaming',
+      subTag: 'live page',
+    );
+
+    if (ZegoUIKit().getLocalUser().microphone.value) {
+      ZegoLoggerService.logInfo(
+        'microphone is open now, not need request',
+        tag: 'video conference',
+        subTag: 'prebuilt',
+      );
+
+      return;
+    }
+
+    final canMicrophoneTurnOnByOthers = await widget
+            .config.onMicrophoneTurnOnByOthersConfirmation
+            ?.call(context) ??
+        false;
+    ZegoLoggerService.logInfo(
+      'canMicrophoneTurnOnByOthers:$canMicrophoneTurnOnByOthers',
+      tag: 'video conference',
+      subTag: 'prebuilt',
+    );
+    if (canMicrophoneTurnOnByOthers) {
+      ZegoUIKit().turnMicrophoneOn(
+        true,
+        muteMode: event.muteMode,
+      );
     }
   }
 }

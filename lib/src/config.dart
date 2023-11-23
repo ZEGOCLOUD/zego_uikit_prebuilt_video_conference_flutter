@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:zego_uikit/zego_uikit.dart';
 
 // Project imports:
-import 'package:zego_uikit_prebuilt_video_conference/src/prebuilt_video_conference_defines.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/defines.dart';
 
 /// Configuration for initializing the Video Conference
 /// This class is used as the [config] parameter for the constructor of [ZegoUIKitPrebuiltVideoConference].
@@ -15,16 +15,22 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
     this.turnOnMicrophoneWhenJoining = true,
     this.useSpeakerWhenJoining = true,
     this.rootNavigator = false,
+    this.avatarBuilder,
+    this.foreground,
+    this.background,
+    this.leaveConfirmDialogInfo,
+    this.onError,
+    this.onLeaveConfirmation,
+    this.onLeave,
+    this.onMeRemovedFromRoom,
+    this.onCameraTurnOnByOthersConfirmation,
+    this.onMicrophoneTurnOnByOthersConfirmation,
     ZegoPrebuiltAudioVideoViewConfig? audioVideoViewConfig,
     ZegoTopMenuBarConfig? topMenuBarConfig,
     ZegoBottomMenuBarConfig? bottomMenuBarConfig,
     ZegoMemberListConfig? memberListConfig,
     ZegoInRoomNotificationViewConfig? notificationViewConfig,
     ZegoInRoomChatViewConfig? chatViewConfig,
-    this.leaveConfirmDialogInfo,
-    this.onLeaveConfirmation,
-    this.onLeave,
-    this.avatarBuilder,
   })  : audioVideoViewConfig =
             audioVideoViewConfig ?? ZegoPrebuiltAudioVideoViewConfig(),
         topMenuBarConfig = topMenuBarConfig ??
@@ -110,6 +116,26 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
   ///
   ZegoAvatarBuilder? avatarBuilder;
 
+  /// The foreground of the video conference.
+  ///
+  /// If you need to nest some widgets in [ZegoUIKitPrebuiltVideoConference], please use [foreground] nesting, otherwise these widgets will be lost when you minimize and restore the [ZegoUIKitPrebuiltVideoConference]
+  Widget? foreground;
+
+  /// The background of the video conference.
+  ///
+  /// You can use any Widget as the background of the video conference, such as a video, a GIF animation, an image, a web page, etc.
+  /// If you need to dynamically change the background content, you will need to implement the logic for dynamic modification within the Widget you return.
+  ///
+  /// ```dart
+  /// ..background = Container(
+  ///     decoration: const BoxDecoration(
+  ///       image: DecorationImage(
+  ///         fit: BoxFit.fitHeight,
+  ///         image: ,
+  ///       )));
+  /// ```
+  Widget? background;
+
   /// Confirmation dialog information when leaving the video conference.
   /// If not set, clicking the exit button will directly exit the video conference.
   /// If set, a confirmation dialog will be displayed when clicking the exit button, and you will need to confirm the exit before actually exiting.
@@ -128,7 +154,131 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
   VoidCallback? onLeave;
 
   /// This callback is triggered when local user removed from video conference
+  ///
+  /// The default behavior is to return to the previous page.
+  ///
+  /// If you override this callback, you must perform the page navigation
+  /// yourself to return to the previous page!!!
+  /// otherwise the user will remain on the current video conference page !!!!!
+  ///
+  /// You can perform business-related prompts or other actions in this callback.
+  /// For example, you can perform custom logic during the hang-up operation, such as recording log information, stopping recording, etc.
   Future<void> Function(String)? onMeRemovedFromRoom;
+
+  /// This callback method is called when someone requests to open your camera.
+  ///
+  /// This method requires returning an asynchronous result.
+  ///
+  /// You can display a dialog in this callback to confirm whether to open the camera.
+  ///
+  /// Alternatively, you can return `true` without any processing, indicating that when someone requests to open your camera, it can be directly opened.
+  ///
+  /// By default, this method does nothing and returns `false`, indicating that others cannot open your camera.
+  ///
+  /// Example：
+  ///
+  /// ```dart
+  ///
+  ///  // eg:
+  /// ..onCameraTurnOnByOthersConfirmation =
+  ///     (BuildContext context) async {
+  ///   const textStyle = TextStyle(
+  ///     fontSize: 10,
+  ///     color: Colors.white70,
+  ///   );
+  ///
+  ///   return await showDialog(
+  ///     context: context,
+  ///     barrierDismissible: false,
+  ///     builder: (BuildContext context) {
+  ///       return AlertDialog(
+  ///         backgroundColor: Colors.blue[900]!.withOpacity(0.9),
+  ///         title: const Text(
+  ///           'You have a request to turn on your camera',
+  ///           style: textStyle,
+  ///         ),
+  ///         content: const Text(
+  ///           'Do you agree to turn on the camera?',
+  ///           style: textStyle,
+  ///         ),
+  ///         actions: [
+  ///           ElevatedButton(
+  ///             child: const Text('Cancel', style: textStyle),
+  ///             onPressed: () => Navigator.of(context).pop(false),
+  ///           ),
+  ///           ElevatedButton(
+  ///             child: const Text('OK', style: textStyle),
+  ///             onPressed: () {
+  ///               Navigator.of(context).pop(true);
+  ///             },
+  ///           ),
+  ///         ],
+  ///       );
+  ///     },
+  ///   );
+  /// },
+  /// ```
+  Future<bool> Function(BuildContext context)?
+      onCameraTurnOnByOthersConfirmation;
+
+  /// This callback method is called when someone requests to open your microphone.
+  ///
+  /// This method requires returning an asynchronous result.
+  ///
+  /// You can display a dialog in this callback to confirm whether to open the microphone.
+  ///
+  /// Alternatively, you can return `true` without any processing, indicating that when someone requests to open your microphone, it can be directly opened.
+  ///
+  /// By default, this method does nothing and returns `false`, indicating that others cannot open your microphone.
+  ///
+  /// Example：
+  ///
+  /// ```dart
+  ///
+  ///  // eg:
+  /// ..onMicrophoneTurnOnByOthersConfirmation =
+  ///     (BuildContext context) async {
+  ///   const textStyle = TextStyle(
+  ///     fontSize: 10,
+  ///     color: Colors.white70,
+  ///   );
+  ///
+  ///   return await showDialog(
+  ///     context: context,
+  ///     barrierDismissible: false,
+  ///     builder: (BuildContext context) {
+  ///       return AlertDialog(
+  ///         backgroundColor: Colors.blue[900]!.withOpacity(0.9),
+  ///         title: const Text(
+  ///           'You have a request to turn on your microphone',
+  ///           style: textStyle,
+  ///         ),
+  ///         content: const Text(
+  ///           'Do you agree to turn on the microphone?',
+  ///           style: textStyle,
+  ///         ),
+  ///         actions: [
+  ///           ElevatedButton(
+  ///             child: const Text('Cancel', style: textStyle),
+  ///             onPressed: () => Navigator.of(context).pop(false),
+  ///           ),
+  ///           ElevatedButton(
+  ///             child: const Text('OK', style: textStyle),
+  ///             onPressed: () {
+  ///               Navigator.of(context).pop(true);
+  ///             },
+  ///           ),
+  ///         ],
+  ///       );
+  ///     },
+  ///   );
+  /// },
+  /// ```
+  Future<bool> Function(BuildContext context)?
+      onMicrophoneTurnOnByOthersConfirmation;
+
+  /// error stream
+  Function(ZegoUIKitError)? onError;
 }
 
 /// Configuration options for audio/video views.
