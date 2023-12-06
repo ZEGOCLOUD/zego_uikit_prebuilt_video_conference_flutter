@@ -1,4 +1,8 @@
 
+## 2.6.4
+
+- Update dependencies
+
 ## 2.6.3
 
 - Update dependencies
