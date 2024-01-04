@@ -88,7 +88,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log('version: zego_uikit_prebuilt_video_conference:2.6.4; $version');
+      log('version: zego_uikit_prebuilt_video_conference:2.6.7; $version');
     });
 
     subscriptions
@@ -131,33 +131,35 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           minTextAdapt: true,
           splitScreenMode: true,
           builder: (context, child) {
-            return LayoutBuilder(
-              builder: (context, constraints) {
-                return clickListener(
-                  child: Stack(
-                    children: [
-                      background(
-                        constraints.maxWidth,
-                        constraints.maxHeight,
-                      ),
-                      audioVideoContainer(
-                        constraints.maxWidth,
-                        constraints.maxHeight,
-                      ),
-                      if (widget.config.topMenuBarConfig.isVisible)
-                        topMenuBar()
-                      else
-                        Container(),
-                      notificationView(),
-                      bottomMenuBar(),
-                      foreground(
-                        constraints.maxWidth,
-                        constraints.maxHeight,
-                      ),
-                    ],
-                  ),
-                );
-              },
+            return ZegoInputBoardWrapper(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return clickListener(
+                    child: Stack(
+                      children: [
+                        background(
+                          constraints.maxWidth,
+                          constraints.maxHeight,
+                        ),
+                        audioVideoContainer(
+                          constraints.maxWidth,
+                          constraints.maxHeight,
+                        ),
+                        if (widget.config.topMenuBarConfig.isVisible)
+                          topMenuBar()
+                        else
+                          Container(),
+                        notificationView(),
+                        bottomMenuBar(),
+                        foreground(
+                          constraints.maxWidth,
+                          constraints.maxHeight,
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
             );
           },
         ),
@@ -255,6 +257,11 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         height: height,
         child: ZegoAudioVideoContainer(
           layout: widget.config.layout!,
+          sources: const [
+            ZegoAudioVideoContainerSource.user,
+            ZegoAudioVideoContainerSource.audioVideo,
+            ZegoAudioVideoContainerSource.screenSharing,
+          ],
           backgroundBuilder: audioVideoViewBackground,
           foregroundBuilder: audioVideoViewForeground,
           screenSharingViewController:

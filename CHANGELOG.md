@@ -1,3 +1,14 @@
+## 2.6.7
+
+- Update dependency.
+
+## 2.6.6
+
+- Fix the issue of video shaking caused by chat input.
+
+## 2.6.5
+
+- Fix the issue where the user window disappears after both the camera and microphone are turned off
 
 ## 2.6.4
 
