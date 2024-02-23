@@ -21,6 +21,11 @@ import 'package:zego_uikit_prebuilt_video_conference/src/controller.dart';
 /// You can embed this widget into any page of your project to integrate the functionality of a video conference.
 /// You can refer to our [documentation](https://docs.zegocloud.com/article/14902),
 /// or our [sample code](https://github.com/ZEGOCLOUD/zego_uikit_prebuilt_video_conference_example_flutter).
+///
+/// {@category Get started}
+/// {@category APIs}
+/// {@category Events}
+/// {@category Configs}
 class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
   const ZegoUIKitPrebuiltVideoConference({
     Key? key,
@@ -88,7 +93,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log('version: zego_uikit_prebuilt_video_conference:2.6.7; $version');
+      log('version: zego_uikit_prebuilt_video_conference:2.6.9; $version');
     });
 
     subscriptions
@@ -264,8 +269,8 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           ],
           backgroundBuilder: audioVideoViewBackground,
           foregroundBuilder: audioVideoViewForeground,
-          screenSharingViewController:
-              widget.controller?.screen.screenSharingViewController,
+          filterAudioVideo: audioVideoViewFilter,
+          screenSharingViewController: widget.controller?.screen.screenSharingViewController,
           avatarConfig: ZegoAvatarConfig(
             showInAudioMode:
                 widget.config.audioVideoViewConfig.showAvatarInAudioMode,
@@ -520,6 +525,31 @@ class _ZegoUIKitPrebuiltVideoConferenceState
             Container(color: Colors.transparent),
       ],
     );
+  }
+
+  List<ZegoUIKitUser> audioVideoViewFilter(List<ZegoUIKitUser> users) {
+    var removedUsers = <ZegoUIKitUser>[];
+    users.removeWhere((targetUser) {
+      if (null != widget.config.audioVideoViewConfig.visible) {
+        if (!widget.config.audioVideoViewConfig.visible!.call(
+          ZegoUIKit().getLocalUser(),
+          targetUser,
+        )) {
+          removedUsers.add(targetUser);
+
+          /// only hide if invisible
+          return true;
+        }
+      }
+
+      return false;
+    });
+
+    for (var removedUser in removedUsers) {
+      ZegoUIKit().muteUserAudioVideo(removedUser.id, widget.config.audioVideoViewConfig.muteInvisible);
+    }
+
+    return users;
   }
 
   void onMeRemovedFromRoom(String fromUserID) {

@@ -286,6 +286,19 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
 /// If you need to customize the foreground or background of the audio/video view, you can use foregroundBuilder and backgroundBuilder.
 /// If you want to hide user avatars or sound waveforms in audio mode, you can set showAvatarInAudioMode and showSoundWavesInAudioMode to false.
 class ZegoPrebuiltAudioVideoViewConfig {
+  /// show target user's audio video view or not
+  /// return false if you don't want to show target user's audio video view.
+  ///
+  /// when the stream list changes (specifically, when the co-hosts change),
+  /// it will dynamically read this configuration to determine whether to show the target user view.
+  bool Function(
+    ZegoUIKitUser localUser,
+    ZegoUIKitUser targetUser,
+  )? visible;
+
+  /// not play audio & video if invisible
+  bool muteInvisible;
+
   /// Whether to mirror the displayed video captured by the camera.
   /// This mirroring effect only applies to the front-facing camera.
   /// Set it to true to enable mirroring, which flips the image horizontally.
@@ -326,6 +339,8 @@ class ZegoPrebuiltAudioVideoViewConfig {
   bool showSoundWavesInAudioMode;
 
   ZegoPrebuiltAudioVideoViewConfig({
+    this.visible,
+    this.muteInvisible = true,
     this.isVideoMirror = true,
     this.showMicrophoneStateOnView = true,
     this.showCameraStateOnView = false,

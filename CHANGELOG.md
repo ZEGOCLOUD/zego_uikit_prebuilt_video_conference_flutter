@@ -1,3 +1,11 @@
+## 2.6.9
+
+- Update dependency.
+
+## 2.6.8
+
+- Update dependency.
+
 ## 2.6.7
 
 - Update dependency.
