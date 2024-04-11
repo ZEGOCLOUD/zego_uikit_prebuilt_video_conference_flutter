@@ -296,7 +296,8 @@ class ZegoPrebuiltAudioVideoViewConfig {
     ZegoUIKitUser targetUser,
   )? visible;
 
-  /// not play audio & video if invisible
+  /// true: not play audio if invisible
+  /// false: Although invisible, audio is also played
   bool muteInvisible;
 
   /// Whether to mirror the displayed video captured by the camera.

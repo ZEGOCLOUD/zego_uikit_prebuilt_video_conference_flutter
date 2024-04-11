@@ -1,3 +1,19 @@
+## 2.7.3
+
+- Update dependency.
+
+## 2.7.2
+
+- Update dependency.
+
+## 2.7.1
+
+- Update dependency.
+
+## 2.7.0
+
+- Support for configuration to hide and mute audio & video windows by `ZegoUIKitPrebuiltVideoConferenceConfig.visible` &&`ZegoUIKitPrebuiltVideoConferenceConfig.muteInvisible`.
+
 ## 2.6.9
 
 - Update dependency.

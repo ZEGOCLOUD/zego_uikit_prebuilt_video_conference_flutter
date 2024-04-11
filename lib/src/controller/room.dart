@@ -1,6 +1,5 @@
 part of 'package:zego_uikit_prebuilt_video_conference/src/controller.dart';
 
-
 mixin ZegoVideoConferenceControllerRoom {
   final _roomController = ZegoVideoConferenceRoomController();
 

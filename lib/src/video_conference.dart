@@ -93,7 +93,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log('version: zego_uikit_prebuilt_video_conference:2.6.9; $version');
+      log('version: zego_uikit_prebuilt_video_conference:2.7.3; $version');
     });
 
     subscriptions
@@ -270,7 +270,8 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           backgroundBuilder: audioVideoViewBackground,
           foregroundBuilder: audioVideoViewForeground,
           filterAudioVideo: audioVideoViewFilter,
-          screenSharingViewController: widget.controller?.screen.screenSharingViewController,
+          screenSharingViewController:
+              widget.controller?.screen.screenSharingViewController,
           avatarConfig: ZegoAvatarConfig(
             showInAudioMode:
                 widget.config.audioVideoViewConfig.showAvatarInAudioMode,
@@ -546,7 +547,8 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     });
 
     for (var removedUser in removedUsers) {
-      ZegoUIKit().muteUserAudioVideo(removedUser.id, widget.config.audioVideoViewConfig.muteInvisible);
+      ZegoUIKit().muteUserAudioVideo(
+          removedUser.id, widget.config.audioVideoViewConfig.muteInvisible);
     }
 
     return users;
