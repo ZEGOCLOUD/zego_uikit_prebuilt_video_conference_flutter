@@ -25,6 +25,7 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
     this.onMeRemovedFromRoom,
     this.onCameraTurnOnByOthersConfirmation,
     this.onMicrophoneTurnOnByOthersConfirmation,
+    this.useFrontFaceCamera = true,
     ZegoPrebuiltAudioVideoViewConfig? audioVideoViewConfig,
     ZegoTopMenuBarConfig? topMenuBarConfig,
     ZegoBottomMenuBarConfig? bottomMenuBarConfig,
@@ -49,6 +50,10 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
   /// if you want to join the video conference with your camera open, set this value to true.
   /// The default value is `true`.
   bool turnOnCameraWhenJoining;
+
+  /// if you want to join the video conference with your front camera, set this value to true.
+  /// The default value is `true`.
+  bool useFrontFaceCamera;
 
   /// Whether to open the microphone when joining the video conference.
   ///
