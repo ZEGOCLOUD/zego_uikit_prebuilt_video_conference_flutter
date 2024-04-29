@@ -196,7 +196,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           .init(appID: widget.appID, appSign: widget.appSign)
           .then((value) {
         ZegoUIKit()
-          ..useFrontFacingCamera(true)
+          ..useFrontFacingCamera(widget.config.useFrontFaceCamera)
           ..updateVideoViewMode(
               config.audioVideoViewConfig.useVideoViewAspectFill)
           ..enableVideoMirroring(config.audioVideoViewConfig.isVideoMirror)
