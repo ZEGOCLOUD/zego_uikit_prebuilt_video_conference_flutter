@@ -12,6 +12,7 @@ import 'package:zego_uikit_prebuilt_video_conference/src/defines.dart';
 class ZegoUIKitPrebuiltVideoConferenceConfig {
   ZegoUIKitPrebuiltVideoConferenceConfig({
     this.turnOnCameraWhenJoining = true,
+    this.useFrontFacingCamera = true,
     this.turnOnMicrophoneWhenJoining = true,
     this.useSpeakerWhenJoining = true,
     this.rootNavigator = false,
@@ -49,6 +50,10 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
   /// if you want to join the video conference with your camera open, set this value to true.
   /// The default value is `true`.
   bool turnOnCameraWhenJoining;
+
+  /// if you want to join the video conference with your front camera, set this value to true.
+  /// The default value is `true`.
+  bool useFrontFacingCamera;
 
   /// Whether to open the microphone when joining the video conference.
   ///

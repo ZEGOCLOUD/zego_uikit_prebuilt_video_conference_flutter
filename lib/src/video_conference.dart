@@ -93,7 +93,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log('version: zego_uikit_prebuilt_video_conference:2.7.3; $version');
+      log('version: zego_uikit_prebuilt_video_conference:2.8.0; $version');
     });
 
     subscriptions
@@ -196,7 +196,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           .init(appID: widget.appID, appSign: widget.appSign)
           .then((value) {
         ZegoUIKit()
-          ..useFrontFacingCamera(true)
+          ..useFrontFacingCamera(config.useFrontFacingCamera)
           ..updateVideoViewMode(
               config.audioVideoViewConfig.useVideoViewAspectFill)
           ..enableVideoMirroring(config.audioVideoViewConfig.isVideoMirror)

@@ -1,3 +1,12 @@
+## 2.8.0
+
+- Features
+  - Support **useFrontFacingCamera** in config
+
+## 2.7.4
+
+- Update dependency.
+
 ## 2.7.3
 
 - Update dependency.
