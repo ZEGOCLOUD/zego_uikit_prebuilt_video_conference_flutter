@@ -15,6 +15,14 @@ class ZegoVideoConferenceScreenController {
   /// You need to provide the user's ID [userID] to determine which user to perform the operation on.
   /// By using a boolean value [isFullscreen], you can specify whether the user enters or exits full-screen mode.
   void showScreenSharingViewInFullscreenMode(String userID, bool isFullscreen) {
+    ZegoLoggerService.logInfo(
+      'showScreenSharingViewInFullscreenMode, '
+      'userID:$userID, '
+      'isFullscreen:$isFullscreen,',
+      tag: 'video-conference',
+      subTag: 'controller.room',
+    );
+
     screenSharingViewController.showScreenSharingViewInFullscreenMode(
         userID, isFullscreen);
   }

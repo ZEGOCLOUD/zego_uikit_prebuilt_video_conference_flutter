@@ -16,8 +16,8 @@ class ZegoVideoConferenceRoomController {
   Future<bool> removeUser(List<String> userIDs) async {
     ZegoLoggerService.logInfo(
       'remove user:$userIDs',
-      tag: 'video conference',
-      subTag: 'room',
+      tag: 'video-conference',
+      subTag: 'controller.room',
     );
 
     return ZegoUIKit().removeUserFromRoom(userIDs);
@@ -76,8 +76,8 @@ class ZegoVideoConferenceRoomController {
   Future<void> muteUser(bool mute, List<String> userIDs) async {
     ZegoLoggerService.logInfo(
       'mute seat, userIDs:$userIDs',
-      tag: 'video conference',
-      subTag: 'room',
+      tag: 'video-conference',
+      subTag: 'controller.room',
     );
 
     for (final userID in userIDs) {

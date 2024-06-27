@@ -93,7 +93,8 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log('version: zego_uikit_prebuilt_video_conference:2.8.2; $version');
+      log('version: zego_uikit_prebuilt_video_conference:2.8.3; $version, \n'
+          'config:${widget.config}, \n');
     });
 
     subscriptions
@@ -210,7 +211,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           if (result.errorCode != 0) {
             ZegoLoggerService.logError(
               'failed to login room:${result.errorCode},${result.extendedData}',
-              tag: 'video conference',
+              tag: 'video-conference',
               subTag: 'prebuilt',
             );
           }
@@ -224,7 +225,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       widget.config.bottomMenuBarConfig.maxCount = 5;
       ZegoLoggerService.logInfo(
         "menu bar buttons limited count's value  is exceeding the maximum limit",
-        tag: 'video conference',
+        tag: 'video-conference',
         subTag: 'prebuilt',
       );
     }
@@ -557,7 +558,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   void onMeRemovedFromRoom(String fromUserID) {
     ZegoLoggerService.logInfo(
       'local user removed by $fromUserID',
-      tag: 'video conference',
+      tag: 'video-conference',
       subTag: 'prebuilt',
     );
 
@@ -578,7 +579,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   void onUIKitError(ZegoUIKitError error) {
     ZegoLoggerService.logError(
       'on uikit error:$error',
-      tag: 'video conference',
+      tag: 'video-conference',
       subTag: 'prebuilt',
     );
 
@@ -588,14 +589,14 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   Future<void> onTurnOnYourCameraRequest(String fromUserID) async {
     ZegoLoggerService.logInfo(
       'onTurnOnYourCameraRequest, fromUserID:$fromUserID',
-      tag: 'video conference',
+      tag: 'video-conference',
       subTag: 'prebuilt',
     );
 
     if (ZegoUIKit().getLocalUser().camera.value) {
       ZegoLoggerService.logInfo(
         'camera is open now, not need request',
-        tag: 'video conference',
+        tag: 'video-conference',
         subTag: 'prebuilt',
       );
 
@@ -607,7 +608,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
             false;
     ZegoLoggerService.logInfo(
       'canMicrophoneTurnOnByOthers:$canCameraTurnOnByOthers',
-      tag: 'video conference',
+      tag: 'video-conference',
       subTag: 'prebuilt',
     );
     if (canCameraTurnOnByOthers) {
@@ -619,14 +620,14 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       ZegoUIKitReceiveTurnOnLocalMicrophoneEvent event) async {
     ZegoLoggerService.logInfo(
       'onTurnOnYourMicrophoneRequest, event:$event',
-      tag: 'live streaming',
+      tag: 'live-streaming',
       subTag: 'live page',
     );
 
     if (ZegoUIKit().getLocalUser().microphone.value) {
       ZegoLoggerService.logInfo(
         'microphone is open now, not need request',
-        tag: 'video conference',
+        tag: 'video-conference',
         subTag: 'prebuilt',
       );
 
@@ -639,7 +640,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         false;
     ZegoLoggerService.logInfo(
       'canMicrophoneTurnOnByOthers:$canMicrophoneTurnOnByOthers',
-      tag: 'video conference',
+      tag: 'video-conference',
       subTag: 'prebuilt',
     );
     if (canMicrophoneTurnOnByOthers) {
