@@ -93,7 +93,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log('version: zego_uikit_prebuilt_video_conference:2.8.3; $version, \n'
+      log('version: zego_uikit_prebuilt_video_conference:2.8.5; $version, \n'
           'config:${widget.config}, \n');
     });
 
@@ -128,9 +128,35 @@ class _ZegoUIKitPrebuiltVideoConferenceState
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: WillPopScope(
-        onWillPop: () async {
-          return await widget.config.onLeaveConfirmation!(context) ?? false;
+      body: PopScope(
+        canPop: false,
+        onPopInvoked: (bool didPop) async {
+          if (didPop) {
+            return;
+          }
+
+          final canLeave =
+              await widget.config.onLeaveConfirmation?.call(context) ?? false;
+          ZegoLoggerService.logInfo(
+            'onPopInvoked, canLeave:$canLeave',
+            tag: 'video-conference',
+            subTag: 'prebuilt',
+          );
+
+          if (canLeave) {
+            if (context.mounted) {
+              Navigator.of(
+                context,
+                rootNavigator: widget.config.rootNavigator,
+              ).pop(false);
+            } else {
+              ZegoLoggerService.logInfo(
+                'onPopInvoked, context not mounted',
+                tag: 'video-conference',
+                subTag: 'prebuilt',
+              );
+            }
+          }
         },
         child: ZegoScreenUtilInit(
           designSize: const Size(750, 1334),
@@ -206,8 +232,6 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           ..setAudioOutputToSpeaker(config.useSpeakerWhenJoining);
 
         ZegoUIKit().joinRoom(widget.conferenceID).then((result) async {
-          assert(result.errorCode == 0);
-
           if (result.errorCode != 0) {
             ZegoLoggerService.logError(
               'failed to login room:${result.errorCode},${result.extendedData}',
@@ -215,6 +239,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
               subTag: 'prebuilt',
             );
           }
+          assert(result.errorCode == 0);
         });
       });
     });
@@ -445,7 +470,11 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         CupertinoDialogAction(
           child: Text(
             widget.config.leaveConfirmDialogInfo!.cancelButtonName,
-            style: TextStyle(fontSize: 26.zR, color: const Color(0xff0055FF)),
+            style: TextStyle(
+              fontSize: 26.zR,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
           ),
           onPressed: () {
             //  pop this dialog
@@ -458,7 +487,11 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         CupertinoDialogAction(
           child: Text(
             widget.config.leaveConfirmDialogInfo!.confirmButtonName,
-            style: TextStyle(fontSize: 26.zR, color: Colors.white),
+            style: TextStyle(
+              fontSize: 26.zR,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue,
+            ),
           ),
           onPressed: () {
             //  pop this dialog
@@ -469,6 +502,16 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           },
         ),
       ],
+      backgroundBrightness: Brightness.dark,
+      titleStyle: TextStyle(
+        fontSize: 30.0.zR,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+      ),
+      contentStyle: TextStyle(
+        fontSize: 28.0.zR,
+        color: Colors.white,
+      ),
     );
   }
 

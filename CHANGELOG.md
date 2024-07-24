@@ -1,3 +1,10 @@
+## 2.8.5
+
+- Update dependency
+
+## 2.8.4
+
+- Optimization score warning
 
 ## 2.8.3
 
