@@ -1,3 +1,8 @@
+## 2.9.0
+
+- Support duration setting, configure whether to display or synchronize time through **ZegoUIKitPrebuiltVideoConferenceConfig.duration**, and listen to callback through 
+  **ZegoUIKitPrebuiltVideoConferenceEvents.duration**
+
 ## 2.8.5
 
 - Update dependency

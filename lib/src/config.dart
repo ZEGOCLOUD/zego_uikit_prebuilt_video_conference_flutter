@@ -6,6 +6,7 @@ import 'package:zego_uikit/zego_uikit.dart';
 
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/defines.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/events.dart';
 
 /// Configuration for initializing the Video Conference
 /// This class is used as the [config] parameter for the constructor of [ZegoUIKitPrebuiltVideoConference].
@@ -32,6 +33,7 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
     ZegoMemberListConfig? memberListConfig,
     ZegoInRoomNotificationViewConfig? notificationViewConfig,
     ZegoInRoomChatViewConfig? chatViewConfig,
+    ZegoVideoConferenceDurationConfig? duration,
   })  : audioVideoViewConfig =
             audioVideoViewConfig ?? ZegoPrebuiltAudioVideoViewConfig(),
         topMenuBarConfig = topMenuBarConfig ??
@@ -40,7 +42,8 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
         memberListConfig = memberListConfig ?? ZegoMemberListConfig(),
         notificationViewConfig =
             notificationViewConfig ?? ZegoInRoomNotificationViewConfig(),
-        chatViewConfig = chatViewConfig ?? ZegoInRoomChatViewConfig() {
+        chatViewConfig = chatViewConfig ?? ZegoInRoomChatViewConfig(),
+        duration = duration ?? ZegoVideoConferenceDurationConfig() {
     layout ??= ZegoLayout.gallery();
   }
 
@@ -86,6 +89,18 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
 
   /// Configuration related to the bottom-left message list.
   ZegoInRoomChatViewConfig chatViewConfig;
+
+  /// Video Conference timing configuration.
+  ///
+  /// To calculate the conference duration, do the following:
+  /// 1. Set the [ZegoVideoConferenceDurationConfig.isVisible] property of [ZegoVideoConferenceDurationConfig] to display the current timer. (It is displayed by default)
+  /// 2. Assuming that the conference duration is 5 minutes, the conference will automatically end when the time is up (refer to the following code). You will be notified of the end of the conference duration through [ZegoLiveStreamingDurationConfig.onDurationUpdate]. To end the livestream, you can call the [ZegoUIKitPrebuiltLiveStreamingController.leave()] method.
+  ///
+  /// ```dart
+  ///  ..duration.isVisible = true
+  /// ```
+  ///<img src = "https://doc.oa.zego.im/Pics/ZegoUIKit/Flutter/live/live_duration.jpeg" width=50% />
+  ZegoVideoConferenceDurationConfig duration;
 
   /// Layout-related configuration. You can choose your layout here.
   ZegoLayout? layout;
@@ -566,5 +581,30 @@ class ZegoInRoomChatViewConfig {
 
   ZegoInRoomChatViewConfig({
     this.itemBuilder,
+  });
+}
+
+/// Timing configuration.
+class ZegoVideoConferenceDurationConfig {
+  /// Whether to display Video Conference timing.
+  bool isVisible;
+
+  ///  Whether the current user can synchronize duration (If it has already been set, it will be reset)
+  ///
+  /// For example,
+  /// when the teacher enters the room, if it is the beginning of class,
+  /// [canSync] should be set to true.
+  /// If it is a break in the middle to exit the meeting and resume class,
+  /// [canSync] should be set to false
+  ///
+  ///  If true, the duration will be resynchronized when user join meeting;
+  ///  if false, the user will read the duration
+  ///
+  /// [ZegoVideoConferenceDurationEvents.onUpdated]
+  bool canSync;
+
+  ZegoVideoConferenceDurationConfig({
+    this.isVisible = true,
+    this.canSync = false,
   });
 }

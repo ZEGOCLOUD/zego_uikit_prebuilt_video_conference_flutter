@@ -16,6 +16,9 @@ import 'package:zego_uikit_prebuilt_video_conference/src/components/components.d
 import 'package:zego_uikit_prebuilt_video_conference/src/components/pop_up_manager.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/config.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/controller.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/events.dart';
+import 'components/duration_time_board.dart';
+import 'core/live_duration_manager.dart';
 
 /// Video Conference Widget.
 /// You can embed this widget into any page of your project to integrate the functionality of a video conference.
@@ -35,6 +38,7 @@ class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
     required this.userID,
     required this.userName,
     required this.config,
+    this.events,
     this.controller,
     @Deprecated('Since 2.2.1') this.appDesignSize,
   }) : super(key: key);
@@ -62,6 +66,8 @@ class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
   /// Initialize the configuration for the video conference.
   final ZegoUIKitPrebuiltVideoConferenceConfig config;
 
+  final ZegoUIKitPrebuiltVideoConferenceEvents? events;
+
   /// You can invoke the methods provided by [ZegoUIKitPrebuiltVideoConference] through the [controller].
   final ZegoUIKitPrebuiltVideoConferenceController? controller;
 
@@ -78,11 +84,15 @@ class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
 class _ZegoUIKitPrebuiltVideoConferenceState
     extends State<ZegoUIKitPrebuiltVideoConference>
     with SingleTickerProviderStateMixin {
+  ZegoUIKitPrebuiltVideoConferenceEvents get events =>
+      widget.events ?? ZegoUIKitPrebuiltVideoConferenceEvents();
+
   var barVisibilityNotifier = ValueNotifier<bool>(true);
   var barRestartHideTimerNotifier = ValueNotifier<int>(0);
   var chatViewVisibleNotifier = ValueNotifier<bool>(false);
 
   final popUpManager = ZegoPopUpManager();
+  final durationManager = ZegoVideoConferenceDurationManager();
   List<StreamSubscription<dynamic>?> subscriptions = [];
 
   bool get isLightStyle =>
@@ -93,7 +103,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log('version: zego_uikit_prebuilt_video_conference:2.8.5; $version, \n'
+      log('version: zego_uikit_prebuilt_video_conference:2.9.0; $version, \n'
           'config:${widget.config}, \n');
     });
 
@@ -114,6 +124,8 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   @override
   void dispose() {
     super.dispose();
+
+    durationManager.uninit();
 
     for (final subscription in subscriptions) {
       subscription?.cancel();
@@ -181,6 +193,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
                           topMenuBar()
                         else
                           Container(),
+                        durationTimeBoard(),
                         notificationView(),
                         bottomMenuBar(),
                         foreground(
@@ -239,6 +252,9 @@ class _ZegoUIKitPrebuiltVideoConferenceState
               subTag: 'prebuilt',
             );
           }
+
+          durationManager.init(config: widget.config.duration);
+
           assert(result.errorCode == 0);
         });
       });
@@ -447,6 +463,23 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     }
 
     return Container();
+  }
+
+  Widget durationTimeBoard() {
+    if (!widget.config.duration.isVisible) {
+      return Container();
+    }
+
+    return Positioned(
+      left: 0,
+      right: 0,
+      top: 10,
+      child: ZegoVideoConferenceDurationTimeBoard(
+        config: widget.config.duration,
+        events: widget.events?.duration,
+        manager: durationManager,
+      ),
+    );
   }
 
   Color? bottomMenuBarColor() {
