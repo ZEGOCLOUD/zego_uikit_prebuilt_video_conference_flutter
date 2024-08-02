@@ -7,7 +7,44 @@ mixin ZegoVideoConferenceControllerRoom {
 }
 
 /// Here are the APIs related to room.
-class ZegoVideoConferenceRoomController {
+class ZegoVideoConferenceRoomController
+    with ZegoVideoConferenceControllerRoomPrivate {
+  Future<bool> leave(
+    BuildContext context, {
+    bool showConfirmation = true,
+  }) async {
+    ZegoLoggerService.logInfo(
+      'leave',
+      tag: 'video-conference',
+      subTag: 'controller',
+    );
+
+    final canLeave =
+        await private.config?.onLeaveConfirmation?.call(context) ?? false;
+    ZegoLoggerService.logInfo(
+      'leave, canLeave:$canLeave',
+      tag: 'video-conference',
+      subTag: 'controller',
+    );
+
+    if (canLeave) {
+      if (context.mounted) {
+        Navigator.of(
+          context,
+          rootNavigator: private.config?.rootNavigator ?? true,
+        ).pop(false);
+      } else {
+        ZegoLoggerService.logInfo(
+          'leave, context not mounted',
+          tag: 'video-conference',
+          subTag: 'controller',
+        );
+      }
+    }
+
+    return true;
+  }
+
   /// remove user from conference, kick out
   ///
   /// @return Error code, please refer to the error codes document https://docs.zegocloud.com/en/5548.html for details.

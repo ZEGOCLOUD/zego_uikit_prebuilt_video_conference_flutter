@@ -39,8 +39,8 @@ class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
     required this.userName,
     required this.config,
     this.events,
+    @Deprecated('Since 2.9.1 Use ZegoUIKitPrebuiltVideoConferenceController()')
     this.controller,
-    @Deprecated('Since 2.2.1') this.appDesignSize,
   }) : super(key: key);
 
   /// You can create a project and obtain an appID from the [ZEGOCLOUD Admin Console](https://console.zegocloud.com).
@@ -68,11 +68,8 @@ class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
 
   final ZegoUIKitPrebuiltVideoConferenceEvents? events;
 
-  /// You can invoke the methods provided by [ZegoUIKitPrebuiltVideoConference] through the [controller].
+  @Deprecated('Since 2.9.1 Use ZegoUIKitPrebuiltVideoConferenceController()')
   final ZegoUIKitPrebuiltVideoConferenceController? controller;
-
-  @Deprecated('Since 2.2.1')
-  final Size? appDesignSize;
 
   /// @nodoc
   @override
@@ -103,7 +100,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log('version: zego_uikit_prebuilt_video_conference:2.9.0; $version, \n'
+      log('version: zego_uikit_prebuilt_video_conference:2.9.1; $version, \n'
           'config:${widget.config}, \n');
     });
 
@@ -117,6 +114,15 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       ..add(ZegoUIKit()
           .getTurnOnYourMicrophoneRequestStream()
           .listen(onTurnOnYourMicrophoneRequest));
+
+    ZegoUIKitPrebuiltVideoConferenceController().private.initByPrebuilt(
+          config: widget.config,
+          events: events,
+        );
+    ZegoUIKitPrebuiltVideoConferenceController().room.private.initByPrebuilt(
+          config: widget.config,
+          events: events,
+        );
 
     initContext();
   }
@@ -132,6 +138,12 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     }
 
     ZegoUIKit().leaveRoom();
+
+    ZegoUIKitPrebuiltVideoConferenceController().private.uninitByPrebuilt();
+    ZegoUIKitPrebuiltVideoConferenceController()
+        .room
+        .private
+        .uninitByPrebuilt();
   }
 
   @override
@@ -313,7 +325,9 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           foregroundBuilder: audioVideoViewForeground,
           filterAudioVideo: audioVideoViewFilter,
           screenSharingViewController:
-              widget.controller?.screen.screenSharingViewController,
+              ZegoUIKitPrebuiltVideoConferenceController()
+                  .screen
+                  .screenSharingViewController,
           avatarConfig: ZegoAvatarConfig(
             showInAudioMode:
                 widget.config.audioVideoViewConfig.showAvatarInAudioMode,
