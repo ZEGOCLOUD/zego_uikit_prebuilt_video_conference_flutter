@@ -127,9 +127,9 @@ class _ZegoUIKitPrebuiltVideoConferenceState
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: WillPopScope(
-        onWillPop: () async {
-          return await widget.config.onLeaveConfirmation!(context) ?? false;
+      body: PopScope(
+        onPopInvokedWithResult: (bool v, d) async {
+          await widget.config.onLeaveConfirmation!(context) ?? false;
         },
         child: ZegoScreenUtilInit(
           designSize: const Size(750, 1334),

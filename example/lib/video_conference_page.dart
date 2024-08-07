@@ -18,8 +18,8 @@ class VideoConferencePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: ZegoUIKitPrebuiltVideoConference(
-        appID: yourAppID /*input your AppID*/,
-        appSign: yourAppSign /*input your AppSign*/,
+        appID: 1 /*input your AppID*/,
+        appSign: "yourAppSign" /*input your AppSign*/,
         userID: localUserID,
         userName: "user_$localUserID",
         conferenceID: conferenceID,
