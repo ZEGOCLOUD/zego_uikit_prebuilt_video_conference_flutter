@@ -1,26 +1,20 @@
+*If you find this package helpful, please help by giving it a 👍 on pub.dev! ↗️*
+
+*Your support and encouragement motivate us to continue improving and maintaining this package.*
+
+*Thank you for recognizing our work! 👏👏*
+
+---
+
 # Video Conference Kit
 
 **Video Conference Kit** is a prebuilt feature-rich component, which enables you to build video conferences into your app in minutes.
 
 And it includes the business logic with the UI, you can add or remove features accordingly by customizing UI components.
 
->
->
->If you find this package helpful, please help by giving it a 👍 on pub.dev! ↗️
->
->Your support and encouragement motivate us to continue improving and maintaining this package.
->
->Thank you for recognizing our work! 👏👏
-
----
-
-
-
-| User1 | User2 |
-| --- | -- |
+| User1                                                                       | User2                                                                       |
+| --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | ![user1](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/conference/user1.gif) | ![user2](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/conference/user2.gif) |
-
-
 
 ## When do you need the Video Conference Kit
 
@@ -47,22 +41,21 @@ And it includes the business logic with the UI, you can add or remove features a
 - Live text chat
 - Conference join/leave notifications
 
-
 ## Documentation
 
 - [Quick start](https://docs.zegocloud.com/article/14894)
 - Customize
-    - [Overview](https://docs.zegocloud.com/article/14898)
-    - [Set avatar for users](https://docs.zegocloud.com/article/16209)
-    - [Add custom components to user view](https://docs.zegocloud.com/article/16211)
-    - [Configure video layouts](https://docs.zegocloud.com/article/16204)
-    - [Hide components](https://docs.zegocloud.com/article/16216)
-    - [Customize the menu bar](https://docs.zegocloud.com/article/16232)
-    - [Set a leave confirmation dialog](https://docs.zegocloud.com/article/16222)
-    - [Turn off cam and mic when joining meeting](https://docs.zegocloud.com/article/16236)
-    - [Implement an audio-only conference](https://docs.zegocloud.com/article/16241)
+  - [Overview](https://docs.zegocloud.com/article/14898)
+  - [Set avatar for users](https://docs.zegocloud.com/article/16209)
+  - [Add custom components to user view](https://docs.zegocloud.com/article/16211)
+  - [Configure video layouts](https://docs.zegocloud.com/article/16204)
+  - [Hide components](https://docs.zegocloud.com/article/16216)
+  - [Customize the menu bar](https://docs.zegocloud.com/article/16232)
+  - [Set a leave confirmation dialog](https://docs.zegocloud.com/article/16222)
+  - [Turn off cam and mic when joining meeting](https://docs.zegocloud.com/article/16236)
+  - [Implement an audio-only conference](https://docs.zegocloud.com/article/16241)
 - Advance
-    - [Screen sharing](https://docs.zegocloud.com/article/15647)
+  - [Screen sharing](https://docs.zegocloud.com/article/15647)
 
 ## More
 

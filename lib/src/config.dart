@@ -94,7 +94,7 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
   ///
   /// To calculate the conference duration, do the following:
   /// 1. Set the [ZegoVideoConferenceDurationConfig.isVisible] property of [ZegoVideoConferenceDurationConfig] to display the current timer. (It is displayed by default)
-  /// 2. Assuming that the conference duration is 5 minutes, the conference will automatically end when the time is up (refer to the following code). You will be notified of the end of the conference duration through [ZegoLiveStreamingDurationConfig.onDurationUpdate]. To end the livestream, you can call the [ZegoUIKitPrebuiltLiveStreamingController.leave()] method.
+  /// 2. Assuming that the conference duration is 5 minutes, the conference will automatically end when the time is up (refer to the following code). You will be notified of the end of the conference duration through [ZegoVideoConferenceDurationEvents.onUpdate]. To end the conference, you can call the [ZegoUIKitPrebuiltVideoConferenceController.room.leave()] method.
   ///
   /// ```dart
   ///  ..duration.isVisible = true
