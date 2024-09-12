@@ -1,3 +1,8 @@
+
+## 2.9.2
+
+- Update dependency
+
 ## 2.9.1
 
 - Support **leave** by **ZegoUIKitPrebuiltVideoConferenceController().room**.
