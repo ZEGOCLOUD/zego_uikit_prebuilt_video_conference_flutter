@@ -1,4 +1,13 @@
 
+## 2.9.4
+
+- Bugs
+  - Fix screen sharing crash issue on android 14
+
+## 2.9.3
+
+- Update dependency
+
 ## 2.9.2
 
 - Update dependency
