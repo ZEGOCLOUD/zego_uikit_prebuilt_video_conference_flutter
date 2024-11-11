@@ -100,7 +100,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     super.initState();
 
     ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log('version: zego_uikit_prebuilt_video_conference:2.9.4; $version, \n'
+      log('version: zego_uikit_prebuilt_video_conference:2.9.5; $version, \n'
           'config:${widget.config}, \n');
     });
 
@@ -124,7 +124,13 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           events: events,
         );
 
-    initContext();
+    initContext().catchError((e) {
+      ZegoLoggerService.logError(
+        'initContext exception:$e',
+        tag: 'video-conference',
+        subTag: 'prebuilt',
+      );
+    });
   }
 
   @override
@@ -233,7 +239,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     }
   }
 
-  void initContext() {
+  Future<void> initContext() async {
     correctConfigValue();
 
     assert(widget.userID.isNotEmpty);

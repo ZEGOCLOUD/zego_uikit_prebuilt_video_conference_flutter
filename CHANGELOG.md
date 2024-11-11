@@ -1,4 +1,9 @@
 
+## 2.9.5
+
+- Bugs
+  - Catch and log crashes in certain scenes
+
 ## 2.9.4
 
 - Bugs
