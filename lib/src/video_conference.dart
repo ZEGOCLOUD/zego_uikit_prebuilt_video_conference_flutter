@@ -248,11 +248,14 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     assert(widget.appSign.isNotEmpty);
 
     final config = widget.config;
-    initPermissions().then((value) {
+    await initPermissions().then((value) async {
       ZegoUIKit().login(widget.userID, widget.userName);
-      ZegoUIKit()
+      await ZegoUIKit()
           .init(appID: widget.appID, appSign: widget.appSign)
-          .then((value) {
+          .then((value) async {
+        /// not support ios pip, not use
+        await ZegoUIKit().enableCustomVideoRender(false);
+
         ZegoUIKit()
           ..useFrontFacingCamera(config.useFrontFacingCamera)
           ..updateVideoViewMode(
