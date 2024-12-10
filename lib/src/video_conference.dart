@@ -17,6 +17,7 @@ import 'package:zego_uikit_prebuilt_video_conference/src/components/pop_up_manag
 import 'package:zego_uikit_prebuilt_video_conference/src/config.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/controller.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/events.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/internal/reporter.dart';
 import 'components/duration_time_board.dart';
 import 'core/live_duration_manager.dart';
 
@@ -95,12 +96,32 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   bool get isLightStyle =>
       ZegoMenuBarStyle.light == widget.config.bottomMenuBarConfig.style;
 
+  String get version => "2.9.6";
+
   @override
   void initState() {
     super.initState();
 
-    ZegoUIKit().getZegoUIKitVersion().then((version) {
-      log('version: zego_uikit_prebuilt_video_conference:2.9.5; $version, \n'
+    ZegoUIKit().reporter().create(
+      appID: widget.appID,
+      signOrToken: widget.appSign,
+      params: {
+        ZegoVideoConferenceReporter.eventKeyKitVersion: version,
+        ZegoUIKitReporter.eventKeyUserID: widget.userID,
+      },
+    ).then((_) {
+      ZegoUIKit().reporter().report(
+        event: ZegoVideoConferenceReporter.eventInit,
+        params: {
+          ZegoUIKitReporter.eventKeyErrorCode: 0,
+          ZegoUIKitReporter.eventKeyStartTime:
+              DateTime.now().millisecondsSinceEpoch,
+        },
+      );
+    });
+
+    ZegoUIKit().getZegoUIKitVersion().then((uikitVersion) {
+      log('version: zego_uikit_prebuilt_video_conference:$version; $uikitVersion, \n'
           'config:${widget.config}, \n');
     });
 
@@ -150,6 +171,10 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         .room
         .private
         .uninitByPrebuilt();
+
+    ZegoUIKit()
+        .reporter()
+        .report(event: ZegoVideoConferenceReporter.eventUninit);
   }
 
   @override

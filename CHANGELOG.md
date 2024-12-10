@@ -1,3 +1,6 @@
+## 2.9.6
+
+- Update dependency
 
 ## 2.9.5
 
