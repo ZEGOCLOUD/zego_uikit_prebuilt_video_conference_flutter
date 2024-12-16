@@ -96,7 +96,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   bool get isLightStyle =>
       ZegoMenuBarStyle.light == widget.config.bottomMenuBarConfig.style;
 
-  String get version => "2.9.6";
+  String get version => "2.9.7";
 
   @override
   void initState() {
