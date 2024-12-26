@@ -1,3 +1,8 @@
+## 2.9.8
+
+- Bugs
+  - Fix screen-sharing outside the app, remote pull-based streaming has no sound
+
 ## 2.9.7
 
 - Update dependency
