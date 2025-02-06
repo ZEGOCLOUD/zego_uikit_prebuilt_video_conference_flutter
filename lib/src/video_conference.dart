@@ -96,8 +96,6 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   bool get isLightStyle =>
       ZegoMenuBarStyle.light == widget.config.bottomMenuBarConfig.style;
 
-  String get version => "2.9.7";
-
   @override
   void initState() {
     super.initState();
@@ -106,7 +104,8 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       appID: widget.appID,
       signOrToken: widget.appSign,
       params: {
-        ZegoVideoConferenceReporter.eventKeyKitVersion: version,
+        ZegoVideoConferenceReporter.eventKeyKitVersion:
+            ZegoUIKitPrebuiltVideoConferenceController().version,
         ZegoUIKitReporter.eventKeyUserID: widget.userID,
       },
     ).then((_) {
@@ -121,7 +120,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     });
 
     ZegoUIKit().getZegoUIKitVersion().then((uikitVersion) {
-      log('version: zego_uikit_prebuilt_video_conference:$version; $uikitVersion, \n'
+      log('version: zego_uikit_prebuilt_video_conference:${ZegoUIKitPrebuiltVideoConferenceController().version}; $uikitVersion, \n'
           'config:${widget.config}, \n');
     });
 
@@ -278,8 +277,11 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       await ZegoUIKit()
           .init(appID: widget.appID, appSign: widget.appSign)
           .then((value) async {
-        /// not support ios pip, not use
         await ZegoUIKit().enableCustomVideoRender(false);
+
+        /// not support beauty right now, other kits will enable when use
+        /// beauty, will cause not video render issue
+        ZegoUIKit().enableCustomVideoProcessing(false);
 
         ZegoUIKit()
           ..useFrontFacingCamera(config.useFrontFacingCamera)
