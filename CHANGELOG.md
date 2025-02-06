@@ -1,3 +1,8 @@
+## 2.9.9
+
+- Bugs
+  - Fix the issue of video rendering failure that affects meetings when other kits use beauty filters
+
 ## 2.9.8
 
 - Bugs
