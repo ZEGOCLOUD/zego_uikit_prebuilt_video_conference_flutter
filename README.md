@@ -16,6 +16,13 @@ And it includes the business logic with the UI, you can add or remove features a
 | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | ![user1](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/conference/user1.gif) | ![user2](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/conference/user2.gif) |
 
+
+## Demo
+
+[Kits Demo](https://github.com/yoer/zego_uikits_flutter)
+
+[CallKit Demo](https://github.com/ZEGOCLOUD/zego_uikit_prebuilt_call_example_flutter)
+
 ## When do you need the Video Conference Kit
 
 - Build apps faster and easier
@@ -58,9 +65,5 @@ And it includes the business logic with the UI, you can add or remove features a
   - [Screen sharing](https://docs.zegocloud.com/article/15647)
 
 ## More
-
-[Sample Code](https://github.com/ZEGOCLOUD/zego_uikit_prebuilt_video_conference_example_flutter)
-
-<br />
 
 [Please visit our official website for more details.](https://docs.zegocloud.com/article/14902)
