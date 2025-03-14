@@ -1,3 +1,12 @@
+## 2.10.1-beta.1
+
+- Features
+  - Support horizontal scrolling in top menu bar when buttons overflow
+  - Add new configurations in ZegoTopMenuBarConfig:
+    - padding: Customize the padding of top menu bar
+    - margin: Customize the margin of top menu bar
+    - height: Customize the height of top menu bar
+
 ## 2.9.9
 
 - Bugs

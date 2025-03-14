@@ -1,6 +1,6 @@
 name: zego_uikit_prebuilt_video_conference
 description: PrebuiltVideoConference is a full-featured Video Conference kit that provides a realtime group voice/video chat, in-room message, dynamic layout, member list, etc.
-version: 2.9.9
+version: 2.10.0-beta.1
 homepage: https://www.zegocloud.com/
 repository: https://github.com/ZEGOCLOUD/zego_uikit_prebuilt_video_conference_flutter
 screenshots:

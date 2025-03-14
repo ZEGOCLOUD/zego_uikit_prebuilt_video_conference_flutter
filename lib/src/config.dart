@@ -407,13 +407,22 @@ class ZegoTopMenuBarConfig {
   /// Style of the top menu bar.
   ZegoMenuBarStyle style;
 
-  /// BackgroundColor of the top menu bar
-  Color? backgroundColor;
-
   /// Extension buttons that allow you to add your own buttons to the top toolbar.
   /// These buttons will be added to the menu bar in the specified order.
   /// If the limit of [3] is exceeded, additional buttons will be automatically added to the overflow menu.
   List<Widget> extendButtons;
+
+  /// padding for the top menu bar.
+  EdgeInsetsGeometry? padding;
+
+  /// margin for the top menu bar.
+  EdgeInsetsGeometry? margin;
+
+  /// background color for the top menu bar.
+  Color? backgroundColor;
+
+  /// height for the top menu bar.
+  double? height;
 
   ZegoTopMenuBarConfig({
     this.isVisible = true,
@@ -427,6 +436,10 @@ class ZegoTopMenuBarConfig {
     this.style = ZegoMenuBarStyle.dark,
     this.extendButtons = const [],
     this.title = 'Conference',
+    this.padding,
+    this.margin,
+    this.backgroundColor,
+    this.height,
   });
 }
 

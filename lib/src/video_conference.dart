@@ -446,11 +446,10 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       right: 0,
       top: 0,
       child: ZegoTopMenuBar(
-        buttonSize: Size(96.zR, 96.zR),
         config: widget.config,
         visibilityNotifier: barVisibilityNotifier,
         restartHideTimerNotifier: barRestartHideTimerNotifier,
-        height: 88.zR,
+        height: widget.config.topMenuBarConfig.height ?? 96.zR,
         backgroundColor: topMenuBarColor(),
         chatViewVisibleNotifier: chatViewVisibleNotifier,
         popUpManager: popUpManager,

@@ -18,7 +18,6 @@ import 'package:zego_uikit_prebuilt_video_conference/src/defines.dart';
 /// @nodoc
 class ZegoTopMenuBar extends StatefulWidget {
   final ZegoUIKitPrebuiltVideoConferenceConfig config;
-  final Size buttonSize;
   final ValueNotifier<bool> visibilityNotifier;
   final int autoHideSeconds;
   final ValueNotifier<int> restartHideTimerNotifier;
@@ -38,7 +37,6 @@ class ZegoTopMenuBar extends StatefulWidget {
     required this.chatViewVisibleNotifier,
     required this.popUpManager,
     this.autoHideSeconds = 3,
-    this.buttonSize = const Size(60, 60),
     this.height,
     this.borderRadius,
     this.backgroundColor,
@@ -51,6 +49,14 @@ class ZegoTopMenuBar extends StatefulWidget {
 /// @nodoc
 class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
   Timer? hideTimerOfMenuBar;
+
+  double get defaultHeight => 96.zR;
+
+  double get height => widget.height ?? defaultHeight;
+
+  Size get buttonDisplaySize => Size(height, height);
+
+  double get buttonHeightRatio => 0.8;
 
   @override
   void initState() {
@@ -78,7 +84,9 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
       visibilityNotifier: widget.visibilityNotifier,
       endOffset: const Offset(0.0, -2.0),
       child: Container(
-        height: widget.height ?? (widget.buttonSize.height + 2 * 3),
+        margin: widget.config.topMenuBarConfig.margin,
+        padding: widget.config.topMenuBarConfig.padding,
+        height: height,
         decoration: BoxDecoration(
           color: widget.backgroundColor ?? Colors.transparent,
           borderRadius: BorderRadius.only(
@@ -89,8 +97,10 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
         child: Row(
           children: [
             title(),
-            Expanded(child: Container()),
-            rightBar(),
+            SizedBox(width: 5.zR),
+            Expanded(
+              child: rightBar(),
+            ),
           ],
         ),
       ),
@@ -116,32 +126,30 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
   }
 
   Widget rightBar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        ...getDisplayButtons(context),
-        SizedBox(
-          width: 27.zR,
-        )
-      ],
+    return Align(
+      alignment: Alignment.centerRight,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        physics: const BouncingScrollPhysics(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            ...getDisplayButtons(context),
+            SizedBox(
+              width: 27.zR,
+            )
+          ],
+        ),
+      ),
     );
   }
 
   List<Widget> getDisplayButtons(BuildContext context) {
-    final buttons = [
+    return [
       ...getDefaultButtons(context),
       ...widget.config.topMenuBarConfig.extendButtons
           .map((extendButton) => buttonWrapper(child: extendButton))
     ];
-
-    /// limited item count display on menu bar,
-    /// if this count is exceeded, Trim down the extra buttons
-    const maxCount = 3;
-    if (buttons.length > maxCount) {
-      return buttons.sublist(0, maxCount);
-    }
-
-    return buttons;
   }
 
   void onHideTimerRestartNotify() {
@@ -173,9 +181,10 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
   }
 
   Widget buttonWrapper({required Widget child}) {
-    return SizedBox(
-      width: widget.buttonSize.width,
-      height: widget.buttonSize.height,
+    return Container(
+      padding: EdgeInsets.fromLTRB(0, 0, 10.zR, 0),
+      width: buttonDisplaySize.width,
+      height: buttonDisplaySize.height,
       child: child,
     );
   }
@@ -194,8 +203,8 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
 
   Widget generateDefaultButtonsByEnum(
       BuildContext context, ZegoMenuBarButtonName type) {
-    final buttonSize = Size(70.zR, 70.zR);
-    final iconSize = Size(64.zR, 64.zR);
+    final buttonSize = buttonDisplaySize;
+    final iconSize = buttonDisplaySize * buttonHeightRatio;
 
     switch (type) {
       case ZegoMenuBarButtonName.toggleMicrophoneButton:
@@ -204,12 +213,14 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
           iconSize: iconSize,
           normalIcon: ButtonIcon(
             icon: PrebuiltVideoConferenceImage.asset(
-                PrebuiltVideoConferenceIconUrls.topMicNormal),
+              PrebuiltVideoConferenceIconUrls.topMicNormal,
+            ),
             backgroundColor: Colors.transparent,
           ),
           offIcon: ButtonIcon(
             icon: PrebuiltVideoConferenceImage.asset(
-                PrebuiltVideoConferenceIconUrls.topMicOff),
+              PrebuiltVideoConferenceIconUrls.topMicOff,
+            ),
             backgroundColor: Colors.transparent,
           ),
           defaultOn: widget.config.turnOnMicrophoneWhenJoining,
