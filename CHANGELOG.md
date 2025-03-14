@@ -1,4 +1,4 @@
-## 2.10.1-beta.1
+## 2.10.0-beta.1
 
 - Features
   - Support horizontal scrolling in top menu bar when buttons overflow
