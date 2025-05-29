@@ -143,6 +143,9 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           config: widget.config,
           events: events,
         );
+    ZegoUIKitPrebuiltVideoConferenceController().screen.private.initByPrebuilt(
+          config: widget.config,
+        );
 
     initContext().catchError((e) {
       ZegoLoggerService.logError(
@@ -168,6 +171,10 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     ZegoUIKitPrebuiltVideoConferenceController().private.uninitByPrebuilt();
     ZegoUIKitPrebuiltVideoConferenceController()
         .room
+        .private
+        .uninitByPrebuilt();
+    ZegoUIKitPrebuiltVideoConferenceController()
+        .screen
         .private
         .uninitByPrebuilt();
 
@@ -272,9 +279,9 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     assert(widget.appSign.isNotEmpty);
 
     final config = widget.config;
-    initPermissions().then((value) {
+    await initPermissions().then((value) async {
       ZegoUIKit().login(widget.userID, widget.userName);
-      ZegoUIKit()
+      await ZegoUIKit()
           .init(appID: widget.appID, appSign: widget.appSign)
           .then((value) async {
         await ZegoUIKit().enableCustomVideoRender(false);
@@ -446,11 +453,10 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       right: 0,
       top: 0,
       child: ZegoTopMenuBar(
-        buttonSize: Size(96.zR, 96.zR),
         config: widget.config,
         visibilityNotifier: barVisibilityNotifier,
         restartHideTimerNotifier: barRestartHideTimerNotifier,
-        height: 88.zR,
+        height: widget.config.topMenuBarConfig.height ?? 96.zR,
         backgroundColor: topMenuBarColor(),
         chatViewVisibleNotifier: chatViewVisibleNotifier,
         popUpManager: popUpManager,

@@ -12,9 +12,11 @@ part 'controller/private/private.dart';
 
 part 'controller/room.dart';
 
+part 'controller/screen.dart';
+
 part 'controller/private/room.dart';
 
-part 'controller/screen.dart';
+part 'controller/private/screen.dart';
 
 /// Used to control the video conference room functionality.
 /// If the default video conference room UI and interactions do not meet your requirements, you can use this [ZegoUIKitPrebuiltVideoConferenceController] to actively control the business logic.
@@ -26,7 +28,7 @@ class ZegoUIKitPrebuiltVideoConferenceController
         ZegoVideoConferenceControllerScreen {
   factory ZegoUIKitPrebuiltVideoConferenceController() => instance;
 
-  String get version => "2.9.10";
+  String get version => "2.10.0";
 
   ZegoUIKitPrebuiltVideoConferenceController._internal() {
     ZegoLoggerService.logInfo(

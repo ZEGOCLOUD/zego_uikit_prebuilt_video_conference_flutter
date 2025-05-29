@@ -7,8 +7,10 @@ mixin ZegoVideoConferenceControllerScreen {
 }
 
 /// Here are the APIs related to screen sharing.
-class ZegoVideoConferenceScreenController {
-  final screenSharingViewController = ZegoScreenSharingViewController();
+class ZegoVideoConferenceScreenController
+    with ZegoVideoConferenceScreenImplPrivate {
+  ZegoScreenSharingViewController get screenSharingViewController =>
+      private.viewController;
 
   /// This function is used to specify whether a certain user enters or exits full-screen mode during screen sharing.
   ///
