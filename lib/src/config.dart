@@ -7,6 +7,7 @@ import 'package:zego_uikit/zego_uikit.dart';
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/defines.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/events.dart';
+import 'package:zego_uikit_prebuilt_video_conference/src/inner_text.dart';
 
 /// Configuration for initializing the Video Conference
 /// This class is used as the [config] parameter for the constructor of [ZegoUIKitPrebuiltVideoConference].
@@ -34,6 +35,7 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
     ZegoInRoomNotificationViewConfig? notificationViewConfig,
     ZegoInRoomChatViewConfig? chatViewConfig,
     ZegoVideoConferenceDurationConfig? duration,
+    ZegoUIKitPrebuiltLiveVideoConferenceInnerText? innerText,
   })  : audioVideoViewConfig =
             audioVideoViewConfig ?? ZegoPrebuiltAudioVideoViewConfig(),
         topMenuBarConfig = topMenuBarConfig ??
@@ -43,7 +45,9 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
         notificationViewConfig =
             notificationViewConfig ?? ZegoInRoomNotificationViewConfig(),
         chatViewConfig = chatViewConfig ?? ZegoInRoomChatViewConfig(),
-        duration = duration ?? ZegoVideoConferenceDurationConfig() {
+        duration = duration ?? ZegoVideoConferenceDurationConfig(),
+        innerText =
+            innerText ?? ZegoUIKitPrebuiltLiveVideoConferenceInnerText() {
     layout ??= ZegoLayout.gallery();
   }
 
@@ -101,6 +105,11 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
   /// ```
   ///<img src = "https://doc.oa.zego.im/Pics/ZegoUIKit/Flutter/live/live_duration.jpeg" width=50% />
   ZegoVideoConferenceDurationConfig duration;
+
+  /// Configuration options for modifying all text content on the UI.
+  ///
+  /// All visible text content on the UI can be modified using this single property.
+  ZegoUIKitPrebuiltLiveVideoConferenceInnerText innerText;
 
   /// Layout-related configuration. You can choose your layout here.
   ZegoLayout? layout;
@@ -407,13 +416,22 @@ class ZegoTopMenuBarConfig {
   /// Style of the top menu bar.
   ZegoMenuBarStyle style;
 
-  /// BackgroundColor of the top menu bar
-  Color? backgroundColor;
-
   /// Extension buttons that allow you to add your own buttons to the top toolbar.
   /// These buttons will be added to the menu bar in the specified order.
   /// If the limit of [3] is exceeded, additional buttons will be automatically added to the overflow menu.
   List<Widget> extendButtons;
+
+  /// padding for the top menu bar.
+  EdgeInsetsGeometry? padding;
+
+  /// margin for the top menu bar.
+  EdgeInsetsGeometry? margin;
+
+  /// background color for the top menu bar.
+  Color? backgroundColor;
+
+  /// height for the top menu bar.
+  double? height;
 
   ZegoTopMenuBarConfig({
     this.isVisible = true,
@@ -427,6 +445,10 @@ class ZegoTopMenuBarConfig {
     this.style = ZegoMenuBarStyle.dark,
     this.extendButtons = const [],
     this.title = 'Conference',
+    this.padding,
+    this.margin,
+    this.backgroundColor,
+    this.height,
   });
 }
 

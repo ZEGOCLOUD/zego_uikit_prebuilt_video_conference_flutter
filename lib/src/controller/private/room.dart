@@ -2,14 +2,14 @@ part of 'package:zego_uikit_prebuilt_video_conference/src/controller.dart';
 
 /// @nodoc
 mixin ZegoVideoConferenceControllerRoomPrivate {
-  final _impl = ZegoVideoConferenceControlleRoomrPrivateImpl();
+  final _impl = ZegoVideoConferenceControllerRoomPrivateImpl();
 
   /// Don't call that
-  ZegoVideoConferenceControlleRoomrPrivateImpl get private => _impl;
+  ZegoVideoConferenceControllerRoomPrivateImpl get private => _impl;
 }
 
 /// @nodoc
-class ZegoVideoConferenceControlleRoomrPrivateImpl {
+class ZegoVideoConferenceControllerRoomPrivateImpl {
   ZegoUIKitPrebuiltVideoConferenceConfig? config;
   ZegoUIKitPrebuiltVideoConferenceEvents? events;
 
