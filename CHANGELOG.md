@@ -1,3 +1,8 @@
+## 2.10.1
+
+- Bugs
+  - Fixed the issue where the menu was obscured when the navigation bar was enabled on some Android devices
+
 ## 2.10.0
 
 - Features
