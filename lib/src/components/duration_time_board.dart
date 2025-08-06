@@ -145,7 +145,7 @@ class _CallDurationTimeBoardState
                     child: ZegoVideoConferenceColoredText(
                       text: durationFormatString(elapsedTime),
                       fontSize: widget.fontSize ?? 25.zR,
-                      backgroundColor: Colors.black.withOpacity(0.2),
+                      backgroundColor: Colors.black.withValues(alpha: 0.2),
                       horizontalPadding: 20.zR,
                       verticalPadding: 5.zR,
                     ),

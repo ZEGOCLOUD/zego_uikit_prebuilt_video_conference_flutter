@@ -80,7 +80,7 @@ class _ZegoMemberListButtonState extends State<ZegoMemberListButton> {
         height: containerSize.height,
         decoration: BoxDecoration(
           color: widget.icon?.backgroundColor ??
-              const Color(0xff2C2F3E).withOpacity(0.6),
+              const Color(0xff2C2F3E).withValues(alpha: 0.6),
           shape: BoxShape.circle,
         ),
         child: SizedBox.fromSize(
