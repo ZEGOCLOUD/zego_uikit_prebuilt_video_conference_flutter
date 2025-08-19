@@ -1,3 +1,9 @@
+## 2.10.2
+
+- Features
+  - The location for generating iOS logs has been changed to the same directory as the Zego SDK, and the folder name has been changed to ZegoUIKits 
+- Update dependency
+
 ## 2.10.1
 
 - Bugs
