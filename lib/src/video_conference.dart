@@ -191,7 +191,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       resizeToAvoidBottomInset: false,
       body: PopScope(
         canPop: false,
-        onPopInvoked: (bool didPop) async {
+        onPopInvokedWithResult: (bool didPop, Object? result) async {
           if (didPop) {
             return;
           }

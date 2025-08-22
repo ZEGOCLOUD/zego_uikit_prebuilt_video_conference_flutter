@@ -23,9 +23,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^3.0.0
+  flutter_lints: ^6.0.0
   import_sorter: ^4.6.0  # run 'flutter pub run import_sorter:main'
-  lints: ^3.0.0
+  lints: ^6.0.0
 
 flutter:
   assets:
@@ -36,3 +36,7 @@ topics:
   - video-conference
   - meeting
   - video-meeting
+
+linter:
+  rules:
+    public_member_api_docs: true

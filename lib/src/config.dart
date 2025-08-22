@@ -506,14 +506,14 @@ class ZegoBottomMenuBarConfig {
 /// ZegoMemberListConfig(
 ///   showMicrophoneState: true,
 ///   showCameraState: false,
-///   itemBuilder: (BuildContext context, Size size, ZegoUIKitUser user, Map<String, dynamic> extraInfo) {
+///   itemBuilder: (BuildContext context, Size size, ZegoUIKitUser user, Map\<String, dynamic\> extraInfo) {
 ///     return CustomMemberListItem(user: user);
 ///   },
 /// );
 ///
-/// In this example, we set `showMicrophoneState` to true, so the microphone state will be displayed in the member list item.
-/// `showCameraState` is set to false, so the camera state will not be displayed.
-/// Finally, we pass the builder function of the custom view, `CustomMemberListItem`, to the `itemBuilder` property so that the member list item will be rendered using the custom component.
+/// In this example, we set showMicrophoneState to true, so the microphone state will be displayed in the member list item.
+/// showCameraState is set to false, so the camera state will not be displayed.
+/// Finally, we pass the builder function of the custom view, CustomMemberListItem, to the itemBuilder property so that the member list item will be rendered using the custom component.
 class ZegoMemberListConfig {
   /// Whether to show the microphone state of the member. Defaults to true, which means it will be shown.
   bool showMicrophoneState;
