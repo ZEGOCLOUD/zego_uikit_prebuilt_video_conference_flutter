@@ -30,6 +30,13 @@ dev_dependencies:
 flutter:
   assets:
     - assets/icons/
+  plugin:
+    platforms:
+      android:
+        package: com.zegocloud.uikit.prebuilt_video_conference
+        pluginClass: ZegoUIKitPrebuiltVideoConferencePlugin
+      ios:
+        pluginClass: ZegoUIKitPrebuiltVideoConferencePlugin
 
 topics:
   - conference
