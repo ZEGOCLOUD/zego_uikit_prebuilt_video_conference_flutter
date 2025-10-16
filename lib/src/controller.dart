@@ -14,6 +14,8 @@ part 'controller/room.dart';
 
 part 'controller/screen.dart';
 
+part 'controller/log.dart';
+
 part 'controller/private/room.dart';
 
 part 'controller/private/screen.dart';
@@ -25,10 +27,11 @@ class ZegoUIKitPrebuiltVideoConferenceController
     with
         ZegoVideoConferenceControllerPrivate,
         ZegoVideoConferenceControllerRoom,
+        ZegoVideoConferenceRoomControllerLog,
         ZegoVideoConferenceControllerScreen {
   factory ZegoUIKitPrebuiltVideoConferenceController() => instance;
 
-  String get version => "2.10.3";
+  String get version => "2.10.4";
 
   ZegoUIKitPrebuiltVideoConferenceController._internal() {
     ZegoLoggerService.logInfo(

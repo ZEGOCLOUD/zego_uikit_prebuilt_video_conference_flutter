@@ -1,3 +1,8 @@
+## 2.10.4
+
+- Features
+  - Support export log by `ZegoUIKitPrebuiltLiveStreamingController().log.export()`
+
 ## 2.10.3
 
 - Update environment
