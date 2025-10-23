@@ -1,3 +1,8 @@
+
+## 2.10.5
+
+- Update dependency
+
 ## 2.10.4
 
 - Features
