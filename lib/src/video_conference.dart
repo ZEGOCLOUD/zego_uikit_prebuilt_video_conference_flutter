@@ -90,7 +90,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   var chatViewVisibleNotifier = ValueNotifier<bool>(false);
 
   final popUpManager = ZegoPopUpManager();
-  final durationManager = ZegoVideoConferenceDurationManager();
+  late ZegoVideoConferenceDurationManager durationManager;
   List<StreamSubscription<dynamic>?> subscriptions = [];
 
   bool get isLightStyle =>
@@ -99,6 +99,10 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   @override
   void initState() {
     super.initState();
+
+    durationManager = ZegoVideoConferenceDurationManager(
+      conferenceID: widget.conferenceID,
+    );
 
     ZegoUIKit().reporter().create(
       userID: widget.userID,
@@ -167,7 +171,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       subscription?.cancel();
     }
 
-    ZegoUIKit().leaveRoom();
+    ZegoUIKit().leaveRoom(targetRoomID: widget.conferenceID);
 
     ZegoUIKitPrebuiltVideoConferenceController().private.uninitByPrebuilt();
     ZegoUIKitPrebuiltVideoConferenceController()
@@ -454,6 +458,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       right: 0,
       top: 0,
       child: ZegoTopMenuBar(
+        conferenceID: widget.conferenceID,
         config: widget.config,
         visibilityNotifier: barVisibilityNotifier,
         restartHideTimerNotifier: barRestartHideTimerNotifier,
@@ -479,6 +484,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       right: 0,
       bottom: isLightStyle ? 10 : 0,
       child: ZegoBottomMenuBar(
+        conferenceID: widget.conferenceID,
         buttonSize: Size(96.zR, 96.zR),
         config: widget.config,
         visibilityNotifier: barVisibilityNotifier,

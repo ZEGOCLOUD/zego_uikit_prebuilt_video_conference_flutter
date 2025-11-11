@@ -13,13 +13,19 @@ import 'package:zego_uikit_prebuilt_video_conference/src/config.dart';
 /// @nodoc
 class ZegoVideoConferenceDurationManager {
   bool _initialized = false;
+  final String conferenceID;
 
   bool get isValid => notifier.value.millisecondsSinceEpoch > 0;
 
-  ZegoVideoConferenceDurationManager() {
-    onRoomPropertiesUpdated(ZegoUIKit().getRoomProperties());
-    subscription =
-        ZegoUIKit().getRoomPropertiesStream().listen(onRoomPropertiesUpdated);
+  ZegoVideoConferenceDurationManager({
+    required this.conferenceID,
+  }) {
+    onRoomPropertiesUpdated(ZegoUIKit().getRoomProperties(
+      targetRoomID: conferenceID,
+    ));
+    subscription = ZegoUIKit()
+        .getRoomPropertiesStream(targetRoomID: conferenceID)
+        .listen(onRoomPropertiesUpdated);
   }
 
   /// internal variables
@@ -76,7 +82,8 @@ class ZegoVideoConferenceDurationManager {
   }
 
   void onRoomPropertiesUpdated(Map<String, RoomProperty> updatedProperties) {
-    final roomProperties = ZegoUIKit().getRoomProperties();
+    final roomProperties =
+        ZegoUIKit().getRoomProperties(targetRoomID: conferenceID);
     ZegoLoggerService.logInfo(
       'onRoomPropertiesUpdated roomProperties:$roomProperties, updatedProperties:$updatedProperties',
       tag: 'video-conference',
@@ -153,6 +160,7 @@ class ZegoVideoConferenceDurationManager {
     );
 
     ZegoUIKit().setRoomProperty(
+      targetRoomID: conferenceID,
       RoomPropertyKey.liveDuration.text,
       networkTimeNow.millisecondsSinceEpoch.toString(),
     );

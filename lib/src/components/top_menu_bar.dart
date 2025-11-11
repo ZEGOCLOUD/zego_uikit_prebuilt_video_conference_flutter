@@ -17,6 +17,8 @@ import 'package:zego_uikit_prebuilt_video_conference/src/defines.dart';
 
 /// @nodoc
 class ZegoTopMenuBar extends StatefulWidget {
+  final String conferenceID;
+
   final ZegoUIKitPrebuiltVideoConferenceConfig config;
   final ValueNotifier<bool> visibilityNotifier;
   final int autoHideSeconds;
@@ -32,6 +34,7 @@ class ZegoTopMenuBar extends StatefulWidget {
   const ZegoTopMenuBar({
     Key? key,
     required this.config,
+    required this.conferenceID,
     required this.visibilityNotifier,
     required this.restartHideTimerNotifier,
     required this.chatViewVisibleNotifier,
@@ -287,6 +290,7 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
         );
       case ZegoMenuBarButtonName.leaveButton:
         return ZegoLeaveButton(
+          roomID: widget.conferenceID,
           buttonSize: buttonSize,
           iconSize: iconSize,
           icon: ButtonIcon(
