@@ -176,7 +176,6 @@ class _ZegoUIKitPrebuiltVideoConferenceState
 
     ZegoUIKit().leaveRoom(targetRoomID: widget.conferenceID);
 
-    ZegoUIKitPrebuiltVideoConferenceController().private.uninitByPrebuilt();
     ZegoUIKitPrebuiltVideoConferenceController()
         .room
         .private
@@ -185,6 +184,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         .screen
         .private
         .uninitByPrebuilt();
+    ZegoUIKitPrebuiltVideoConferenceController().private.uninitByPrebuilt();
 
     ZegoUIKit()
         .reporter()
