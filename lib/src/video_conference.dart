@@ -174,7 +174,10 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       subscription?.cancel();
     }
 
-    ZegoUIKit().leaveRoom(targetRoomID: widget.conferenceID);
+    ZegoUIKit().leaveRoom(
+      targetRoomID: widget.conferenceID,
+      stopPlayingAnotherRoomStream: true,
+    );
 
     ZegoUIKitPrebuiltVideoConferenceController()
         .room
