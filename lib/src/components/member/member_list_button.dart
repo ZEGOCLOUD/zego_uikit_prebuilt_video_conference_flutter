@@ -15,6 +15,8 @@ import 'package:zego_uikit_prebuilt_video_conference/src/config.dart';
 class ZegoMemberListButton extends StatefulWidget {
   const ZegoMemberListButton({
     Key? key,
+    required this.conferenceID,
+    required this.popUpManager,
     this.afterClicked,
     this.icon,
     this.iconSize,
@@ -22,8 +24,9 @@ class ZegoMemberListButton extends StatefulWidget {
     this.config,
     this.avatarBuilder,
     this.rootNavigator = false,
-    required this.popUpManager,
   }) : super(key: key);
+
+  final String conferenceID;
 
   final ZegoMemberListConfig? config;
 
@@ -63,6 +66,7 @@ class _ZegoMemberListButtonState extends State<ZegoMemberListButton> {
     return GestureDetector(
       onTap: () {
         showMemberListSheet(
+          conferenceID: widget.conferenceID,
           context,
           itemBuilder: widget.config?.itemBuilder,
           avatarBuilder: widget.avatarBuilder,

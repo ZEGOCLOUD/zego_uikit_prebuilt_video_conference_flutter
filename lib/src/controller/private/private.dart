@@ -10,6 +10,12 @@ mixin ZegoVideoConferenceControllerPrivate {
 
 /// @nodoc
 class ZegoVideoConferenceControllerPrivateImpl {
+  String _conferenceID = '';
+  String get conferenceID {
+    assert(_conferenceID.isNotEmpty);
+    return _conferenceID;
+  }
+
   ZegoUIKitPrebuiltVideoConferenceConfig? config;
   ZegoUIKitPrebuiltVideoConferenceEvents? events;
 
@@ -17,6 +23,7 @@ class ZegoVideoConferenceControllerPrivateImpl {
   /// Call Inside By Prebuilt
   /// prebuilt assign value to internal variables
   void initByPrebuilt({
+    required String conferenceID,
     required ZegoUIKitPrebuiltVideoConferenceConfig config,
     required ZegoUIKitPrebuiltVideoConferenceEvents events,
   }) {
@@ -26,6 +33,7 @@ class ZegoVideoConferenceControllerPrivateImpl {
       subTag: 'controller.p',
     );
 
+    _conferenceID = conferenceID;
     this.config = config;
     this.events = events;
   }
@@ -40,6 +48,7 @@ class ZegoVideoConferenceControllerPrivateImpl {
       subTag: 'controller.p',
     );
 
+    _conferenceID = '';
     config = null;
     events = null;
   }

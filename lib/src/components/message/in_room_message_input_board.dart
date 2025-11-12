@@ -10,12 +10,14 @@ class ZegoInRoomMessageInputBoard extends ModalRoute<String> {
   final ValueNotifier<bool>? focusNotifier;
   final String placeHolder;
   final bool rootNavigator;
+  final String conferenceID;
 
   ZegoInRoomMessageInputBoard({
+    required this.conferenceID,
+    required this.rootNavigator,
     this.placeHolder = 'Say something...',
     this.valueNotifier,
     this.focusNotifier,
-    required this.rootNavigator,
   }) : super();
 
   @override
@@ -57,6 +59,7 @@ class ZegoInRoomMessageInputBoard extends ModalRoute<String> {
             ),
           ),
           ZegoInRoomMessageInput(
+            roomID: conferenceID,
             placeHolder: placeHolder,
             valueNotifier: valueNotifier,
             focusNotifier: focusNotifier,

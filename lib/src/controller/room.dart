@@ -57,7 +57,11 @@ class ZegoVideoConferenceRoomController
       subTag: 'controller.room',
     );
 
-    return ZegoUIKit().removeUserFromRoom(userIDs);
+    return ZegoUIKit().removeUserFromRoom(
+      targetRoomID:
+          ZegoUIKitPrebuiltVideoConferenceController().private.conferenceID,
+      userIDs,
+    );
   }
 
   ///  turn on/off user's microphone.
@@ -118,7 +122,12 @@ class ZegoVideoConferenceRoomController
     );
 
     for (final userID in userIDs) {
-      ZegoUIKit().turnMicrophoneOn(!mute, userID: userID);
+      ZegoUIKit().turnMicrophoneOn(
+        targetRoomID:
+            ZegoUIKitPrebuiltVideoConferenceController().private.conferenceID,
+        !mute,
+        userID: userID,
+      );
     }
   }
 }

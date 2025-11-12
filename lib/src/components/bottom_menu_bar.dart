@@ -124,11 +124,17 @@ class _ZegoBottomMenuBarState extends State<ZegoBottomMenuBar> {
             final buttonList = <Widget>[
               ...getDefaultButtons(context, cameraDefaultValueFunc: () {
                 return ZegoUIKit()
-                    .getCameraStateNotifier(ZegoUIKit().getLocalUser().id)
+                    .getCameraStateNotifier(
+                      targetRoomID: widget.conferenceID,
+                      ZegoUIKit().getLocalUser().id,
+                    )
                     .value;
               }, microphoneDefaultValueFunc: () {
                 return ZegoUIKit()
-                    .getMicrophoneStateNotifier(ZegoUIKit().getLocalUser().id)
+                    .getMicrophoneStateNotifier(
+                      targetRoomID: widget.conferenceID,
+                      ZegoUIKit().getLocalUser().id,
+                    )
                     .value;
               }),
               ...widget.config.bottomMenuBarConfig.extendButtons
@@ -215,6 +221,7 @@ class _ZegoBottomMenuBarState extends State<ZegoBottomMenuBar> {
     switch (type) {
       case ZegoMenuBarButtonName.toggleMicrophoneButton:
         return ZegoToggleMicrophoneButton(
+          roomID: widget.conferenceID,
           buttonSize: buttonSize,
           iconSize: iconSize,
           defaultOn: microphoneDefaultValueFunc?.call() ??
@@ -222,12 +229,14 @@ class _ZegoBottomMenuBarState extends State<ZegoBottomMenuBar> {
         );
       case ZegoMenuBarButtonName.switchAudioOutputButton:
         return ZegoSwitchAudioOutputButton(
+          roomID: widget.conferenceID,
           buttonSize: buttonSize,
           iconSize: iconSize,
           defaultUseSpeaker: widget.config.useSpeakerWhenJoining,
         );
       case ZegoMenuBarButtonName.toggleCameraButton:
         return ZegoToggleCameraButton(
+          roomID: widget.conferenceID,
           buttonSize: buttonSize,
           iconSize: iconSize,
           defaultOn: cameraDefaultValueFunc?.call() ??
@@ -235,11 +244,14 @@ class _ZegoBottomMenuBarState extends State<ZegoBottomMenuBar> {
         );
       case ZegoMenuBarButtonName.switchCameraButton:
         return ZegoSwitchCameraButton(
+          roomID: widget.conferenceID,
           buttonSize: buttonSize,
           iconSize: iconSize,
           defaultUseFrontFacingCamera: ZegoUIKit()
               .getUseFrontFacingCameraStateNotifier(
-                  ZegoUIKit().getLocalUser().id)
+                targetRoomID: widget.conferenceID,
+                ZegoUIKit().getLocalUser().id,
+              )
               .value,
         );
       case ZegoMenuBarButtonName.leaveButton:
@@ -263,6 +275,7 @@ class _ZegoBottomMenuBarState extends State<ZegoBottomMenuBar> {
         );
       case ZegoMenuBarButtonName.showMemberListButton:
         return ZegoMemberListButton(
+          conferenceID: widget.conferenceID,
           config: widget.config.memberListConfig,
           avatarBuilder: widget.config.avatarBuilder,
           buttonSize: buttonSize,
@@ -272,6 +285,7 @@ class _ZegoBottomMenuBarState extends State<ZegoBottomMenuBar> {
         );
       case ZegoMenuBarButtonName.chatButton:
         return ZegoInRoomMessageButton(
+          conferenceID: widget.conferenceID,
           buttonSize: buttonSize,
           iconSize: iconSize,
           avatarBuilder: widget.config.avatarBuilder,
@@ -281,6 +295,7 @@ class _ZegoBottomMenuBarState extends State<ZegoBottomMenuBar> {
         );
       case ZegoMenuBarButtonName.toggleScreenSharingButton:
         return ZegoScreenSharingToggleButton(
+          roomID: widget.conferenceID,
           buttonSize: buttonSize,
           iconSize: iconSize,
           onPressed: (isScreenSharing) {},

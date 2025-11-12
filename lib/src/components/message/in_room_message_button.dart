@@ -17,6 +17,7 @@ import 'package:zego_uikit_prebuilt_video_conference/src/components/pop_up_manag
 class ZegoInRoomMessageButton extends StatefulWidget {
   const ZegoInRoomMessageButton({
     Key? key,
+    required this.conferenceID,
     required this.popUpManager,
     required this.viewVisibleNotifier,
     this.afterClicked,
@@ -27,6 +28,8 @@ class ZegoInRoomMessageButton extends StatefulWidget {
     this.itemBuilder,
     this.rootNavigator = false,
   }) : super(key: key);
+
+  final String conferenceID;
 
   final ButtonIcon? icon;
 
@@ -66,6 +69,7 @@ class _ZegoInRoomMessageButtonState extends State<ZegoInRoomMessageButton> {
     return GestureDetector(
       onTap: () {
         showMessageSheet(
+          conferenceID: widget.conferenceID,
           context,
           avatarBuilder: widget.avatarBuilder,
           itemBuilder: widget.itemBuilder,

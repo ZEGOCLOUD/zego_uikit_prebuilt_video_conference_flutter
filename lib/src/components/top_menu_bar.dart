@@ -221,6 +221,7 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
     switch (type) {
       case ZegoMenuBarButtonName.toggleMicrophoneButton:
         return ZegoToggleMicrophoneButton(
+          roomID: widget.conferenceID,
           buttonSize: buttonSize,
           iconSize: iconSize,
           normalIcon: ButtonIcon(
@@ -239,6 +240,7 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
         );
       case ZegoMenuBarButtonName.switchAudioOutputButton:
         return ZegoSwitchAudioOutputButton(
+          roomID: widget.conferenceID,
           buttonSize: buttonSize,
           iconSize: iconSize,
           speakerIcon: ButtonIcon(
@@ -260,6 +262,7 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
         );
       case ZegoMenuBarButtonName.toggleCameraButton:
         return ZegoToggleCameraButton(
+          roomID: widget.conferenceID,
           buttonSize: buttonSize,
           iconSize: iconSize,
           normalIcon: ButtonIcon(
@@ -276,6 +279,7 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
         );
       case ZegoMenuBarButtonName.switchCameraButton:
         return ZegoSwitchCameraButton(
+          roomID: widget.conferenceID,
           buttonSize: buttonSize,
           iconSize: iconSize,
           icon: ButtonIcon(
@@ -285,7 +289,9 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
           ),
           defaultUseFrontFacingCamera: ZegoUIKit()
               .getUseFrontFacingCameraStateNotifier(
-                  ZegoUIKit().getLocalUser().id)
+                targetRoomID: widget.conferenceID,
+                ZegoUIKit().getLocalUser().id,
+              )
               .value,
         );
       case ZegoMenuBarButtonName.leaveButton:
@@ -314,6 +320,7 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
         );
       case ZegoMenuBarButtonName.showMemberListButton:
         return ZegoMemberListButton(
+          conferenceID: widget.conferenceID,
           config: widget.config.memberListConfig,
           avatarBuilder: widget.config.avatarBuilder,
           buttonSize: buttonSize,
@@ -328,6 +335,7 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
         );
       case ZegoMenuBarButtonName.chatButton:
         return ZegoInRoomMessageButton(
+          conferenceID: widget.conferenceID,
           buttonSize: buttonSize,
           iconSize: iconSize,
           icon: ButtonIcon(
@@ -342,6 +350,7 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
         );
       case ZegoMenuBarButtonName.toggleScreenSharingButton:
         return ZegoScreenSharingToggleButton(
+          roomID: widget.conferenceID,
           buttonSize: buttonSize,
           iconSize: iconSize,
           onPressed: (isScreenSharing) {},

@@ -15,9 +15,11 @@ class ZegoMemberListSheet extends StatefulWidget {
   final ZegoMemberListItemBuilder? itemBuilder;
   final ZegoAvatarBuilder? avatarBuilder;
   final bool rootNavigator;
+  final String conferenceID;
 
   const ZegoMemberListSheet({
     Key? key,
+    required this.conferenceID,
     this.itemBuilder,
     this.avatarBuilder,
     this.showMicrophoneState = true,
@@ -51,6 +53,7 @@ class _ZegoMemberListSheetState extends State<ZegoMemberListSheet> {
           SizedBox(
             height: constraints.maxHeight - 1.zR - 98.zH,
             child: ZegoMemberList(
+              roomID: widget.conferenceID,
               itemBuilder: widget.itemBuilder,
               avatarBuilder: widget.avatarBuilder,
               showCameraState: widget.showCameraState,
@@ -98,11 +101,12 @@ class _ZegoMemberListSheetState extends State<ZegoMemberListSheet> {
 
 void showMemberListSheet(
   BuildContext context, {
+  required ZegoPopUpManager popUpManager,
+  required String conferenceID,
   showMicrophoneState = true,
   showCameraState = true,
   ZegoMemberListItemBuilder? itemBuilder,
   ZegoAvatarBuilder? avatarBuilder,
-  required ZegoPopUpManager popUpManager,
 }) {
   final key = DateTime.now().millisecondsSinceEpoch;
   popUpManager.addAPopUpSheet(key);
@@ -129,6 +133,7 @@ void showMemberListSheet(
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               child: ZegoMemberListSheet(
+                conferenceID: conferenceID,
                 itemBuilder: itemBuilder,
                 avatarBuilder: avatarBuilder,
                 showCameraState: showCameraState,

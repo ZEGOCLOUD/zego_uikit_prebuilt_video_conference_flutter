@@ -8,6 +8,7 @@ import 'package:zego_uikit/zego_uikit.dart';
 
 /// @nodoc
 class ZegoAudioVideoForeground extends StatelessWidget {
+  final String conferenceID;
   final Size size;
   final ZegoUIKitUser? user;
 
@@ -18,6 +19,7 @@ class ZegoAudioVideoForeground extends StatelessWidget {
   const ZegoAudioVideoForeground({
     Key? key,
     this.user,
+    required this.conferenceID,
     required this.size,
     this.showMicrophoneStateOnView = true,
     this.showCameraStateOnView = true,
@@ -87,7 +89,7 @@ class ZegoAudioVideoForeground extends StatelessWidget {
       return const SizedBox();
     }
 
-    return ZegoMicrophoneStateIcon(targetUser: user);
+    return ZegoMicrophoneStateIcon(roomID: conferenceID, targetUser: user);
   }
 
   Widget cameraStateIcon() {
@@ -95,6 +97,6 @@ class ZegoAudioVideoForeground extends StatelessWidget {
       return const SizedBox();
     }
 
-    return ZegoCameraStateIcon(targetUser: user);
+    return ZegoCameraStateIcon(roomID: conferenceID, targetUser: user);
   }
 }

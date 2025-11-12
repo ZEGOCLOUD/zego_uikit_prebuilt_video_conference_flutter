@@ -26,6 +26,10 @@ class ZegoVideoConferenceScreenController
     );
 
     screenSharingViewController.showScreenSharingViewInFullscreenMode(
-        userID, isFullscreen);
+      targetRoomID:
+          ZegoUIKitPrebuiltVideoConferenceController().private.conferenceID,
+      userID,
+      isFullscreen,
+    );
   }
 }

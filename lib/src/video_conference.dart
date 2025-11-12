@@ -130,17 +130,20 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     });
 
     subscriptions
-      ..add(
-          ZegoUIKit().getMeRemovedFromRoomStream().listen(onMeRemovedFromRoom))
+      ..add(ZegoUIKit()
+          .getMeRemovedFromRoomStream(targetRoomID: widget.conferenceID)
+          .listen(onMeRemovedFromRoom))
       ..add(ZegoUIKit().getErrorStream().listen(onUIKitError))
       ..add(ZegoUIKit()
-          .getTurnOnYourCameraRequestStream()
+          .getTurnOnYourCameraRequestStream(targetRoomID: widget.conferenceID)
           .listen(onTurnOnYourCameraRequest))
       ..add(ZegoUIKit()
-          .getTurnOnYourMicrophoneRequestStream()
+          .getTurnOnYourMicrophoneRequestStream(
+              targetRoomID: widget.conferenceID)
           .listen(onTurnOnYourMicrophoneRequest));
 
     ZegoUIKitPrebuiltVideoConferenceController().private.initByPrebuilt(
+          conferenceID: widget.conferenceID,
           config: widget.config,
           events: events,
         );
@@ -300,8 +303,14 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           ..updateVideoViewMode(
               config.audioVideoViewConfig.useVideoViewAspectFill)
           ..enableVideoMirroring(config.audioVideoViewConfig.isVideoMirror)
-          ..turnCameraOn(config.turnOnCameraWhenJoining)
-          ..turnMicrophoneOn(config.turnOnMicrophoneWhenJoining)
+          ..turnCameraOn(
+            targetRoomID: widget.conferenceID,
+            config.turnOnCameraWhenJoining,
+          )
+          ..turnMicrophoneOn(
+            targetRoomID: widget.conferenceID,
+            config.turnOnMicrophoneWhenJoining,
+          )
           ..setAudioOutputToSpeaker(config.useSpeakerWhenJoining);
 
         ZegoUIKit().joinRoom(widget.conferenceID).then((result) async {
@@ -363,6 +372,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         width: width,
         height: height,
         child: ZegoAudioVideoContainer(
+          roomID: widget.conferenceID,
           layout: widget.config.layout!,
           sources: const [
             ZegoAudioVideoContainerSource.user,
@@ -398,6 +408,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           child: ConstrainedBox(
             constraints: BoxConstraints.loose(Size(540.zR, 400.zR)),
             child: ZegoInRoomNotificationView(
+              roomID: widget.conferenceID,
               notifyUserLeave:
                   widget.config.notificationViewConfig.notifyUserLeave,
               itemBuilder: widget.config.notificationViewConfig.itemBuilder ??
@@ -633,6 +644,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
             ) ??
             Container(color: Colors.transparent),
         ZegoAudioVideoForeground(
+          conferenceID: widget.conferenceID,
           size: size,
           user: user,
           showMicrophoneStateOnView:
@@ -688,7 +700,10 @@ class _ZegoUIKitPrebuiltVideoConferenceState
 
     for (var removedUser in removedUsers) {
       ZegoUIKit().muteUserAudioVideo(
-          removedUser.id, widget.config.audioVideoViewConfig.muteInvisible);
+        targetRoomID: widget.conferenceID,
+        removedUser.id,
+        widget.config.audioVideoViewConfig.muteInvisible,
+      );
     }
 
     return users;
@@ -751,7 +766,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       subTag: 'prebuilt',
     );
     if (canCameraTurnOnByOthers) {
-      ZegoUIKit().turnCameraOn(true);
+      ZegoUIKit().turnCameraOn(targetRoomID: widget.conferenceID, true);
     }
   }
 
@@ -784,6 +799,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     );
     if (canMicrophoneTurnOnByOthers) {
       ZegoUIKit().turnMicrophoneOn(
+        targetRoomID: widget.conferenceID,
         true,
         muteMode: event.muteMode,
       );

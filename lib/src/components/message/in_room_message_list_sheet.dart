@@ -12,12 +12,14 @@ import 'package:zego_uikit_prebuilt_video_conference/src/components/pop_up_manag
 class ZegoVideoConferenceMessageListSheet extends StatefulWidget {
   const ZegoVideoConferenceMessageListSheet({
     Key? key,
+    required this.conferenceID,
     this.avatarBuilder,
     this.itemBuilder,
     this.scrollController,
     this.rootNavigator = false,
   }) : super(key: key);
 
+  final String conferenceID;
   final bool rootNavigator;
   final ZegoAvatarBuilder? avatarBuilder;
   final ZegoInRoomMessageItemBuilder? itemBuilder;
@@ -83,6 +85,7 @@ class _ZegoVideoConferenceMessageListSheetState
       bottom: 0,
       height: height,
       child: ZegoInRoomMessageInput(
+        roomID: widget.conferenceID,
         placeHolder: 'Send a message to everyone',
         autofocus: false,
         focusNotifier: focusNotifier,
@@ -110,6 +113,7 @@ class _ZegoVideoConferenceMessageListSheetState
                 resizeToAvoidBottomInset: true,
                 backgroundColor: Colors.transparent,
                 body: ZegoInRoomChatView(
+                  roomID: widget.conferenceID,
                   avatarBuilder: widget.avatarBuilder,
                   itemBuilder: widget.itemBuilder,
                   scrollController: widget.scrollController,
@@ -172,12 +176,13 @@ class _ZegoVideoConferenceMessageListSheetState
 
 void showMessageSheet(
   BuildContext context, {
+  required String conferenceID,
+  required ZegoPopUpManager popUpManager,
+  required ValueNotifier<bool> visibleNotifier,
   ZegoAvatarBuilder? avatarBuilder,
   ZegoInRoomMessageItemBuilder? itemBuilder,
   ScrollController? scrollController,
   bool rootNavigator = false,
-  required ZegoPopUpManager popUpManager,
-  required ValueNotifier<bool> visibleNotifier,
 }) {
   visibleNotifier.value = true;
 
@@ -206,6 +211,7 @@ void showMessageSheet(
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               child: ZegoVideoConferenceMessageListSheet(
+                conferenceID: conferenceID,
                 avatarBuilder: avatarBuilder,
                 itemBuilder: itemBuilder,
                 scrollController: scrollController,
