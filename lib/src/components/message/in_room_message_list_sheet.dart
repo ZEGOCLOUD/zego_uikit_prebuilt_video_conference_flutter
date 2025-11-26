@@ -11,13 +11,13 @@ import 'package:zego_uikit_prebuilt_video_conference/src/components/pop_up_manag
 /// @nodoc
 class ZegoVideoConferenceMessageListSheet extends StatefulWidget {
   const ZegoVideoConferenceMessageListSheet({
-    Key? key,
+    super.key,
     required this.conferenceID,
     this.avatarBuilder,
     this.itemBuilder,
     this.scrollController,
     this.rootNavigator = false,
-  }) : super(key: key);
+  });
 
   final String conferenceID;
   final bool rootNavigator;

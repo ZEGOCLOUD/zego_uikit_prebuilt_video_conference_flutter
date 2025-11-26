@@ -32,7 +32,7 @@ class ZegoBottomMenuBar extends StatefulWidget {
   final ZegoPopUpManager popUpManager;
 
   const ZegoBottomMenuBar({
-    Key? key,
+    super.key,
     required this.conferenceID,
     required this.config,
     required this.visibilityNotifier,
@@ -44,7 +44,7 @@ class ZegoBottomMenuBar extends StatefulWidget {
     this.height,
     this.borderRadius,
     this.backgroundColor,
-  }) : super(key: key);
+  });
 
   @override
   State<ZegoBottomMenuBar> createState() => _ZegoBottomMenuBarState();

@@ -32,7 +32,7 @@ import 'core/live_duration_manager.dart';
 /// {@category Configs}
 class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
   const ZegoUIKitPrebuiltVideoConference({
-    Key? key,
+    super.key,
     required this.appID,
     required this.appSign,
     required this.conferenceID,
@@ -42,7 +42,7 @@ class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
     this.events,
     @Deprecated('Since 2.9.1 Use ZegoUIKitPrebuiltVideoConferenceController()')
     this.controller,
-  }) : super(key: key);
+  });
 
   /// You can create a project and obtain an appID from the [ZEGOCLOUD Admin Console](https://console.zegocloud.com).
   final int appID;
@@ -125,22 +125,31 @@ class _ZegoUIKitPrebuiltVideoConferenceState
     });
 
     ZegoUIKit().getZegoUIKitVersion().then((uikitVersion) {
-      log('version: zego_uikit_prebuilt_video_conference:${ZegoUIKitPrebuiltVideoConferenceController().version}; $uikitVersion, \n'
-          'config:${widget.config}, \n');
+      log(
+        'version: zego_uikit_prebuilt_video_conference:${ZegoUIKitPrebuiltVideoConferenceController().version}; $uikitVersion, \n'
+        'config:${widget.config}, \n',
+      );
     });
 
     subscriptions
-      ..add(ZegoUIKit()
-          .getMeRemovedFromRoomStream(targetRoomID: widget.conferenceID)
-          .listen(onMeRemovedFromRoom))
+      ..add(
+        ZegoUIKit()
+            .getMeRemovedFromRoomStream(targetRoomID: widget.conferenceID)
+            .listen(onMeRemovedFromRoom),
+      )
       ..add(ZegoUIKit().getErrorStream().listen(onUIKitError))
-      ..add(ZegoUIKit()
-          .getTurnOnYourCameraRequestStream(targetRoomID: widget.conferenceID)
-          .listen(onTurnOnYourCameraRequest))
-      ..add(ZegoUIKit()
-          .getTurnOnYourMicrophoneRequestStream(
-              targetRoomID: widget.conferenceID)
-          .listen(onTurnOnYourMicrophoneRequest));
+      ..add(
+        ZegoUIKit()
+            .getTurnOnYourCameraRequestStream(targetRoomID: widget.conferenceID)
+            .listen(onTurnOnYourCameraRequest),
+      )
+      ..add(
+        ZegoUIKit()
+            .getTurnOnYourMicrophoneRequestStream(
+              targetRoomID: widget.conferenceID,
+            )
+            .listen(onTurnOnYourMicrophoneRequest),
+      );
 
     ZegoUIKitPrebuiltVideoConferenceController().private.initByPrebuilt(
           conferenceID: widget.conferenceID,
@@ -174,10 +183,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       subscription?.cancel();
     }
 
-    ZegoUIKit().leaveRoom(
-      targetRoomID: widget.conferenceID,
-      stopPlayingAnotherRoomStream: true,
-    );
+    ZegoUIKit().leaveRoom(targetRoomID: widget.conferenceID);
 
     ZegoUIKitPrebuiltVideoConferenceController()
         .room
@@ -189,9 +195,9 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         .uninitByPrebuilt();
     ZegoUIKitPrebuiltVideoConferenceController().private.uninitByPrebuilt();
 
-    ZegoUIKit()
-        .reporter()
-        .report(event: ZegoVideoConferenceReporter.eventUninit);
+    ZegoUIKit().reporter().report(
+          event: ZegoVideoConferenceReporter.eventUninit,
+        );
   }
 
   @override
@@ -241,10 +247,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
                   return clickListener(
                     child: Stack(
                       children: [
-                        background(
-                          constraints.maxWidth,
-                          constraints.maxHeight,
-                        ),
+                        background(constraints.maxWidth, constraints.maxHeight),
                         audioVideoContainer(
                           constraints.maxWidth,
                           constraints.maxHeight,
@@ -256,10 +259,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
                         durationTimeBoard(),
                         notificationView(),
                         bottomMenuBar(),
-                        foreground(
-                          constraints.maxWidth,
-                          constraints.maxHeight,
-                        ),
+                        foreground(constraints.maxWidth, constraints.maxHeight),
                       ],
                     ),
                   );
@@ -294,7 +294,9 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       ZegoUIKit().login(widget.userID, widget.userName);
       await ZegoUIKit()
           .init(appID: widget.appID, appSign: widget.appSign)
-          .then((value) async {
+          .then((
+        value,
+      ) async {
         await ZegoUIKit().enableCustomVideoRender(false);
 
         /// not support beauty right now, other kits will enable when use
@@ -304,7 +306,8 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         ZegoUIKit()
           ..useFrontFacingCamera(config.useFrontFacingCamera)
           ..updateVideoViewMode(
-              config.audioVideoViewConfig.useVideoViewAspectFill)
+            config.audioVideoViewConfig.useVideoViewAspectFill,
+          )
           ..enableVideoMirroring(config.audioVideoViewConfig.isVideoMirror)
           ..turnCameraOn(
             targetRoomID: widget.conferenceID,
@@ -359,10 +362,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
           barRestartHideTimerNotifier.value =
               DateTime.now().millisecondsSinceEpoch;
         },
-        child: AbsorbPointer(
-          absorbing: false,
-          child: child,
-        ),
+        child: AbsorbPointer(absorbing: false, child: child),
       ),
     );
   }
@@ -618,10 +618,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         fontWeight: FontWeight.bold,
         color: Colors.white,
       ),
-      contentStyle: TextStyle(
-        fontSize: 28.0.zR,
-        color: Colors.white,
-      ),
+      contentStyle: TextStyle(fontSize: 28.0.zR, color: Colors.white),
     );
   }
 
@@ -734,6 +731,11 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   }
 
   void onUIKitError(ZegoUIKitError error) {
+    // if([
+    //   1004020
+    // ].contains(error.code) ) {
+    //
+    // }
     ZegoLoggerService.logError(
       'on uikit error:$error',
       tag: 'video-conference',
@@ -774,7 +776,8 @@ class _ZegoUIKitPrebuiltVideoConferenceState
   }
 
   Future<void> onTurnOnYourMicrophoneRequest(
-      ZegoUIKitReceiveTurnOnLocalMicrophoneEvent event) async {
+    ZegoUIKitReceiveTurnOnLocalMicrophoneEvent event,
+  ) async {
     ZegoLoggerService.logInfo(
       'onTurnOnYourMicrophoneRequest, event:$event',
       tag: 'live-streaming',
@@ -791,10 +794,11 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       return;
     }
 
-    final canMicrophoneTurnOnByOthers = await widget
-            .config.onMicrophoneTurnOnByOthersConfirmation
-            ?.call(context) ??
-        false;
+    final canMicrophoneTurnOnByOthers =
+        await widget.config.onMicrophoneTurnOnByOthersConfirmation?.call(
+              context,
+            ) ??
+            false;
     ZegoLoggerService.logInfo(
       'canMicrophoneTurnOnByOthers:$canMicrophoneTurnOnByOthers',
       tag: 'video-conference',

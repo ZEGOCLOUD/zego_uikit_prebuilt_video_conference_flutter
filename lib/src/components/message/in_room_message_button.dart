@@ -16,7 +16,7 @@ import 'package:zego_uikit_prebuilt_video_conference/src/components/pop_up_manag
 /// switch cameras
 class ZegoInRoomMessageButton extends StatefulWidget {
   const ZegoInRoomMessageButton({
-    Key? key,
+    super.key,
     required this.conferenceID,
     required this.popUpManager,
     required this.viewVisibleNotifier,
@@ -27,7 +27,7 @@ class ZegoInRoomMessageButton extends StatefulWidget {
     this.avatarBuilder,
     this.itemBuilder,
     this.rootNavigator = false,
-  }) : super(key: key);
+  });
 
   final String conferenceID;
 

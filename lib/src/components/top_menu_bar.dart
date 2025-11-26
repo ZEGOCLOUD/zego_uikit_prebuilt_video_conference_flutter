@@ -32,7 +32,7 @@ class ZegoTopMenuBar extends StatefulWidget {
   final ZegoPopUpManager popUpManager;
 
   const ZegoTopMenuBar({
-    Key? key,
+    super.key,
     required this.config,
     required this.conferenceID,
     required this.visibilityNotifier,
@@ -43,7 +43,7 @@ class ZegoTopMenuBar extends StatefulWidget {
     this.height,
     this.borderRadius,
     this.backgroundColor,
-  }) : super(key: key);
+  });
 
   @override
   State<ZegoTopMenuBar> createState() => _ZegoTopMenuBarState();

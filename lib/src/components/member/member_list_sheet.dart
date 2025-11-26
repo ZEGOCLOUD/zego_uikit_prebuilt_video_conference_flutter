@@ -18,14 +18,14 @@ class ZegoMemberListSheet extends StatefulWidget {
   final String conferenceID;
 
   const ZegoMemberListSheet({
-    Key? key,
+    super.key,
     required this.conferenceID,
     this.itemBuilder,
     this.avatarBuilder,
     this.showMicrophoneState = true,
     this.showCameraState = true,
     this.rootNavigator = false,
-  }) : super(key: key);
+  });
 
   @override
   State<ZegoMemberListSheet> createState() => _ZegoMemberListSheetState();
