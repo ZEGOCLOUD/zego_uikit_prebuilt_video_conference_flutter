@@ -1,9 +1,7 @@
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
-
 // Package imports:
 import 'package:zego_uikit/zego_uikit.dart';
-
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/defines.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/events.dart';
@@ -28,6 +26,7 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
     this.onMeRemovedFromRoom,
     this.onCameraTurnOnByOthersConfirmation,
     this.onMicrophoneTurnOnByOthersConfirmation,
+    ZegoUIKitVideoConfig? video,
     ZegoPrebuiltAudioVideoViewConfig? audioVideoViewConfig,
     ZegoTopMenuBarConfig? topMenuBarConfig,
     ZegoBottomMenuBarConfig? bottomMenuBarConfig,
@@ -36,7 +35,8 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
     ZegoInRoomChatViewConfig? chatViewConfig,
     ZegoVideoConferenceDurationConfig? duration,
     ZegoUIKitPrebuiltLiveVideoConferenceInnerText? innerText,
-  })  : audioVideoViewConfig =
+  })  : video = video ?? ZegoVideoConfigExtension.preset360P(),
+        audioVideoViewConfig =
             audioVideoViewConfig ?? ZegoPrebuiltAudioVideoViewConfig(),
         topMenuBarConfig = topMenuBarConfig ??
             ZegoTopMenuBarConfig(style: ZegoMenuBarStyle.dark),
@@ -73,6 +73,9 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
   /// The default value is `true`.
   /// If this value is set to `false`, the system's default playback device, such as the earpiece or Bluetooth headset, will be used for audio playback.
   bool useSpeakerWhenJoining;
+
+  /// configuration parameters for audio and video streaming, such as Resolution, Frame rate, Bit rate..
+  ZegoUIKitVideoConfig video;
 
   /// Configuration options for audio/video views.
   ZegoPrebuiltAudioVideoViewConfig audioVideoViewConfig;
