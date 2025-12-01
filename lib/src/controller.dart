@@ -1,24 +1,17 @@
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
-
 // Package imports:
 import 'package:zego_uikit/zego_uikit.dart';
-
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/config.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/events.dart';
 
-part 'controller/private/private.dart';
-
-part 'controller/room.dart';
-
-part 'controller/screen.dart';
-
 part 'controller/log.dart';
-
+part 'controller/private/private.dart';
 part 'controller/private/room.dart';
-
 part 'controller/private/screen.dart';
+part 'controller/room.dart';
+part 'controller/screen.dart';
 
 /// Used to control the video conference room functionality.
 /// If the default video conference room UI and interactions do not meet your requirements, you can use this [ZegoUIKitPrebuiltVideoConferenceController] to actively control the business logic.
@@ -31,7 +24,7 @@ class ZegoUIKitPrebuiltVideoConferenceController
         ZegoVideoConferenceControllerScreen {
   factory ZegoUIKitPrebuiltVideoConferenceController() => instance;
 
-  String get version => "2.10.5";
+  String get version => "2.11.0";
 
   ZegoUIKitPrebuiltVideoConferenceController._internal() {
     ZegoLoggerService.logInfo(
