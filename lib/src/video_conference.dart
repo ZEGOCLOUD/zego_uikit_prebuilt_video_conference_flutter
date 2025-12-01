@@ -6,11 +6,9 @@ import 'dart:developer';
 // Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:permission_handler/permission_handler.dart';
 import 'package:zego_uikit/zego_uikit.dart';
-
 // Project imports:
 import 'package:zego_uikit_prebuilt_video_conference/src/components/components.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/components/pop_up_manager.dart';
@@ -18,6 +16,7 @@ import 'package:zego_uikit_prebuilt_video_conference/src/config.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/controller.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/events.dart';
 import 'package:zego_uikit_prebuilt_video_conference/src/internal/reporter.dart';
+
 import 'components/duration_time_board.dart';
 import 'core/live_duration_manager.dart';
 
@@ -291,6 +290,8 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         /// beauty, will cause not video render issue
         ZegoUIKit().enableCustomVideoProcessing(false);
 
+        await setVideoConfig();
+
         ZegoUIKit()
           ..useFrontFacingCamera(config.useFrontFacingCamera)
           ..updateVideoViewMode(
@@ -315,6 +316,29 @@ class _ZegoUIKitPrebuiltVideoConferenceState
         });
       });
     });
+  }
+
+  Future<void> setVideoConfig() async {
+    ZegoLoggerService.logInfo(
+      'video config:${widget.config.video}',
+      tag: 'video-conference',
+      subTag: 'prebuilt',
+    );
+
+    await ZegoUIKit().enableTrafficControl(
+      true,
+      [
+        ZegoUIKitTrafficControlProperty.adaptiveResolution,
+        ZegoUIKitTrafficControlProperty.adaptiveFPS,
+      ],
+      minimizeVideoConfig: ZegoUIKitVideoConfig.preset360P(),
+      isFocusOnRemote: false,
+      streamType: ZegoStreamType.main,
+    );
+
+    await ZegoUIKit().setVideoConfig(
+      widget.config.video,
+    );
   }
 
   void correctConfigValue() {

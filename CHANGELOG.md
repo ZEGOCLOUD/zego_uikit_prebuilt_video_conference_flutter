@@ -1,4 +1,9 @@
 
+## 2.11.0
+
+- Features
+  - Support config publish video config by  `video` in **ZegoUIKitPrebuiltVideoConferenceConfig**
+
 ## 2.10.5
 
 - Update dependency
