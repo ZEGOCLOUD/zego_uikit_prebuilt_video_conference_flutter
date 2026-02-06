@@ -124,7 +124,7 @@ class _ZegoUIKitPrebuiltVideoConferenceState
       );
     });
 
-    ZegoUIKit().getZegoUIKitVersion().then((uikitVersion) {
+    ZegoUIKit().version().then((uikitVersion) {
       log(
         'version: zego_uikit_prebuilt_video_conference:${ZegoUIKitPrebuiltVideoConferenceController().version}; $uikitVersion, \n'
         'config:${widget.config}, \n',
