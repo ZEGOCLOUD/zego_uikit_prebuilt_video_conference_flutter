@@ -1,7 +1,5 @@
 library;
 
-export 'package:zego_uikit/zego_uikit.dart';
-
 export 'src/config.dart';
 export 'src/events.dart';
 export 'src/controller.dart';
