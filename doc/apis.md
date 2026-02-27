@@ -8,7 +8,7 @@
     - [ZegoVideoConferenceScreenController](#zegovideoconferencescreencontroller)
         - [showScreenSharingViewInFullscreenMode](#showscreensharingviewinfullscreenmode)
         - [screenSharingViewController](#screensharingviewcontroller)
-    - [ZegoVideoConferenceRoomControllerLogImpl](#zegovideoconferenceroomcontrollerlogimpl)
+    - [ZegoVideoConferenceRoomControllerLog](#zegovideoconferenceroomcontrollerlog)
         - [exportLogs](#exportlogs)
 
 ---
@@ -135,7 +135,7 @@ This mixin provides methods for screen sharing. Access via `ZegoUIKitPrebuiltVid
 
 ---
 
-## ZegoVideoConferenceRoomControllerLogImpl
+## ZegoVideoConferenceRoomControllerLog
 
 This mixin provides methods for log management. Access via `ZegoUIKitPrebuiltVideoConferenceController().log`.
 

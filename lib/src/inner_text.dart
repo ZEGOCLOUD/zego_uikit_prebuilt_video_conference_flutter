@@ -14,6 +14,10 @@ class ZegoUIKitPrebuiltLiveVideoConferenceInnerText {
   ///When screen sharing, stop sharing button on the sharing side
   String stopScreenSharingButtonText;
 
+  /// Constructs the inner text configuration for video conference.
+  ///
+  /// [screenSharingTipText] - Text prompt shown when sharing the screen.
+  /// [stopScreenSharingButtonText] - Text for the stop sharing button.
   ZegoUIKitPrebuiltLiveVideoConferenceInnerText({
     String? screenSharingTipText,
     String? stopScreenSharingButtonText,

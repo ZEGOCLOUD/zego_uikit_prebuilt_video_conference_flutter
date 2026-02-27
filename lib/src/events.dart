@@ -1,17 +1,35 @@
 // Project imports:
-import 'package:zego_uikit_prebuilt_video_conference/src/config.dart';
 
 /// You can listen to events that you are interested in here, such as Co-hosting
+///
+/// Example:
+/// ```dart
+/// ZegoUIKitPrebuiltVideoConferenceEvents(
+///   duration: ZegoVideoConferenceDurationEvents(
+///     onUpdated: (Duration duration) {
+///       // handle duration update
+///     },
+///   ),
+/// )
+/// ```
 class ZegoUIKitPrebuiltVideoConferenceEvents {
-  /// events about duration
+  /// Events about duration, such as conference duration updates.
   ZegoVideoConferenceDurationEvents duration;
 
+  /// Constructs the video conference events handler.
+  ///
+  /// [duration] - Duration-related events callback configuration.
   ZegoUIKitPrebuiltVideoConferenceEvents({
     ZegoVideoConferenceDurationEvents? duration,
   }) : duration = duration ?? ZegoVideoConferenceDurationEvents();
 }
 
+/// Duration-related events for video conference timing.
 class ZegoVideoConferenceDurationEvents {
+  /// Constructs the duration events handler.
+  ///
+  /// [onUpdated] - Callback function that is called every second during the conference.
+  /// Use this to monitor or handle conference duration, such as auto-leave after a set time.
   ZegoVideoConferenceDurationEvents({
     this.onUpdated,
   });
@@ -27,6 +45,6 @@ class ZegoVideoConferenceDurationEvents {
   /// }
   /// ```
   ///
-  /// [ZegoVideoConferenceDurationConfig]
+  /// [duration] - The current duration of the conference.
   void Function(Duration)? onUpdated;
 }

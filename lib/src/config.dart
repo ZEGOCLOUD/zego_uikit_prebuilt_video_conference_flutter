@@ -320,6 +320,33 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
 /// If you need to customize the foreground or background of the audio/video view, you can use foregroundBuilder and backgroundBuilder.
 /// If you want to hide user avatars or sound waveforms in audio mode, you can set showAvatarInAudioMode and showSoundWavesInAudioMode to false.
 class ZegoPrebuiltAudioVideoViewConfig {
+  /// Constructs the audio/video view config.
+  ///
+  /// [visible] - Callback to control whether to show target user's audio video view.
+  /// [muteInvisible] - If true, not play audio if invisible.
+  /// [isVideoMirror] - Whether to mirror the displayed video captured by the camera.
+  /// [showMicrophoneStateOnView] - Whether to display the microphone status on the view.
+  /// [showCameraStateOnView] - Whether to display the camera status on the view.
+  /// [showUserNameOnView] - Whether to display the username on the view.
+  /// [foregroundBuilder] - Custom foreground builder for the view.
+  /// [backgroundBuilder] - Custom background builder for the view.
+  /// [useVideoViewAspectFill] - Whether to use aspect fill mode for video view.
+  /// [showAvatarInAudioMode] - Whether to display user avatars in audio mode.
+  /// [showSoundWavesInAudioMode] - Whether to display sound waveforms in audio mode.
+  ZegoPrebuiltAudioVideoViewConfig({
+    this.visible,
+    this.muteInvisible = true,
+    this.isVideoMirror = true,
+    this.showMicrophoneStateOnView = true,
+    this.showCameraStateOnView = false,
+    this.showUserNameOnView = true,
+    this.foregroundBuilder,
+    this.backgroundBuilder,
+    this.useVideoViewAspectFill = false,
+    this.showAvatarInAudioMode = true,
+    this.showSoundWavesInAudioMode = true,
+  });
+
   /// show target user's audio video view or not
   /// return false if you don't want to show target user's audio video view.
   ///
@@ -372,20 +399,6 @@ class ZegoPrebuiltAudioVideoViewConfig {
   /// Whether to display sound waveforms in audio mode.
   /// Set it to false if you don't want to show sound waveforms in audio mode.
   bool showSoundWavesInAudioMode;
-
-  ZegoPrebuiltAudioVideoViewConfig({
-    this.visible,
-    this.muteInvisible = true,
-    this.isVideoMirror = true,
-    this.showMicrophoneStateOnView = true,
-    this.showCameraStateOnView = false,
-    this.showUserNameOnView = true,
-    this.foregroundBuilder,
-    this.backgroundBuilder,
-    this.useVideoViewAspectFill = false,
-    this.showAvatarInAudioMode = true,
-    this.showSoundWavesInAudioMode = true,
-  });
 }
 
 /// This enum consists of two style options: light and dark. T
@@ -403,6 +416,37 @@ enum ZegoMenuBarStyle {
 /// Configuration options for the top menu bar (toolbar).
 /// You can use the [ZegoUIKitPrebuiltVideoConferenceConfig].[topMenuBarConfig] property to set the properties inside this class.
 class ZegoTopMenuBarConfig {
+  /// Constructs the top menu bar config.
+  ///
+  /// [isVisible] - Whether to display the top menu bar.
+  /// [hideAutomatically] - Whether to automatically collapse after 5 seconds of inactivity.
+  /// [hideByClick] - Whether to collapse when clicking on the blank area.
+  /// [buttons] - Buttons displayed on the menu bar.
+  /// [style] - Style of the top menu bar.
+  /// [extendButtons] - Extension buttons to add custom buttons to the toolbar.
+  /// [title] - Title of the top menu bar.
+  /// [padding] - Padding for the top menu bar.
+  /// [margin] - Margin for the top menu bar.
+  /// [backgroundColor] - Background color for the top menu bar.
+  /// [height] - Height for the top menu bar.
+  ZegoTopMenuBarConfig({
+    this.isVisible = true,
+    this.hideAutomatically = true,
+    this.hideByClick = true,
+    this.buttons = const [
+      ZegoMenuBarButtonName.showMemberListButton,
+      ZegoMenuBarButtonName.switchCameraButton,
+      ZegoMenuBarButtonName.toggleScreenSharingButton,
+    ],
+    this.style = ZegoMenuBarStyle.dark,
+    this.extendButtons = const [],
+    this.title = 'Conference',
+    this.padding,
+    this.margin,
+    this.backgroundColor,
+    this.height,
+  });
+
   /// Whether to display the top menu bar.
   bool isVisible;
 
@@ -437,29 +481,35 @@ class ZegoTopMenuBarConfig {
 
   /// height for the top menu bar.
   double? height;
-
-  ZegoTopMenuBarConfig({
-    this.isVisible = true,
-    this.hideAutomatically = true,
-    this.hideByClick = true,
-    this.buttons = const [
-      ZegoMenuBarButtonName.showMemberListButton,
-      ZegoMenuBarButtonName.switchCameraButton,
-      ZegoMenuBarButtonName.toggleScreenSharingButton,
-    ],
-    this.style = ZegoMenuBarStyle.dark,
-    this.extendButtons = const [],
-    this.title = 'Conference',
-    this.padding,
-    this.margin,
-    this.backgroundColor,
-    this.height,
-  });
 }
 
 /// Configuration options for the bottom menu bar (toolbar).
 /// You can use the [ZegoUIKitPrebuiltVideoConferenceConfig].[bottomMenuBarConfig] property to set the properties inside this class.
 class ZegoBottomMenuBarConfig {
+  /// Constructs the bottom menu bar config.
+  ///
+  /// [hideAutomatically] - If true, menu bars will collapse after standing still for 5 seconds.
+  /// [hideByClick] - If true, menu bars will collapse when clicking on blank spaces.
+  /// [buttons] - Buttons displayed on the menu bar, ordered by the list.
+  /// [maxCount] - Maximum number of buttons to display in the menu bar.
+  /// [style] - Button style for the bottom menu bar.
+  /// [backgroundColor] - Background color of the bottom menu bar.
+  /// [extendButtons] - Extension buttons to add custom buttons to the toolbar.
+  ZegoBottomMenuBarConfig({
+    this.hideAutomatically = true,
+    this.hideByClick = true,
+    this.buttons = const [
+      ZegoMenuBarButtonName.toggleCameraButton,
+      ZegoMenuBarButtonName.toggleMicrophoneButton,
+      ZegoMenuBarButtonName.leaveButton,
+      ZegoMenuBarButtonName.switchAudioOutputButton,
+      ZegoMenuBarButtonName.chatButton,
+    ],
+    this.maxCount = 5,
+    this.style = ZegoMenuBarStyle.dark,
+    this.extendButtons = const [],
+  });
+
   /// if true, menu bars will collapse after stand still for 5 seconds
   bool hideAutomatically;
 
@@ -484,21 +534,6 @@ class ZegoBottomMenuBarConfig {
   /// These buttons will be added to the menu bar in the specified order.
   /// If the limit of [maxCount] is exceeded, additional buttons will be automatically added to the overflow menu.
   List<Widget> extendButtons;
-
-  ZegoBottomMenuBarConfig({
-    this.hideAutomatically = true,
-    this.hideByClick = true,
-    this.buttons = const [
-      ZegoMenuBarButtonName.toggleCameraButton,
-      ZegoMenuBarButtonName.toggleMicrophoneButton,
-      ZegoMenuBarButtonName.leaveButton,
-      ZegoMenuBarButtonName.switchAudioOutputButton,
-      ZegoMenuBarButtonName.chatButton,
-    ],
-    this.maxCount = 5,
-    this.style = ZegoMenuBarStyle.dark,
-    this.extendButtons = const [],
-  });
 }
 
 /// Configuration for the member list.
@@ -520,6 +555,17 @@ class ZegoBottomMenuBarConfig {
 /// showCameraState is set to false, so the camera state will not be displayed.
 /// Finally, we pass the builder function of the custom view, CustomMemberListItem, to the itemBuilder property so that the member list item will be rendered using the custom component.
 class ZegoMemberListConfig {
+  /// Constructs the member list config.
+  ///
+  /// [showMicrophoneState] - Whether to show the microphone state of the member.
+  /// [showCameraState] - Whether to show the camera state of the member.
+  /// [itemBuilder] - Custom member list item view builder.
+  ZegoMemberListConfig({
+    this.showMicrophoneState = true,
+    this.showCameraState = true,
+    this.itemBuilder,
+  });
+
   /// Whether to show the microphone state of the member. Defaults to true, which means it will be shown.
   bool showMicrophoneState;
 
@@ -528,17 +574,24 @@ class ZegoMemberListConfig {
 
   /// Custom member list item view.
   ZegoMemberListItemBuilder? itemBuilder;
-
-  ZegoMemberListConfig({
-    this.showMicrophoneState = true,
-    this.showCameraState = true,
-    this.itemBuilder,
-  });
 }
 
 ///  the configuration for the leave confirmation dialog
 /// You can use the [ZegoUIKitPrebuiltVideoConferenceConfig].[leaveConfirmDialogInfo] property to set the properties inside this class.
 class ZegoLeaveConfirmDialogInfo {
+  /// Constructs the leave confirmation dialog info.
+  ///
+  /// [title] - The title of the dialog.
+  /// [message] - The message content of the dialog.
+  /// [cancelButtonName] - The text for the cancel button.
+  /// [confirmButtonName] - The text for the confirm button.
+  ZegoLeaveConfirmDialogInfo({
+    this.title = 'Leave the conference',
+    this.message = 'Are you sure to leave the conference?',
+    this.cancelButtonName = 'Cancel',
+    this.confirmButtonName = 'OK',
+  });
+
   /// The title of the dialog
   String title;
 
@@ -550,13 +603,6 @@ class ZegoLeaveConfirmDialogInfo {
 
   /// The text for the confirm button
   String confirmButtonName;
-
-  ZegoLeaveConfirmDialogInfo({
-    this.title = 'Leave the conference',
-    this.message = 'Are you sure to leave the conference?',
-    this.cancelButtonName = 'Cancel',
-    this.confirmButtonName = 'OK',
-  });
 }
 
 /// This class is used for the [notificationViewConfig] property of [ZegoUIKitPrebuiltVideoConferenceConfig].
@@ -565,6 +611,19 @@ class ZegoLeaveConfirmDialogInfo {
 /// You can also provide custom builders (itemBuilder, userJoinItemBuilder, userLeaveItemBuilder) to customize the appearance and content of the notification message, user join item, and user leave item.
 /// These builders allow you to create your own custom widgets for displaying the notifications.
 class ZegoInRoomNotificationViewConfig {
+  /// Constructs the in-room notification view config.
+  ///
+  /// [notifyUserLeave] - Set to true to be notified when a user leaves the room.
+  /// [itemBuilder] - Custom builder for notification message item.
+  /// [userJoinItemBuilder] - Custom builder for user join item.
+  /// [userLeaveItemBuilder] - Custom builder for user leave item.
+  ZegoInRoomNotificationViewConfig({
+    this.notifyUserLeave = true,
+    this.itemBuilder,
+    this.userJoinItemBuilder,
+    this.userLeaveItemBuilder,
+  });
+
   /// Set this to true if you want to be notified when a user leaves the room.
   /// The default value is true.
   bool notifyUserLeave;
@@ -577,13 +636,6 @@ class ZegoInRoomNotificationViewConfig {
 
   /// The builder for customizing the user leave item.
   ZegoNotificationUserItemBuilder? userLeaveItemBuilder;
-
-  ZegoInRoomNotificationViewConfig({
-    this.notifyUserLeave = true,
-    this.itemBuilder,
-    this.userJoinItemBuilder,
-    this.userLeaveItemBuilder,
-  });
 }
 
 /// Control options for the bottom-left message list.
@@ -602,17 +654,29 @@ class ZegoInRoomNotificationViewConfig {
 ///   },
 /// );
 class ZegoInRoomChatViewConfig {
-  /// Use this to customize the style and content of each chat message list item.
-  /// For example, you can modify the background color, opacity, border radius, or add additional information like the sender's level or role.
-  ZegoInRoomMessageItemBuilder? itemBuilder;
-
+  /// Constructs the in-room chat view config.
+  ///
+  /// [itemBuilder] - Custom builder for chat message list item.
   ZegoInRoomChatViewConfig({
     this.itemBuilder,
   });
+
+  /// Use this to customize the style and content of each chat message list item.
+  /// For example, you can modify the background color, opacity, border radius, or add additional information like the sender's level or role.
+  ZegoInRoomMessageItemBuilder? itemBuilder;
 }
 
 /// Timing configuration.
 class ZegoVideoConferenceDurationConfig {
+  /// Constructs the video conference duration config.
+  ///
+  /// [isVisible] - Whether to display Video Conference timing.
+  /// [canSync] - Whether the current user can synchronize duration.
+  ZegoVideoConferenceDurationConfig({
+    this.isVisible = true,
+    this.canSync = false,
+  });
+
   /// Whether to display Video Conference timing.
   bool isVisible;
 
@@ -629,9 +693,4 @@ class ZegoVideoConferenceDurationConfig {
   ///
   /// [ZegoVideoConferenceDurationEvents.onUpdated]
   bool canSync;
-
-  ZegoVideoConferenceDurationConfig({
-    this.isVisible = true,
-    this.canSync = false,
-  });
 }

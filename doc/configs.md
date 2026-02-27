@@ -202,5 +202,6 @@ Control the text on the UI. Modify the values of the corresponding properties to
 
 | Name | Description | Type | Default Value |
 | :--- | :--- | :--- | :--- |
+| **param_1** | %0 is a string placeholder, represents the first parameter of prompt. | `String` | `'%0'` |
 | **screenSharingTipText** | When sharing the screen, the text prompt on the sharing side. | `String` | `'You are sharing screen'` |
 | **stopScreenSharingButtonText** | When screen sharing, stop sharing button text on the sharing side. | `String` | `'Stop sharing'` |

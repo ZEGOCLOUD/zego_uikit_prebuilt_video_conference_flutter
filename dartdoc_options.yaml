@@ -9,11 +9,14 @@ dartdoc:
       markdown: doc/events.md
     "Configs":
       markdown: doc/configs.md
+    "Defines":
+      markdown: doc/defines.md
   categoryOrder:
     - "Get started"
     - "APIs"
     - "Events"
     - "Configs"
+    - "Defines"
   showUndocumentedCategories: true
   ignore:
     - broken-link
