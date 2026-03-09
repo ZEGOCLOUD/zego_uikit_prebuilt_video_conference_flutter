@@ -136,9 +136,10 @@ class _CallDurationTimeBoardState
             ? Container()
             : Stack(
                 children: [
-                  const Positioned.fill(
+                  Positioned.fill(
                     child: ColoredBox(
                       color: Colors.transparent,
+                      behavior: HitTestBehavior.translucent,
                     ),
                   ),
                   Center(
