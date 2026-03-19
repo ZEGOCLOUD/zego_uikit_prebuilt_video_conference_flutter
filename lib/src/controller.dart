@@ -24,7 +24,7 @@ class ZegoUIKitPrebuiltVideoConferenceController
         ZegoVideoConferenceControllerScreen {
   factory ZegoUIKitPrebuiltVideoConferenceController() => instance;
 
-  String get version => "2.11.0";
+  String get version => "2.11.1";
 
   ZegoUIKitPrebuiltVideoConferenceController._internal() {
     ZegoLoggerService.logInfo(
