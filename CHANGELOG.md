@@ -1,4 +1,9 @@
 
+## 2.11.1
+
+- Bugs
+  - Fixed the issue where the top toolbar could not be clicked while the countdown was being displayed
+
 ## 2.11.0
 
 - Features
