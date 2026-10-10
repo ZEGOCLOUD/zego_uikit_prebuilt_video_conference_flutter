@@ -1,3 +1,7 @@
+## 2.11.2
+
+- Update dependency
+  - Update `zego_uikit` to `^2.29.2`.
 
 ## 2.11.1
 
