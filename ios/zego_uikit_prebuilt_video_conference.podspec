@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'zego_uikit_prebuilt_video_conference'
-  s.version          = '0.0.1'
+  s.version          = '2.11.3'
   s.summary          = 'A new Flutter project.'
   s.description      = <<-DESC
 A new Flutter project.
@@ -13,8 +13,8 @@ A new Flutter project.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
-  s.public_header_files = 'Classes/**/*.h'
+  s.source_files = 'zego_uikit_prebuilt_video_conference/Sources/zego_uikit_prebuilt_video_conference/**/*'
+  s.public_header_files = 'zego_uikit_prebuilt_video_conference/Sources/zego_uikit_prebuilt_video_conference/include/zego_uikit_prebuilt_video_conference/**/*.h'
   s.dependency 'Flutter'
   s.platform = :ios, '9.0'
 

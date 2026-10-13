@@ -12,6 +12,18 @@
 
 And it includes the business logic with the UI, you can add or remove features accordingly by customizing UI components.
 
+## Android configuration
+
+The Android implementation of `permission_handler` (`permission_handler_android`) requires `compileSdk` 37 or higher. Set it in your app module:
+
+```gradle
+android {
+    compileSdk = 37
+}
+```
+
+This compile-time requirement does not require changing `minSdk` or `targetSdk`.
+
 | User1                                                                       | User2                                                                       |
 | --------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
 | ![user1](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/conference/user1.gif) | ![user2](https://storage.zego.im/sdk-doc/Pics/ZegoUIKit/conference/user2.gif) |
