@@ -98,9 +98,7 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
           children: [
             title(),
             SizedBox(width: 5.zR),
-            Expanded(
-              child: rightBar(),
-            ),
+            Expanded(child: rightBar()),
           ],
         ),
       ),
@@ -111,15 +109,14 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        SizedBox(
-          width: 27.zR,
-        ),
+        SizedBox(width: 27.zR),
         Text(
           widget.config.topMenuBarConfig.title,
           style: TextStyle(
-              color: Colors.white,
-              fontSize: 36.zR,
-              fontWeight: FontWeight.w500),
+            color: Colors.white,
+            fontSize: 36.zR,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ],
     );
@@ -135,9 +132,7 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ...getDisplayButtons(context),
-            SizedBox(
-              width: 27.zR,
-            )
+            SizedBox(width: 27.zR),
           ],
         ),
       ),
@@ -147,8 +142,9 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
   List<Widget> getDisplayButtons(BuildContext context) {
     final buttons = [
       ...getDefaultButtons(context),
-      ...widget.config.topMenuBarConfig.extendButtons
-          .map((extendButton) => buttonWrapper(child: extendButton))
+      ...widget.config.topMenuBarConfig.extendButtons.map(
+        (extendButton) => buttonWrapper(child: extendButton),
+      ),
     ];
 
     /// limited item count display on menu bar,
@@ -204,14 +200,17 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
     }
 
     return widget.config.topMenuBarConfig.buttons
-        .map((type) => buttonWrapper(
-              child: generateDefaultButtonsByEnum(context, type),
-            ))
+        .map(
+          (type) =>
+              buttonWrapper(child: generateDefaultButtonsByEnum(context, type)),
+        )
         .toList();
   }
 
   Widget generateDefaultButtonsByEnum(
-      BuildContext context, ZegoMenuBarButtonName type) {
+    BuildContext context,
+    ZegoMenuBarButtonName type,
+  ) {
     final buttonSize = buttonDisplaySize;
     final iconSize = buttonDisplaySize * buttonHeightRatio;
 
@@ -240,17 +239,20 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
           iconSize: iconSize,
           speakerIcon: ButtonIcon(
             icon: PrebuiltVideoConferenceImage.asset(
-                PrebuiltVideoConferenceIconUrls.topSpeakerNormal),
+              PrebuiltVideoConferenceIconUrls.topSpeakerNormal,
+            ),
             backgroundColor: Colors.transparent,
           ),
           headphoneIcon: ButtonIcon(
             icon: PrebuiltVideoConferenceImage.asset(
-                PrebuiltVideoConferenceIconUrls.topSpeakerOff),
+              PrebuiltVideoConferenceIconUrls.topSpeakerOff,
+            ),
             backgroundColor: Colors.transparent,
           ),
           bluetoothIcon: ButtonIcon(
             icon: PrebuiltVideoConferenceImage.asset(
-                PrebuiltVideoConferenceIconUrls.topSpeakerBluetooth),
+              PrebuiltVideoConferenceIconUrls.topSpeakerBluetooth,
+            ),
             backgroundColor: Colors.transparent,
           ),
           defaultUseSpeaker: widget.config.useSpeakerWhenJoining,
@@ -261,12 +263,14 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
           iconSize: iconSize,
           normalIcon: ButtonIcon(
             icon: PrebuiltVideoConferenceImage.asset(
-                PrebuiltVideoConferenceIconUrls.topCameraNormal),
+              PrebuiltVideoConferenceIconUrls.topCameraNormal,
+            ),
             backgroundColor: Colors.transparent,
           ),
           offIcon: ButtonIcon(
             icon: PrebuiltVideoConferenceImage.asset(
-                PrebuiltVideoConferenceIconUrls.topCameraOff),
+              PrebuiltVideoConferenceIconUrls.topCameraOff,
+            ),
             backgroundColor: Colors.transparent,
           ),
           defaultOn: widget.config.turnOnCameraWhenJoining,
@@ -277,12 +281,14 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
           iconSize: iconSize,
           icon: ButtonIcon(
             icon: PrebuiltVideoConferenceImage.asset(
-                PrebuiltVideoConferenceIconUrls.topCameraOverturn),
+              PrebuiltVideoConferenceIconUrls.topCameraOverturn,
+            ),
             backgroundColor: Colors.transparent,
           ),
           defaultUseFrontFacingCamera: ZegoUIKit()
               .getUseFrontFacingCameraStateNotifier(
-                  ZegoUIKit().getLocalUser().id)
+                ZegoUIKit().getLocalUser().id,
+              )
               .value,
         );
       case ZegoMenuBarButtonName.leaveButton:
@@ -290,9 +296,11 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
           buttonSize: buttonSize,
           iconSize: iconSize,
           icon: ButtonIcon(
-              icon: PrebuiltVideoConferenceImage.asset(
-                  PrebuiltVideoConferenceIconUrls.topLeave),
-              backgroundColor: Colors.transparent),
+            icon: PrebuiltVideoConferenceImage.asset(
+              PrebuiltVideoConferenceIconUrls.topLeave,
+            ),
+            backgroundColor: Colors.transparent,
+          ),
           onLeaveConfirmation: (context) async {
             return widget.config.onLeaveConfirmation!(context);
           },
@@ -316,7 +324,8 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
           iconSize: iconSize,
           icon: ButtonIcon(
             icon: PrebuiltVideoConferenceImage.asset(
-                PrebuiltVideoConferenceIconUrls.topMemberNormal),
+              PrebuiltVideoConferenceIconUrls.topMemberNormal,
+            ),
             backgroundColor: Colors.transparent,
           ),
           rootNavigator: widget.config.rootNavigator,
@@ -328,7 +337,8 @@ class _ZegoTopMenuBarState extends State<ZegoTopMenuBar> {
           iconSize: iconSize,
           icon: ButtonIcon(
             icon: PrebuiltVideoConferenceImage.asset(
-                PrebuiltVideoConferenceIconUrls.topMemberIM),
+              PrebuiltVideoConferenceIconUrls.topMemberIM,
+            ),
             backgroundColor: Colors.transparent,
           ),
           avatarBuilder: widget.config.avatarBuilder,

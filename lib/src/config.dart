@@ -35,19 +35,20 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
     ZegoInRoomChatViewConfig? chatViewConfig,
     ZegoVideoConferenceDurationConfig? duration,
     ZegoUIKitPrebuiltLiveVideoConferenceInnerText? innerText,
-  })  : video = video ?? ZegoUIKitVideoConfig.preset360P(),
-        audioVideoViewConfig =
-            audioVideoViewConfig ?? ZegoPrebuiltAudioVideoViewConfig(),
-        topMenuBarConfig = topMenuBarConfig ??
-            ZegoTopMenuBarConfig(style: ZegoMenuBarStyle.dark),
-        bottomMenuBarConfig = bottomMenuBarConfig ?? ZegoBottomMenuBarConfig(),
-        memberListConfig = memberListConfig ?? ZegoMemberListConfig(),
-        notificationViewConfig =
-            notificationViewConfig ?? ZegoInRoomNotificationViewConfig(),
-        chatViewConfig = chatViewConfig ?? ZegoInRoomChatViewConfig(),
-        duration = duration ?? ZegoVideoConferenceDurationConfig(),
-        innerText =
-            innerText ?? ZegoUIKitPrebuiltLiveVideoConferenceInnerText() {
+  }) : video = video ?? ZegoUIKitVideoConfig.preset360P(),
+       audioVideoViewConfig =
+           audioVideoViewConfig ?? ZegoPrebuiltAudioVideoViewConfig(),
+       topMenuBarConfig =
+           topMenuBarConfig ??
+           ZegoTopMenuBarConfig(style: ZegoMenuBarStyle.dark),
+       bottomMenuBarConfig = bottomMenuBarConfig ?? ZegoBottomMenuBarConfig(),
+       memberListConfig = memberListConfig ?? ZegoMemberListConfig(),
+       notificationViewConfig =
+           notificationViewConfig ?? ZegoInRoomNotificationViewConfig(),
+       chatViewConfig = chatViewConfig ?? ZegoInRoomChatViewConfig(),
+       duration = duration ?? ZegoVideoConferenceDurationConfig(),
+       innerText =
+           innerText ?? ZegoUIKitPrebuiltLiveVideoConferenceInnerText() {
     layout ??= ZegoLayout.gallery();
   }
 
@@ -251,7 +252,7 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
   /// },
   /// ```
   Future<bool> Function(BuildContext context)?
-      onCameraTurnOnByOthersConfirmation;
+  onCameraTurnOnByOthersConfirmation;
 
   /// This callback method is called when someone requests to open your microphone.
   ///
@@ -307,7 +308,7 @@ class ZegoUIKitPrebuiltVideoConferenceConfig {
   /// },
   /// ```
   Future<bool> Function(BuildContext context)?
-      onMicrophoneTurnOnByOthersConfirmation;
+  onMicrophoneTurnOnByOthersConfirmation;
 
   /// error stream
   Function(ZegoUIKitError)? onError;
@@ -323,10 +324,7 @@ class ZegoPrebuiltAudioVideoViewConfig {
   ///
   /// when the stream list changes (specifically, when the co-hosts change),
   /// it will dynamically read this configuration to determine whether to show the target user view.
-  bool Function(
-    ZegoUIKitUser localUser,
-    ZegoUIKitUser targetUser,
-  )? visible;
+  bool Function(ZegoUIKitUser localUser, ZegoUIKitUser targetUser)? visible;
 
   /// true: not play audio if invisible
   /// false: Although invisible, audio is also played
@@ -604,9 +602,7 @@ class ZegoInRoomChatViewConfig {
   /// For example, you can modify the background color, opacity, border radius, or add additional information like the sender's level or role.
   ZegoInRoomMessageItemBuilder? itemBuilder;
 
-  ZegoInRoomChatViewConfig({
-    this.itemBuilder,
-  });
+  ZegoInRoomChatViewConfig({this.itemBuilder});
 }
 
 /// Timing configuration.

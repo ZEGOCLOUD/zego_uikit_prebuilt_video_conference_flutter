@@ -49,10 +49,8 @@ class ZegoInRoomMessageInputBoard extends ModalRoute<String> {
         children: <Widget>[
           Expanded(
             child: GestureDetector(
-              onTap: () => Navigator.of(
-                context,
-                rootNavigator: rootNavigator,
-              ).pop(),
+              onTap: () =>
+                  Navigator.of(context, rootNavigator: rootNavigator).pop(),
               child: Container(color: Colors.transparent),
             ),
           ),
@@ -61,10 +59,7 @@ class ZegoInRoomMessageInputBoard extends ModalRoute<String> {
             valueNotifier: valueNotifier,
             focusNotifier: focusNotifier,
             onSubmit: () {
-              Navigator.of(
-                context,
-                rootNavigator: rootNavigator,
-              ).pop();
+              Navigator.of(context, rootNavigator: rootNavigator).pop();
             },
           ),
         ],
@@ -73,13 +68,14 @@ class ZegoInRoomMessageInputBoard extends ModalRoute<String> {
   }
 
   @override
-  Widget buildTransitions(BuildContext context, Animation<double> animation,
-      Animation<double> secondaryAnimation, Widget child) {
+  Widget buildTransitions(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
     return FadeTransition(
-      opacity: CurvedAnimation(
-        parent: animation,
-        curve: Curves.easeOut,
-      ),
+      opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),
       child: child,
     );
   }

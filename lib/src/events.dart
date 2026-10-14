@@ -12,9 +12,7 @@ class ZegoUIKitPrebuiltVideoConferenceEvents {
 }
 
 class ZegoVideoConferenceDurationEvents {
-  ZegoVideoConferenceDurationEvents({
-    this.onUpdated,
-  });
+  ZegoVideoConferenceDurationEvents({this.onUpdated});
 
   /// Call timing callback function, called every second.
   ///

@@ -79,15 +79,18 @@ class _ZegoMemberListButtonState extends State<ZegoMemberListButton> {
         width: containerSize.width,
         height: containerSize.height,
         decoration: BoxDecoration(
-          color: widget.icon?.backgroundColor ??
+          color:
+              widget.icon?.backgroundColor ??
               const Color(0xff2C2F3E).withValues(alpha: 0.6),
           shape: BoxShape.circle,
         ),
         child: SizedBox.fromSize(
           size: sizeBoxSize,
-          child: widget.icon?.icon ??
+          child:
+              widget.icon?.icon ??
               PrebuiltVideoConferenceImage.asset(
-                  PrebuiltVideoConferenceIconUrls.topMemberNormal),
+                PrebuiltVideoConferenceIconUrls.topMemberNormal,
+              ),
         ),
       ),
     );

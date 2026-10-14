@@ -15,10 +15,7 @@ class ZegoPopUpManager {
 
   void autoPop(BuildContext context, bool rootNavigator) {
     for (final _ in _popupSheetKeys) {
-      Navigator.of(
-        context,
-        rootNavigator: rootNavigator,
-      ).pop();
+      Navigator.of(context, rootNavigator: rootNavigator).pop();
     }
 
     _popupSheetKeys.clear();
