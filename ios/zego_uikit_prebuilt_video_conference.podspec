@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'zego_uikit_prebuilt_video_conference'
-  s.version          = '2.11.3'
+  s.version          = '2.11.3' # zego_uikit_prebuilt_video_conference:
   s.summary          = 'A new Flutter project.'
   s.description      = <<-DESC
 A new Flutter project.
