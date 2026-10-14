@@ -18,8 +18,9 @@ class ZegoVideoConferenceDurationManager {
 
   ZegoVideoConferenceDurationManager() {
     onRoomPropertiesUpdated(ZegoUIKit().getRoomProperties());
-    subscription =
-        ZegoUIKit().getRoomPropertiesStream().listen(onRoomPropertiesUpdated);
+    subscription = ZegoUIKit().getRoomPropertiesStream().listen(
+      onRoomPropertiesUpdated,
+    );
   }
 
   /// internal variables
@@ -28,9 +29,7 @@ class ZegoVideoConferenceDurationManager {
 
   ZegoVideoConferenceDurationConfig? _config;
 
-  Future<void> init({
-    ZegoVideoConferenceDurationConfig? config,
-  }) async {
+  Future<void> init({ZegoVideoConferenceDurationConfig? config}) async {
     if (_initialized) {
       ZegoLoggerService.logInfo(
         'had already init',
@@ -88,7 +87,8 @@ class ZegoVideoConferenceDurationManager {
           roomProperties[RoomPropertyKey.liveDuration.text]!.value;
 
       final serverDateTime = DateTime.fromMillisecondsSinceEpoch(
-          int.tryParse(propertyTimestamp) ?? 0);
+        int.tryParse(propertyTimestamp) ?? 0,
+      );
 
       ZegoLoggerService.logInfo(
         'live duration value is exist:${notifier.value}',
@@ -120,18 +120,18 @@ class ZegoVideoConferenceDurationManager {
         subTag: 'live duration manager',
       );
 
-      ZegoUIKit()
-          .getNetworkTime()
-          .addListener(waitNetworkTimeUpdatedForSetProperty);
+      ZegoUIKit().getNetworkTime().addListener(
+        waitNetworkTimeUpdatedForSetProperty,
+      );
     } else {
       setPropertyByNetworkTime(networkTimeNow.value!);
     }
   }
 
   void waitNetworkTimeUpdatedForSetProperty() {
-    ZegoUIKit()
-        .getNetworkTime()
-        .removeListener(waitNetworkTimeUpdatedForSetProperty);
+    ZegoUIKit().getNetworkTime().removeListener(
+      waitNetworkTimeUpdatedForSetProperty,
+    );
 
     final networkTimeNow = ZegoUIKit().getNetworkTime();
     ZegoLoggerService.logInfo(

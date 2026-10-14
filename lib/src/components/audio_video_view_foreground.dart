@@ -30,45 +30,45 @@ class ZegoAudioVideoForeground extends StatelessWidget {
       return Container(color: Colors.transparent);
     }
 
-    return LayoutBuilder(builder: (context, constraints) {
-      return Container(
-        padding: const EdgeInsets.all(5),
-        child: Stack(
-          children: [
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
-                decoration: BoxDecoration(
-                  color: Colors.black.withValues(alpha: 0.2),
-                  borderRadius: const BorderRadius.all(Radius.circular(4)),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    userName(
-                      context,
-                      constraints.maxWidth * 0.8,
-                    ),
-                    microphoneStateIcon(),
-                    cameraStateIcon(),
-                  ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Container(
+          padding: const EdgeInsets.all(5),
+          child: Stack(
+            children: [
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 3,
+                    horizontal: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withValues(alpha: 0.2),
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      userName(context, constraints.maxWidth * 0.8),
+                      microphoneStateIcon(),
+                      cameraStateIcon(),
+                    ],
+                  ),
                 ),
               ),
-            )
-          ],
-        ),
-      );
-    });
+            ],
+          ),
+        );
+      },
+    );
   }
 
   Widget userName(BuildContext context, double maxWidth) {
     return showUserNameOnView
         ? ConstrainedBox(
-            constraints: BoxConstraints(
-              maxWidth: maxWidth,
-            ),
+            constraints: BoxConstraints(maxWidth: maxWidth),
             child: Text(
               user?.name ?? '',
               overflow: TextOverflow.ellipsis,

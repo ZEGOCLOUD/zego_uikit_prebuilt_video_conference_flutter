@@ -60,10 +60,13 @@ class _ZegoVideoConferenceMessageListSheetState
           right: 0,
           top: headerHeight,
           child: Container(
-              height: 1.zR, color: Colors.white.withValues(alpha: 0.15)),
+            height: 1.zR,
+            color: Colors.white.withValues(alpha: 0.15),
+          ),
         ),
         messageList(
-          height: viewHeight -
+          height:
+              viewHeight -
               headerHeight -
               lineHeight -
               bottomBarHeight -
@@ -118,7 +121,9 @@ class _ZegoVideoConferenceMessageListSheetState
             ),
           ),
           Container(
-              height: lineHeight, color: Colors.white.withValues(alpha: 0.15)),
+            height: lineHeight,
+            color: Colors.white.withValues(alpha: 0.15),
+          ),
         ],
       ),
     );
@@ -134,16 +139,14 @@ class _ZegoVideoConferenceMessageListSheetState
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.of(
-                context,
-                rootNavigator: widget.rootNavigator,
-              ).pop();
+              Navigator.of(context, rootNavigator: widget.rootNavigator).pop();
             },
             child: SizedBox(
               width: 70.zR,
               height: 70.zR,
               child: PrebuiltVideoConferenceImage.asset(
-                  PrebuiltVideoConferenceIconUrls.back),
+                PrebuiltVideoConferenceIconUrls.back,
+              ),
             ),
           ),
           SizedBox(width: 10.zR),
@@ -163,8 +166,9 @@ class _ZegoVideoConferenceMessageListSheetState
   void onInputFocusChanged() {
     if (focusNotifier.value) {
       Future.delayed(const Duration(milliseconds: 100), () {
-        widget.scrollController
-            ?.jumpTo(widget.scrollController?.position.maxScrollExtent ?? 0);
+        widget.scrollController?.jumpTo(
+          widget.scrollController?.position.maxScrollExtent ?? 0,
+        );
       });
     }
   }

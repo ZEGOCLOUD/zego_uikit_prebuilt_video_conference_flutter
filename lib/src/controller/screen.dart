@@ -26,6 +26,8 @@ class ZegoVideoConferenceScreenController
     );
 
     screenSharingViewController.showScreenSharingViewInFullscreenMode(
-        userID, isFullscreen);
+      userID,
+      isFullscreen,
+    );
   }
 }

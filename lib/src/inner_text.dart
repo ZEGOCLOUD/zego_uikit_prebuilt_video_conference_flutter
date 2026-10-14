@@ -17,6 +17,6 @@ class ZegoUIKitPrebuiltLiveVideoConferenceInnerText {
   ZegoUIKitPrebuiltLiveVideoConferenceInnerText({
     String? screenSharingTipText,
     String? stopScreenSharingButtonText,
-  })  : screenSharingTipText = 'You are sharing screen',
-        stopScreenSharingButtonText = 'Stop sharing';
+  }) : screenSharingTipText = 'You are sharing screen',
+       stopScreenSharingButtonText = 'Stop sharing';
 }

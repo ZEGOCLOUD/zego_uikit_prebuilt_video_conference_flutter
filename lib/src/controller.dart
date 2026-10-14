@@ -41,7 +41,8 @@ class ZegoUIKitPrebuiltVideoConferenceController
   /// You need to provide the user's ID [userID] to determine which user to perform the operation on.
   /// By using a boolean value [isFullscreen], you can specify whether the user enters or exits full-screen mode.
   @Deprecated(
-      'Since 2.5.0, please use [screen.showScreenSharingViewInFullscreenMode] instead')
+    'Since 2.5.0, please use [screen.showScreenSharingViewInFullscreenMode] instead',
+  )
   void showScreenSharingViewInFullscreenMode(String userID, bool isFullscreen) {
     screen.showScreenSharingViewInFullscreenMode(userID, isFullscreen);
   }

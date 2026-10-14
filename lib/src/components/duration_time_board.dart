@@ -34,9 +34,7 @@ class ZegoVideoConferenceColoredText extends StatelessWidget {
     final textPainter = TextPainter(
       text: TextSpan(
         text: text,
-        style: TextStyle(
-          fontSize: fontSize ?? 25.zR,
-        ),
+        style: TextStyle(fontSize: fontSize ?? 25.zR),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -49,9 +47,7 @@ class ZegoVideoConferenceColoredText extends StatelessWidget {
         horizontal: horizontalPadding,
       ),
       child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: backgroundColor,
-        ),
+        decoration: BoxDecoration(color: backgroundColor),
         child: Center(
           child: Text(
             text,
@@ -171,9 +167,9 @@ class _CallDurationTimeBoardState
           subTag: 'duration time board',
         );
 
-        ZegoUIKit()
-            .getNetworkTime()
-            .addListener(waitNetworkTimeUpdateForStartDurationTimer);
+        ZegoUIKit().getNetworkTime().addListener(
+          waitNetworkTimeUpdateForStartDurationTimer,
+        );
       } else {
         startDurationTimer(networkTimeNow.value!);
       }
@@ -181,9 +177,9 @@ class _CallDurationTimeBoardState
   }
 
   void waitNetworkTimeUpdateForStartDurationTimer() {
-    ZegoUIKit()
-        .getNetworkTime()
-        .removeListener(waitNetworkTimeUpdateForStartDurationTimer);
+    ZegoUIKit().getNetworkTime().removeListener(
+      waitNetworkTimeUpdateForStartDurationTimer,
+    );
 
     final networkTimeNow = ZegoUIKit().getNetworkTime();
     ZegoLoggerService.logInfo(
@@ -207,9 +203,7 @@ class _CallDurationTimeBoardState
     durationTimer?.cancel();
     durationTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       durationNotifier.value = beginDuration! + Duration(seconds: timer.tick);
-      widget.events?.onUpdated?.call(
-        durationNotifier.value,
-      );
+      widget.events?.onUpdated?.call(durationNotifier.value);
     });
   }
 }

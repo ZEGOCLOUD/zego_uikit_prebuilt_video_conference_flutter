@@ -43,23 +43,28 @@ class _ZegoMemberListSheetState extends State<ZegoMemberListSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return Column(
-        children: [
-          header(98.zH),
-          Container(height: 1.zR, color: Colors.white.withValues(alpha: 0.15)),
-          SizedBox(
-            height: constraints.maxHeight - 1.zR - 98.zH,
-            child: ZegoMemberList(
-              itemBuilder: widget.itemBuilder,
-              avatarBuilder: widget.avatarBuilder,
-              showCameraState: widget.showCameraState,
-              showMicrophoneState: widget.showMicrophoneState,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Column(
+          children: [
+            header(98.zH),
+            Container(
+              height: 1.zR,
+              color: Colors.white.withValues(alpha: 0.15),
             ),
-          ),
-        ],
-      );
-    });
+            SizedBox(
+              height: constraints.maxHeight - 1.zR - 98.zH,
+              child: ZegoMemberList(
+                itemBuilder: widget.itemBuilder,
+                avatarBuilder: widget.avatarBuilder,
+                showCameraState: widget.showCameraState,
+                showMicrophoneState: widget.showMicrophoneState,
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Widget header(double height) {
@@ -69,16 +74,14 @@ class _ZegoMemberListSheetState extends State<ZegoMemberListSheet> {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.of(
-                context,
-                rootNavigator: widget.rootNavigator,
-              ).pop();
+              Navigator.of(context, rootNavigator: widget.rootNavigator).pop();
             },
             child: SizedBox(
               width: 70.zR,
               height: 70.zR,
               child: PrebuiltVideoConferenceImage.asset(
-                  PrebuiltVideoConferenceIconUrls.back),
+                PrebuiltVideoConferenceIconUrls.back,
+              ),
             ),
           ),
           SizedBox(width: 10.zR),
@@ -89,7 +92,7 @@ class _ZegoMemberListSheetState extends State<ZegoMemberListSheet> {
               color: const Color(0xffffffff),
               decoration: TextDecoration.none,
             ),
-          )
+          ),
         ],
       ),
     );
