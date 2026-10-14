@@ -16,13 +16,13 @@ class ZegoAudioVideoForeground extends StatelessWidget {
   final bool showUserNameOnView;
 
   const ZegoAudioVideoForeground({
-    Key? key,
+    super.key,
     this.user,
     required this.size,
     this.showMicrophoneStateOnView = true,
     this.showCameraStateOnView = true,
     this.showUserNameOnView = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

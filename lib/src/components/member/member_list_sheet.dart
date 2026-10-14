@@ -17,13 +17,13 @@ class ZegoMemberListSheet extends StatefulWidget {
   final bool rootNavigator;
 
   const ZegoMemberListSheet({
-    Key? key,
+    super.key,
     this.itemBuilder,
     this.avatarBuilder,
     this.showMicrophoneState = true,
     this.showCameraState = true,
     this.rootNavigator = false,
-  }) : super(key: key);
+  });
 
   @override
   State<ZegoMemberListSheet> createState() => _ZegoMemberListSheetState();

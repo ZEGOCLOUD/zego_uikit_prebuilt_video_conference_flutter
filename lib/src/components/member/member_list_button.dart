@@ -14,7 +14,7 @@ import 'package:zego_uikit_prebuilt_video_conference/src/config.dart';
 /// switch cameras
 class ZegoMemberListButton extends StatefulWidget {
   const ZegoMemberListButton({
-    Key? key,
+    super.key,
     this.afterClicked,
     this.icon,
     this.iconSize,
@@ -23,7 +23,7 @@ class ZegoMemberListButton extends StatefulWidget {
     this.avatarBuilder,
     this.rootNavigator = false,
     required this.popUpManager,
-  }) : super(key: key);
+  });
 
   final ZegoMemberListConfig? config;
 

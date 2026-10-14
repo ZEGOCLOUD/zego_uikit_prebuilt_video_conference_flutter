@@ -1,4 +1,4 @@
-library zego_uikit_prebuilt_video_conference;
+library;
 
 export 'package:zego_uikit/zego_uikit.dart';
 

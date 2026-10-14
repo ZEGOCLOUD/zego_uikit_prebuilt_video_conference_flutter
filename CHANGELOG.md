@@ -3,6 +3,7 @@
 - Add iOS Swift Package Manager support while retaining CocoaPods support.
 - Require Dart 3.12 and Flutter 3.44 or later.
 - Upgrade `permission_handler` to 13.0.2; Android apps require `compileSdk` 37 or later.
+- Upgrade `zego_uikit` to 2.29.4.
 ## 2.11.2
 
 - Update dependency

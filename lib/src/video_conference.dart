@@ -31,7 +31,7 @@ import 'core/live_duration_manager.dart';
 /// {@category Configs}
 class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
   const ZegoUIKitPrebuiltVideoConference({
-    Key? key,
+    super.key,
     required this.appID,
     required this.appSign,
     required this.conferenceID,
@@ -41,7 +41,7 @@ class ZegoUIKitPrebuiltVideoConference extends StatefulWidget {
     this.events,
     @Deprecated('Since 2.9.1 Use ZegoUIKitPrebuiltVideoConferenceController()')
     this.controller,
-  }) : super(key: key);
+  });
 
   /// You can create a project and obtain an appID from the [ZEGOCLOUD Admin Console](https://console.zegocloud.com).
   final int appID;
